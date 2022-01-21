@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ site.lang | default: "en" }}">
+<html lang="{{ site.lang | default: "ko" }}">
   <head>
     {% include meta.html %}
 
@@ -119,6 +119,8 @@
       }
       const options = {
         label: '🌓',
+        saveInCookies: true,
+        autoMatchOsTheme: true
       }
       const darkmode = new Darkmode(options);
             darkmode.showWidget();

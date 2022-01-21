@@ -3,13 +3,13 @@
 #
 
 # Site locale
-lang: "en"
+lang: "ko"
 
 # Name of your site (displayed in the header)
-name: Forever Jekyll
+name: Chloe
 
 # Short bio or description (displayed in the header)
-description: A simple, elegant and full featured Jekyll theme
+description: 조금씩, 천천히, 꾸준히
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: /assets/image/avatar.png
@@ -40,18 +40,18 @@ navigation_links:
     url: /search
 
 # Footer icons
-footer_links:
-  - title: Feed
-    url: feed.xml
-    icon: fa fa-rss-square
-
-  - title: Twitter
-    url: https://twitter.com/jekyllrb
-    icon: fa fa-twitter-square
-
-  - title: GitHub
-    url: https://github.com/forever-jekyll
-    icon: fa fa-github-square
+#footer_links:
+#  - title: Feed
+#    url: feed.xml
+#    icon: fa fa-rss-square
+#
+#  - title: Twitter
+#    url: https://twitter.com/jekyllrb
+#    icon: fa fa-twitter-square
+#
+#  - title: GitHub
+#    url: https://github.com/forever-jekyll
+#    icon: fa fa-github-square
 
 # Enter your copyright text if you wish to override the default one.
 #copyright: "This site is made with <3 by *me, myself, and I*."
