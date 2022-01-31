@@ -408,10 +408,6 @@ a[href^="#fnref:"] {
 /*********************/
 /* LAYOUT / SECTIONS */
 /*********************/
-.wrapper-masthead {
-  margin-bottom: 50px;
-}
-
 .masthead {
   display: flex;
   align-items: center;
