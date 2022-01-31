@@ -29,13 +29,58 @@ ul, ol, dl, figure,
 .container {
   flex: 1 0 auto;
   margin: 0 auto;
-  max-width: 740px;
+  max-width: 60%;
   padding: 0 10px;
   width: 100%;
 }
 
+.category {
+  width: 14%;
+  display: inline-block;
+  margin: 2% 3%;
+  text-align: center;
+  vertical-align: top;
+}
+
+a.category-link {
+  display: block;
+  font-size: 17px;
+  font-weight: bold;
+  margin: 6% 0;
+  text-decoration: none;
+}
+
+a.category-link:visited, a.category-link:link, a.category-link:hover {
+  color: #AAAAAA;
+  text-decoration: none;
+}
+
+.content {
+  display: inline-block;
+  max-width: 60%;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.post-container {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+p.title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+div.post-title {
+  background-color: #F8F9FA;
+  padding: 3%;
+  border-radius: 15px;
+  margin: 2% -5px 4%;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  margin: 01em 0 15px;
+  margin: 2em 0 15px;
   color: #222222;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe UI Symbol", "Segoe UI Emoji", "Apple Color Emoji", Roboto, "Helvetica Neue", Helvetica, "Noto Sans", Arial, sans-serif;
   font-weight: 700;
@@ -56,6 +101,7 @@ h2 {
 
 h3 {
   font-size: 24px;
+  border-bottom: #EEEEEE 0.1em solid;
 }
 
 h4 {
@@ -75,17 +121,22 @@ small, .text_small {
 }
 
 a {
-  color: #4183C4;
+  color: #222222;
   text-decoration: none;
 }
 
-a:visited {
-  color: #4141C4;
+a:visited, a:link {
+  color: #222222;
+  text-decoration: none;
 }
 
 a:hover {
   color: #4183C4;
   text-decoration: underline;
+}
+
+span.light-blue {
+  color: #569fe7;
 }
 
 ul, ol {
@@ -122,6 +173,11 @@ img {
   height: auto;
 }
 
+.center {
+  display: block;
+  margin: auto;
+}
+
 figure > img {
   display: block;
 }
@@ -141,13 +197,20 @@ hr {
   border: 1px solid #EEEEEE;
 }
 
+.post-option {
+  display: inline-block;
+  text-align: right;
+}
+
 .date {
+  display: inline-block;
+  font-size: 0.9em;
   font-weight: bold;
   color: #666666;
-  margin-top: 30px;
 }
 
 .post-categories {
+  display: inline-block;
   font-weight: bold;
   color: #666666;
   margin-top: 15px;
@@ -178,6 +241,27 @@ hr {
 
 .post-categories .categories-button:visited {
   color: inherit;
+}
+
+.post-reference {
+  background-color: #F8F9FA;
+  padding: 2% 3%;
+  margin: 7% 0;
+  border-radius: 5px;
+}
+
+.post-reference p {
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.post-reference a {
+  display: block;
+  font-size: 18px;
+  display: list-item;
+  list-style-type: disc;
+  list-style-position: inside;
+  padding: 5px 20px;
 }
 
 .share-post {

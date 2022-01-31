@@ -34,13 +34,55 @@ ul, ol, dl, figure,
 .container {
   flex: 1 0 auto;
   margin: 0 auto;
-  max-width: 740px;
+  max-width: 60%;
   padding: 0 10px;
   width: 100%;
 }
 
+.category {
+  width: 14%;
+  display: inline-block;
+  margin: 2% 3%;
+  text-align: center;
+  vertical-align: top;
+
+}
+a.category-link {
+  display: block;
+  font-size: 17px;
+  font-weight: bold;
+  margin: 6% 0;
+  text-decoration: none;
+
+  &:visited, &:link, &:hover {
+    color: $mediumGray;
+    text-decoration: none;
+  }
+}
+
+.content {
+  display: inline-block;
+  max-width: 60%;
+  padding: 0 10px;
+  width: 100%;
+}
+.post-container {
+  flex: 1 0 auto;
+  width: 100%;
+}
+p.title {
+  font-size: 30px;
+  font-weight: bold;
+}
+div.post-title {
+  background-color: $postGray;
+  padding: 3%;
+  border-radius: 15px;
+  margin: 2% -5px 4%;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  margin: 01em 0 15px;
+  margin: 2em 0 15px;
   color: $darkerGray;
   font-family: $sans-font-family;
   font-weight: 700;
@@ -56,7 +98,10 @@ h1 {
 
 h2 {font-size: 28px;}
 
-h3 {font-size: 24px;}
+h3 {
+  font-size: 24px;
+  border-bottom: $lightGray 0.1em solid;
+}
 
 h4 {font-size: 20px;}
 
@@ -67,17 +112,22 @@ h6 {font-size: 14px;}
 small, .text_small {font-size: 14px;}
 
 a {
-  color: $blue;
+  color: $darkerGray;
   text-decoration: none;
 
-  &:visited {
-    color: $purple;
+  &:visited, &:link {
+    color: $darkerGray;
+    text-decoration: none;
   }
 
   &:hover {
     color: $blue;
     text-decoration: underline;
   }
+}
+
+span.light-blue {
+  color: $lightBlue;
 }
 
 ul, ol {
@@ -114,6 +164,11 @@ img {
   height: auto;
 }
 
+.center {
+  display: block;
+  margin: auto;
+}
+
 figure > img {
   display: block;
 }
@@ -132,14 +187,19 @@ hr {
   margin-bottom: 15px;
   border: 01px solid $lightGray;
 }
-
+.post-option {
+  display: inline-block;
+  text-align: right;
+}
 .date {
+  display: inline-block;
+  font-size: 0.9em;
   font-weight: bold;
   color: $gray;
-  margin-top: 30px;
 }
 
 .post-categories {
+  display: inline-block;
   font-weight: bold;
   color: $gray;
   margin-top: 15px;
@@ -169,6 +229,25 @@ hr {
 
   .categories-button:visited {
     color: inherit;
+  }
+}
+.post-reference {
+  background-color: $postGray;
+  padding: 2% 3%;
+  margin: 7% 0;
+  border-radius: 5px;
+
+  p {
+    font-size: 22px;
+    margin-bottom: 5px;
+  }
+  a {
+    display: block;
+    font-size: 18px;
+    display: list-item;
+    list-style-type: disc;
+    list-style-position: inside;
+    padding: 5px 20px;
   }
 }
 

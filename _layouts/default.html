@@ -21,6 +21,7 @@
   </head>
 
   <body>
+    </div>
     <div class="wrapper-masthead">
       <div class="container">
         <header class="masthead clearfix">
@@ -38,8 +39,24 @@
       </div>
     </div>
 
-    <div id="main" role="main" class="container">
-      {{ content }}
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          {% assign pages_list = site.pages %}
+          {% for node in pages_list %}
+            {% if node.title != null %}
+              {% if node.layout == "category" %}
+              <a class="category-link {% if page.url == node.url %} active{% endif %}" href="{{ site.baseurl }}{{ node.url }}">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp{{ node.title }}
+              </a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        {{ content }}
+      </div>
     </div>
 
     <div class="wrapper-footer">
