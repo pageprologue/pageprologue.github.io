@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="
+  homebrew 란 macOS 용 패키지 관리 애플리케이션입니다. homebrew는 주로 커맨드라인 도구나 시스템 패키지들을 설치하는 데 사용합니다. 
+기본적으로 맥OS용 패키지 관리자이지만, 리눅스나 윈도우의 WSL도 지원하고 있습니다. homebrew는 편리하게 사용할 수 있다는 장점이 있습니다만, 커뮤니티 기반으로 운영되기 때문에 패키지의 안정성이 보장되지 않는다는 단점이 있습니다. 일부 리눅스 배포판의 경우 패키지 버전 정책이 매우 보수적이지만, homebrew로 패키지를 설치하는 경우 거의 항상 최신 버전이 설치됩니다. 구버전의 패키지를 설치하는 것도 가능하지만 번거로운 편입니다.
+  cask 확장을 통해 웹 사이트에서 다운받을 수 있는 애플리케이션을 설치할 수 있습니다.
+  mas 확장을 통해 앱 스토어에서 다운받을 수 애플리케이션 설치할 수 있습니다.
+
+" />
+<meta property="og:description" content="
+  homebrew 란 macOS 용 패키지 관리 애플리케이션입니다. homebrew는 주로 커맨드라인 도구나 시스템 패키지들을 설치하는 데 사용합니다. 
+기본적으로 맥OS용 패키지 관리자이지만, 리눅스나 윈도우의 WSL도 지원하고 있습니다. homebrew는 편리하게 사용할 수 있다는 장점이 있습니다만, 커뮤니티 기반으로 운영되기 때문에 패키지의 안정성이 보장되지 않는다는 단점이 있습니다. 일부 리눅스 배포판의 경우 패키지 버전 정책이 매우 보수적이지만, homebrew로 패키지를 설치하는 경우 거의 항상 최신 버전이 설치됩니다. 구버전의 패키지를 설치하는 것도 가능하지만 번거로운 편입니다.
+  cask 확장을 통해 웹 사이트에서 다운받을 수 있는 애플리케이션을 설치할 수 있습니다.
+  mas 확장을 통해 앱 스토어에서 다운받을 수 애플리케이션 설치할 수 있습니다.
+
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="MacBook Setting" />
+<meta property="twitter:title" content="MacBook Setting" />
+
+
+
+    <title>MacBook Setting – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">MacBook Setting</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Daily">Daily</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-02- 1
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <ul>
+  <li><strong>homebrew 란</strong> macOS 용 패키지 관리 애플리케이션입니다. homebrew는 주로 커맨드라인 도구나 시스템 패키지들을 설치하는 데 사용합니다. <br />
+기본적으로 맥OS용 패키지 관리자이지만, 리눅스나 윈도우의 WSL도 지원하고 있습니다. homebrew는 편리하게 사용할 수 있다는 장점이 있습니다만, 커뮤니티 기반으로 운영되기 때문에 패키지의 안정성이 보장되지 않는다는 단점이 있습니다. 일부 리눅스 배포판의 경우 패키지 버전 정책이 매우 보수적이지만, homebrew로 패키지를 설치하는 경우 거의 항상 최신 버전이 설치됩니다. 구버전의 패키지를 설치하는 것도 가능하지만 번거로운 편입니다.</li>
+  <li><strong><em>cask</em></strong> 확장을 통해 웹 사이트에서 다운받을 수 있는 애플리케이션을 설치할 수 있습니다.</li>
+  <li><strong><em>mas</em></strong> 확장을 통해 앱 스토어에서 다운받을 수 애플리케이션 설치할 수 있습니다.</li>
+</ul>
+
+<h3 id="1-맥북-프로그램-설치">1. 맥북 프로그램 설치</h3>
+
+<h4 id="1-homebrew-설치">1) homebrew 설치</h4>
+<ul>
+  <li><a href="https://tagilog.tistory.com/575">https://tagilog.tistory.com/575</a></li>
+  <li>홈페이지에서 명령줄을 복사하여 터미널에서 실행</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> /bin/bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+<p>→ password 입력 후, Enter 로 확인</p>
+
+<ul>
+  <li>설치가 완료되면 환경 변수 추가 메시지 로그를 확인</li>
+  <li><a href="https://www.lainyzine.com/ko/article/how-to-install-homebrew-for-m1-apple-silicon/">M1 용 Homebrew 설치</a></li>
+</ul>
+
+<p><strong>⇒ Next steps:</strong> - Add Homebrew to your <strong>PATH</strong> in [path]/.zprofile:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'eval "$(/opt/homebrew/bin/brew shellenv)"'</span> <span class="o">&gt;&gt;</span> <span class="o">[</span>path]/.zprofile
+<span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>/opt/homebrew/bin/brew shellenv<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<h4 id="2-brew-cask-설치">2) brew cask 설치</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>cask 
+</code></pre></div></div>
+
+<h4 id="3-brew-mas-설치">3) brew mas 설치</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>mas 
+</code></pre></div></div>
+
+<h3 id="2-homebrew-설치-기본-명령">2. homebrew 설치 기본 명령</h3>
+
+<h4 id="1-brew-명령어">1) brew 명령어</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew list
+brew search <span class="o">[</span>패키지명]
+brew info <span class="o">[</span>패키지명]
+brew <span class="nb">install</span> <span class="o">[</span>패키지명]
+brew uninstall <span class="o">[</span>패키지명]
+</code></pre></div></div>
+
+<h4 id="2-cask-명령어">2) cask 명령어</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew list <span class="nt">--cask</span>
+brew search <span class="nt">--cask</span> <span class="o">[</span>앱이름]
+brew info <span class="nt">--cask</span> <span class="o">[</span>앱이름]
+brew <span class="nb">install</span> <span class="nt">--cask</span> <span class="o">[</span>앱이름]
+brew uninstall <span class="nt">--cask</span> <span class="o">[</span>앱이름]
+</code></pre></div></div>
+
+<h4 id="3-mas-명령어">3) mas 명령어</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mas list
+mas search <span class="o">[</span>앱이름]
+mas info <span class="o">[</span>앱번호]
+brew <span class="nb">install </span>mas <span class="o">[</span>앱번호]
+brew uninstall mas <span class="o">[</span>앱번호]
+</code></pre></div></div>
+
+<h3 id="참고">참고</h3>
+<details>
+<summary>설치할 목록</summary>
+<div>
+    <ul>
+      <li>brew
+        <ul class="task-list">
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />java</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />git</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />gradle</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />jq : 커맨드라인 JSON 프로세서</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />tree : tree 명령어</li>
+        </ul>
+      </li>
+      <li>cask
+        <ul class="task-list">
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />chrome</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />slack</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />docker</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />source tree</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />intellij-idea</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />vscode</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />iterm2</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Spectacle : 화면 분할</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Karabiner-Elements : 한/영키</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Alfred : 검색</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />kap : 화면 기록</li>
+        </ul>
+      </li>
+      <li>mas
+        <ul class="task-list">
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />OneDrive</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Excel</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Word</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Power point</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Todo</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />kakaotalk</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Joli of Caffeine : 절전 모드 시간 설정</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</details>
+
+<details>
+<summary>Bundle 로 설치</summary>
+<div>
+    <ul>
+      <li>
+        <p>brew file 생성 및 실행</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> ~
+  
+<span class="c"># 생성</span>
+brew bundle dump
+  
+<span class="c"># 덮어 씌우기</span>
+brew bundle <span class="nt">-f</span> dump
+  
+<span class="c"># 파일 확인</span>
+<span class="nb">cat </span>BrewFile
+  
+<span class="c"># 실행</span>
+brew bundle
+</code></pre></div>        </div>
+      </li>
+    </ul>
+
+  </div>
+</details>
+
+<div class="post-reference">
+  <p>Reference</p>
+  <a href="https://youngmind.tistory.com/entry/내가-설치한-맥용-어플리케이션들">내가 설치한 맥용 어플리케이션들</a>
+  <a href="https://www.youtube.com/watch?v=JtduKIxBn4w&amp;t=292s">맥북 추천 무료 앱 8가지 + 크롬 브라우저 익스텐션 1가지</a>
+  <a href="https://velog.io/@ruddms936/Mac-brew">Mac - brew(개발 환경 자동화)</a>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>&copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script defer src="https://cdn.plyr.io/3.6.5/plyr.js"></script>
+    <script>
+      const player = new Plyr('#player');
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+    <script>
+      function addDarkmodeWidget() {
+        new Darkmode().showWidget();
+        window.addEventListener('load', addDarkmodeWidget);
+      }
+      const options = {
+        label: '🌓',
+        saveInCookies: true,
+        autoMatchOsTheme: true
+      }
+      const darkmode = new Darkmode(options);
+            darkmode.showWidget();
+    </script>
+
+  </body>
+</html>

@@ -1,7 +1,7 @@
 ---
 layout: post 
 title: 프로그래머 성장 과정 대한 정리 
-categories: [프로그래밍]
+categories: [Programming]
 ---
 
 어느날, Java를 프로그래밍 주 언어로 사용하지만 Java에 대한 지식이 부족하다는 생각이 들었다. 개발에 필요한 지식만 대충 익히지만 말고 이번에는 **제대로 기본기를 잡아보자!** 하는 결심이 들어서 본격적으로
@@ -51,8 +51,9 @@ Java 공부를 다시 시작하게 되었다. JAVA 기본기 공부를 하기 �
 1. 기초 지식부터 쌓은 후 무엇인가를 만들어 가는 방식
 2. 무엇인가를 만들어 가면서 관련된 지식을 학습해 가는 방식
 
-→ 자신이 어떤 방식으로 학습할 때 더 효과적으로 학습하는 성향인지 찾아야 한다. 어 방식으로 학습할 때 스트레스를 덜 받고 즐거움을 느끼는지 찾아야 한다.
-
+자신이 어떤 방식으로 학습할 때 더 효과적으로 학습하는 성향인지 찾아야 한다.  
+어떤 방식으로 학습할 때 스트레스를 덜 받고 즐거움을 느끼는지 찾아야 한다. 
+{: .notice-info}
 
 ### 프로그래밍 연습
 1. 무엇인가 한 가지를 끝낸 후, 바로 다음 단계로 넘어가기 보다는 어색하거나, 이해되지 않거나, 궁금한 내용을 정리하는 시간을 갖자
@@ -60,9 +61,10 @@ Java 공부를 다시 시작하게 되었다. JAVA 기본기 공부를 하기 �
 3. 과정 속에서 배운 부분이 있으면 그날 그날 내용을 정리하는 습관을 갖자
 4. 호기심을 가지고 다양한 시도를 해보자
 
+
 <div class="post-reference">
-<p>Reference</p>
-<a href="https://www.inflearn.com/course/java-codesquad#curriculum">만들어 가면서 배우는 JAVA 플레이그라운드</a>
-<a href="https://www.thinkful.com/blog/why-learning-to-code-is-so-damn-hard">Why Learning to Code is So Damn Hard</a>
+   <p>Reference</p>
+   <a href="https://www.inflearn.com/course/java-codesquad#curriculum">만들어 가면서 배우는 JAVA 플레이그라운드</a>
+   <a href="https://www.thinkful.com/blog/why-learning-to-code-is-so-damn-hard">Why Learning to Code is So Damn Hard</a>
 </div>
 

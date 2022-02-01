@@ -1,0 +1,104 @@
+/* ==========================================================================
+   NOTICE TEXT BLOCKS
+   ========================================================================== */
+
+/**
+ *  Default Kramdown usage (no indents!):
+ *  <div class="notice" markdown="1">
+ *  #### Headline for the Notice
+ *  Text for the notice
+ *  </div>
+ */
+
+@mixin notice($noticeColor) {
+  margin: 1.2em 0 !important;  /* override*/
+  padding: 1em;
+  color: $darkGray;
+  font-size: 0.80em !important;
+  text-indent: initial; /* override*/
+  background-color: mix(#fff, $noticeColor, 90%);
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba($noticeColor, 0.25);
+
+  h4 {
+    margin-top: 0 !important; /* override*/
+    margin-bottom: 0.75em;
+    line-height: inherit;
+  }
+
+  @at-root .entry #{&} h4 {
+    /* using at-root to override .page-content h4 font size*/
+    margin-bottom: 0;
+    font-size: 1em;
+  }
+
+  p {
+    &:last-child {
+      margin-bottom: 0 !important; /* override*/
+    }
+  }
+
+  h4 + p {
+    /* remove space above paragraphs that appear directly after notice headline*/
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  a {
+    color: $noticeColor;
+
+    &:hover {
+      color: mix(#000, $noticeColor, 40%);
+    }
+  }
+
+  code {
+    background-color: mix(#fff, $noticeColor, 95%)
+  }
+
+	pre code {
+		background-color: inherit;
+	}
+
+  ul {
+    &:last-child {
+      margin-bottom: 0; /* override*/
+    }
+  }
+}
+
+/* Default notice */
+
+.notice {
+  @include notice($lightGray);
+}
+
+/* Primary notice */
+
+.notice-primary {
+  @include notice($primaryColor);
+}
+
+/* Info notice */
+
+.notice-info {
+  @include notice($infoColor);
+}
+
+/* Warning notice */
+
+.notice-warning {
+  @include notice($warningColor);
+}
+
+/* Success notice */
+
+.notice-success {
+  @include notice($successColor);
+}
+
+/* Danger notice */
+
+.notice-danger {
+  @include notice($dangerColor);
+}
