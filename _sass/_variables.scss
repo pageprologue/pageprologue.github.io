@@ -19,12 +19,16 @@ $blue: #4183C4;
 $purple: #4141C4;
 $mahogany: #BD2C00;
 $lightPink: #D797C1FF;
-$textColor: #000 !default;
-$primaryColor: #6f777d !default;
-$successColor: #3fa63f !default;
-$warningColor: #d67f05 !default;
-$dangerColor: #ee5f5b !default;
-$infoColor: #3b9cba !default;
+
+$textColor: #000;
+$primaryColor: #6f777d;
+$successColor: #3fa63f;
+$warningColor: #d67f05;
+$dangerColor: #ee5f5b;
+$infoColor: #3b9cba;
+
+$codeBaseColor: #fbfcfd;
+
 
 // Pagination colors
 $pagination-color: $darkGray;

@@ -738,10 +738,10 @@ pre,
 code {
   font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace !important;
   font-size: 16px !important;
-  color: #586e75;
+  color: #222222;
   border: 01px solid #dddddd;
   border-radius: 03px;
-  background-color: #fdf6e3;
+  background-color: #fbfcfd;
 }
 
 code {
@@ -762,11 +762,11 @@ pre > code {
 .highlight {
   isolation: isolate;
   border-radius: 03px;
-  background: #fdf6e3;
+  background: #fbfcfd;
 }
 
 .highlighter-rouge .highlight {
-  background: #fdf6e3;
+  background: #fbfcfd;
 }
 
 .rouge-table {
@@ -1569,7 +1569,7 @@ green     #859900  operators, other keywords
 
 /* Name.Attribute */
 .highlight .nb {
-  color: #B58900;
+  color: #EFA51B;
 }
 
 /* Name.Builtin */

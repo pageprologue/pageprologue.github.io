@@ -362,10 +362,10 @@ pre,
 code {
   font-family: $code-font-family !important;
   font-size: 16px !important;
-  color: #586e75;
+  color: $darkerGray;
   border: 01px solid #dddddd;
   border-radius: 03px;
-  background-color: #fdf6e3;
+  background-color: $codeBaseColor;
 }
 
 code {
@@ -386,11 +386,11 @@ pre {
 .highlight {
   isolation: isolate;  
   border-radius: 03px;
-  background: #fdf6e3;
+  background: $codeBaseColor;
   @extend %vertical-rhythm;
 
   .highlighter-rouge & {
-    background: #fdf6e3;
+    background: $codeBaseColor;
   }
 }
 
