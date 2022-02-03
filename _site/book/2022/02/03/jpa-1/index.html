@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="
+  “왜 실무에서 테이블 설계는 다들 열심히 하면서 제대로 된 객체 모델링은 하지 않을까?”
+
+" />
+<meta property="og:description" content="
+  “왜 실무에서 테이블 설계는 다들 열심히 하면서 제대로 된 객체 모델링은 하지 않을까?”
+
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="자바 ORM 표준 JPA 프로그래밍 - (1) JPA 소개" />
+<meta property="twitter:title" content="자바 ORM 표준 JPA 프로그래밍 - (1) JPA 소개" />
+
+
+
+    <title>자바 ORM 표준 JPA 프로그래밍 - (1) JPA 소개 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">자바 ORM 표준 JPA 프로그래밍 - (1) JPA 소개</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-02-03
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <blockquote>
+  <p>“왜 실무에서 테이블 설계는 다들 열심히 하면서 제대로 된 객체 모델링은 하지 않을까?”</p>
+</blockquote>
+
+<blockquote>
+  <p>“왜 객체 지향의 장점을 포기하고 객체를 단순히 테이블에 맞추어 데이터 전달 역할만 하도록 개발할까?”</p>
+</blockquote>
+
+<h3 id="1-sql-을-직접-다룰-때-발생하는-문제점">1. SQL 을 직접 다룰 때 발생하는 문제점</h3>
+
+<ul>
+  <li>진정한 의미의 계층 분할이 어렵다.</li>
+  <li>엔티티를 신뢰할 수 없다.</li>
+  <li>SQL에 의존적인 개발을 피하기 어렵다.</li>
+</ul>
+
+<h3 id="2-패러다임의-불일치">2. 패러다임의 불일치</h3>
+
+<ul>
+  <li>관계형 데이터베이스는 데이터 중심으로 구조화되어 있고, 집합적인 사고를 요구한다. 객체지향에서 이야기하는 추상화, 상속, 다형성 같은 개념이 없다.</li>
+  <li>따라서 객체 구조를 테이블 구조에 저장하는 데는 한계가 있다.</li>
+  <li>문제는 객체와 관계형 데이터베이스 사이의 패러다임 불일치 문제를 해결하는데 너무 많은 시간과 코드를 소비하는데 있다.</li>
+  <li>
+    <p>결국, 객체 모델링은 힘을 잃고 점점 데이터 중심의 모델로 변해간다.</p>
+
+    <h4 id="️-연관관계">▪️ 연관관계</h4>
+
+    <ul>
+      <li>객체는 참조를 사용해서 다른 객체와 연과관계를 가지고 참조에 접근해서 연관된 객체를 조회한다. 반면에 테이블은 외래 키를 사용해서 다른 테이블과 연관관계를 가지고 조인을 사용해서 연관된 테이블을 조회한다.</li>
+      <li>객체를 테이블에 맞추어 모델링하면 객체를 테이블에 저장하거나 조회할 때는 편리하다.</li>
+      <li>하지만 객체는 연관된 객체의 참조를 통해 연관된 객체를 찾을 수 있다.</li>
+      <li><strong>객체</strong> 모델은 외래키가 필요 없고, <strong>참조</strong>만 있으면 된다.</li>
+      <li>반면에 <strong>테이블</strong>은 참조가 필요 없고 <strong>외래키</strong>만 있으면 된다.</li>
+      <li>JPA는 연관관계와 관련된 패러다임의 불일치 문제를 해결해준다.</li>
+    </ul>
+
+    <h4 id="️-객체-그래프-탐색">▪️ 객체 그래프 탐색</h4>
+
+    <ul>
+      <li>객체에서 참조를 사용해서 연관된 팀을 찾는 것을 객체 그래프 탐색이라고 한다.
+<code class="language-plaintext highlighter-rouge">member.getOrder().getOrderItem()...</code></li>
+      <li>SQL을 직접 다루면 처음 실행하는 SQL에 따라 객체 그래프를 어디까지 탐색할 수 있는지 정해진다.</li>
+      <li>결국 조회하는 메소드를 상황에 따라 여러 벌 만들어서 사용해야 한다.</li>
+      <li>JPA는 연관된 객체를 사용하는 시점에 적절한 SELECT SQL을 실행한다. 따라서 JPA를 사용하면 연관된 객체를 신뢰하고 마음껏 조회할 수 있다. 이 기능은 실제 객체를 사용하는 시점까지 데이터베이스 조회를 미룬다고 해서 <strong>지연 로딩</strong>이라 한다.</li>
+    </ul>
+
+    <h4 id="️-비교">▪️ 비교</h4>
+
+    <ul>
+      <li>
+        <p>데이터베이서는 기본 키의 값으로 각 로우를 구분한다. 반면에 객체는 동일성(identity) 비교와 동등성(equality) 비교라는 두 가지 비교 방법이 있다.</p>
+
+        <p class="notice-warning">따라서 테이블의 로우를 구분하는 방법과 객체를 구분하는 방법에는 차이가 있다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">memberUd</span> <span class="o">=</span> <span class="s">"100"</span><span class="o">;</span>
+<span class="nc">Member</span> <span class="n">member1</span> <span class="o">=</span> <span class="n">memberDAO</span><span class="o">.</span><span class="na">getMember</span><span class="o">(</span><span class="n">memberId</span><span class="o">);</span>
+<span class="nc">Member</span> <span class="n">member2</span> <span class="o">=</span> <span class="n">memberDAO</span><span class="o">.</span><span class="na">getMember</span><span class="o">(</span><span class="n">memberId</span><span class="o">);</span>
+    
+<span class="n">member1</span> <span class="o">==</span> <span class="n">member2</span> <span class="c1">//다르다</span>
+</code></pre></div>        </div>
+      </li>
+      <li>위의 코드에서 기본 키 값이 같은 회원 객체를 두 번 조회했다. 그런데 둘을 동일성(==) 비교 하면 false가 반환된다. 왜냐하면 member1과 member2는 같은 데이터베이스 로우에서 조회했지만, 객체 측면에서 볼 때 둘은 서로 다른 인스턴스이기 때문이다.</li>
+      <li>JPA는 같은 트랜잭션일 때 같은 객체가 조회되는 것을 보장한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-jpa란-무엇일까">3. JPA란 무엇일까?</h3>
+
+<ul>
+  <li>JPA(Java Persistence API)는 자바 진영의 ORM 기술 표준이다.</li>
+  <li>ORM(Object-Relational Mapping)은 객체와 관계형 데이터베이스를 매핑한다는 뜻이다.</li>
+  <li>ORM 프레임워크는 객체와 테이블을 매핑해서 패러다임의 불일치 문제를 개발자 대신 해결해준다.</li>
+  <li>자바 진영에도 다양한 ORM 프레임워크들이 있는데 그중에 하이버네이트 프레임워크가 가장 많이 사용된다. 하이버네이트는 거의 대부분의 패러다임 불일치 문제를 해결해주는 성숙한 ORM 프레임워크이다.</li>
+</ul>
+
+<p><img src="/image/jpa-1-1.png" alt="" class="center" width="70%" /></p>
+
+<ul>
+  <li>JPA는 자바 ORM 기술에 대한 QPI 표준 명세다. 따라서 JPA를 사용하려면 JPA를 구현한 ORM 프레임워크를 선택해야 한다.</li>
+  <li>왜 JPA를 사용해야 하는가?
+    <ul>
+      <li>유지보수</li>
+      <li>패러다임 불일치 해결</li>
+      <li>성능</li>
+      <li>데이터 접근 추상화와 벤터 독립성</li>
+      <li>표준</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /><br /></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>&copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script defer src="https://cdn.plyr.io/3.6.5/plyr.js"></script>
+    <script>
+      const player = new Plyr('#player');
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+    <script>
+      function addDarkmodeWidget() {
+        new Darkmode().showWidget();
+        window.addEventListener('load', addDarkmodeWidget);
+      }
+      const options = {
+        label: '🌓',
+        saveInCookies: true,
+        autoMatchOsTheme: true
+      }
+      const darkmode = new Darkmode(options);
+            darkmode.showWidget();
+    </script>
+
+  </body>
+</html>
