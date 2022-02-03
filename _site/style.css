@@ -630,6 +630,14 @@ hr {
   color: inherit;
 }
 
+.side-category {
+  margin-top: 2em;
+}
+
+.side-category > h4 {
+  margin: 15px 10px;
+}
+
 .post-reference {
   background-color: #F8F9FA;
   padding: 2% 3% 3%;
