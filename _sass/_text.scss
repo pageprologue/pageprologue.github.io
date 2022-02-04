@@ -1,36 +1,13 @@
-
-@mixin color($fontColor) {
-  color: $fontColor;
-  font-weight: 400;
-}
-
+/* Background Color */
 @mixin bg($bgColor) {
   padding: 2px 5px;
+  font-size: 17px;
   font-weight: 400;
   border-radius: 4px;
   background-color: $bgColor;
   border: 0.1px $mediumGray solid;
-  font-weight: 400;
 }
 
-/* eg. or reference */
-.bg-eg::before {
-  content: " ➔ ";
-}
-.bg-eg {
-  font-size: 15px;
-  font-weight: 400;
-  background-color: $postGray;
-  padding: 2px 5px;
-  border-radius: 4px;
-}
-
-.underline {
-  font-weight: 400;
-  text-decoration: underline;
-}
-
-/* background color */
 .bg-gray {
   @include bg($postGray);
 }
@@ -51,7 +28,13 @@
   @include bg($lavenderColor);
 }
 
-/* font color */
+
+/* Font Color */
+@mixin color($fontColor) {
+  color: $fontColor;
+  font-weight: 400;
+}
+
 .color-red {
   @include color($redColor);
 }
@@ -74,4 +57,73 @@
 
 .color-violet {
   @include color($violetColor);
+}
+
+
+/* Custom Text Style */
+.bg-eg {
+  font-size: 15px;
+  font-weight: 400;
+  background-color: $lightGray;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+.bg-eg::before {
+  content: " ➔ ";
+}
+
+.bg-result {
+  font-size: 17px;
+  font-weight: 400;
+  background-color: $oldlaceColor;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+.bg-result::before {
+  content: " ➔ ";
+}
+
+.underline {
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+
+/* Custom List Style */
+.blank {
+  list-style-type: none;
+  height: 30px;
+}
+
+.no-marker {
+  margin: 10px 0 0;
+  list-style-type: none;
+}
+
+.no-indent {
+  margin-left: -30px;
+}
+
+.marker-dash {
+  margin: 0 0 0 -15px;
+  text-indent: -10px;
+  list-style-type: none;
+
+  ::before {
+    content: " - ";
+  }
+}
+
+
+/* Custom Before Style */
+.pre-square::before {
+  content: "▪ ";
+}
+
+.pre-arrow-1::before {
+  content: "→ ";
+}
+.pre-arrow-2::before {
+  content: "➡︎  ";
 }

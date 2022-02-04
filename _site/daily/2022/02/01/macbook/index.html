@@ -10,15 +10,11 @@
 <meta name="description" content="
   homebrew 란 macOS 용 패키지 관리 애플리케이션입니다. homebrew는 주로 커맨드라인 도구나 시스템 패키지들을 설치하는 데 사용합니다. 
 기본적으로 맥OS용 패키지 관리자이지만, 리눅스나 윈도우의 WSL도 지원하고 있습니다. homebrew는 편리하게 사용할 수 있다는 장점이 있습니다만, 커뮤니티 기반으로 운영되기 때문에 패키지의 안정성이 보장되지 않는다는 단점이 있습니다. 일부 리눅스 배포판의 경우 패키지 버전 정책이 매우 보수적이지만, homebrew로 패키지를 설치하는 경우 거의 항상 최신 버전이 설치됩니다. 구버전의 패키지를 설치하는 것도 가능하지만 번거로운 편입니다.
-  cask 확장을 통해 웹 사이트에서 다운받을 수 있는 애플리케이션을 설치할 수 있습니다.
-  mas 확장을 통해 앱 스토어에서 다운받을 수 애플리케이션 설치할 수 있습니다.
 
 " />
 <meta property="og:description" content="
   homebrew 란 macOS 용 패키지 관리 애플리케이션입니다. homebrew는 주로 커맨드라인 도구나 시스템 패키지들을 설치하는 데 사용합니다. 
 기본적으로 맥OS용 패키지 관리자이지만, 리눅스나 윈도우의 WSL도 지원하고 있습니다. homebrew는 편리하게 사용할 수 있다는 장점이 있습니다만, 커뮤니티 기반으로 운영되기 때문에 패키지의 안정성이 보장되지 않는다는 단점이 있습니다. 일부 리눅스 배포판의 경우 패키지 버전 정책이 매우 보수적이지만, homebrew로 패키지를 설치하는 경우 거의 항상 최신 버전이 설치됩니다. 구버전의 패키지를 설치하는 것도 가능하지만 번거로운 편입니다.
-  cask 확장을 통해 웹 사이트에서 다운받을 수 있는 애플리케이션을 설치할 수 있습니다.
-  mas 확장을 통해 앱 스토어에서 다운받을 수 애플리케이션 설치할 수 있습니다.
 
 " />
 
@@ -130,6 +126,8 @@
           
             
           
+            
+          
         </aside>
       </div>
       <div id="main" role="main" class="content">
@@ -154,10 +152,15 @@
   </div>
 
   <div class="entry">
-    <ul>
+    <ul class="no-marker no-indent">
   <li><strong>homebrew 란</strong> macOS 용 패키지 관리 애플리케이션입니다. homebrew는 주로 커맨드라인 도구나 시스템 패키지들을 설치하는 데 사용합니다. <br />
 기본적으로 맥OS용 패키지 관리자이지만, 리눅스나 윈도우의 WSL도 지원하고 있습니다. homebrew는 편리하게 사용할 수 있다는 장점이 있습니다만, 커뮤니티 기반으로 운영되기 때문에 패키지의 안정성이 보장되지 않는다는 단점이 있습니다. 일부 리눅스 배포판의 경우 패키지 버전 정책이 매우 보수적이지만, homebrew로 패키지를 설치하는 경우 거의 항상 최신 버전이 설치됩니다. 구버전의 패키지를 설치하는 것도 가능하지만 번거로운 편입니다.</li>
+</ul>
+
+<ul class="no-marker no-indent">
   <li><strong><em>cask</em></strong> 확장을 통해 웹 사이트에서 다운받을 수 있는 애플리케이션을 설치할 수 있습니다.</li>
+</ul>
+<ul class="no-marker no-indent">
   <li><strong><em>mas</em></strong> 확장을 통해 앱 스토어에서 다운받을 수 애플리케이션 설치할 수 있습니다.</li>
 </ul>
 
@@ -165,24 +168,33 @@
 
 <h4 id="1-homebrew-설치">1) homebrew 설치</h4>
 <ul>
-  <li><a href="https://tagilog.tistory.com/575">Homebrew란? 설치 방법과 사용 방법</a></li>
-  <li>홈페이지에서 명령줄을 복사하여 터미널에서 실행</li>
-</ul>
+  <li>
+    <p><a href="https://brew.sh/index_ja">Homebrew 홈페이지</a>에서 설치 명령어를 복사하여 터미널에서 실행</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> /bin/bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span class="si">)</span><span class="s2">"</span>
-</code></pre></div></div>
-<p>→ password 입력 후, Enter 로 확인</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> /bin/bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span class="si">)</span><span class="s2">"</span>
+</code></pre></div>    </div>
+    <p class="pre-arrow-1">password 입력 후, Enter 로 확인</p>
+  </li>
+  <li>
+    <p>설치가 완료되면 환경 변수 추가 메시지 로그를 확인</p>
 
-<ul>
-  <li>설치가 완료되면 환경 변수 추가 메시지 로그를 확인</li>
-  <li><a href="https://www.lainyzine.com/ko/article/how-to-install-homebrew-for-m1-apple-silicon/">M1 용 Homebrew 설치</a></li>
-</ul>
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>==&gt; Next steps:
+- Add Homebrew to your PATH in /Users/&lt;USER_ID&gt;/.zprofile:
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' &gt;&gt; /Users/&lt;USER_ID&gt;/.zprofile
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+- Run `brew help` to get started
+- Further documentation:
+  https://docs.brew.sh
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>환경 변수 추가</p>
 
-<p><strong>⇒ Next steps:</strong> - Add Homebrew to your <strong>PATH</strong> in [path]/.zprofile:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'eval "$(/opt/homebrew/bin/brew shellenv)"'</span> <span class="o">&gt;&gt;</span> <span class="o">[</span>path]/.zprofile
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'eval "$(/opt/homebrew/bin/brew shellenv)"'</span> <span class="o">&gt;&gt;</span> <span class="o">[</span>path]/.zprofile
 <span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>/opt/homebrew/bin/brew shellenv<span class="si">)</span><span class="s2">"</span>
-</code></pre></div></div>
+</code></pre></div>    </div>
+  </li>
+</ul>
 
 <h4 id="2-brew-cask-설치">2) brew cask 설치</h4>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>cask 
@@ -292,6 +304,7 @@ brew bundle
 <div class="post-reference">
   <p>Reference</p>
   <a href="https://youngmind.tistory.com/entry/내가-설치한-맥용-어플리케이션들">내가 설치한 맥용 어플리케이션들</a>
+  <a href="https://www.lainyzine.com/ko/article/how-to-install-homebrew-for-m1-apple-silicon">애플 실리콘 M1 용 Homebrew 설치</a>
   <a href="https://www.youtube.com/watch?v=JtduKIxBn4w&amp;t=292s">맥북 추천 무료 앱 8가지 + 크롬 브라우저 익스텐션 1가지</a>
   <a href="https://velog.io/@ruddms936/Mac-brew">Mac - brew(개발 환경 자동화)</a>
 </div>

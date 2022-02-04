@@ -124,6 +124,8 @@
           
             
           
+            
+          
         </aside>
       </div>
       <div id="main" role="main" class="content">
@@ -173,7 +175,7 @@
   <li>
     <p>결국, 객체 모델링은 힘을 잃고 점점 데이터 중심의 모델로 변해간다.</p>
 
-    <h4 id="️-연관관계">▪️ 연관관계</h4>
+    <h4 class="pre-square" id="연관관계">연관관계</h4>
 
     <ul>
       <li>객체는 참조를 사용해서 다른 객체와 연과관계를 가지고 참조에 접근해서 연관된 객체를 조회한다. 반면에 테이블은 외래 키를 사용해서 다른 테이블과 연관관계를 가지고 조인을 사용해서 연관된 테이블을 조회한다.</li>
@@ -184,7 +186,7 @@
       <li>JPA는 연관관계와 관련된 패러다임의 불일치 문제를 해결해준다.</li>
     </ul>
 
-    <h4 id="️-객체-그래프-탐색">▪️ 객체 그래프 탐색</h4>
+    <h4 class="pre-square" id="객체-그래프-탐색">객체 그래프 탐색</h4>
 
     <ul>
       <li>객체에서 참조를 사용해서 연관된 팀을 찾는 것을 객체 그래프 탐색이라고 한다.
@@ -194,13 +196,12 @@
       <li>JPA는 연관된 객체를 사용하는 시점에 적절한 SELECT SQL을 실행한다. 따라서 JPA를 사용하면 연관된 객체를 신뢰하고 마음껏 조회할 수 있다. 이 기능은 실제 객체를 사용하는 시점까지 데이터베이스 조회를 미룬다고 해서 <strong>지연 로딩</strong>이라 한다.</li>
     </ul>
 
-    <h4 id="️-비교">▪️ 비교</h4>
+    <h4 class="pre-square" id="비교">비교</h4>
 
     <ul>
       <li>
-        <p>데이터베이서는 기본 키의 값으로 각 로우를 구분한다. 반면에 객체는 동일성(identity) 비교와 동등성(equality) 비교라는 두 가지 비교 방법이 있다.</p>
-
-        <p class="notice-warning">따라서 테이블의 로우를 구분하는 방법과 객체를 구분하는 방법에는 차이가 있다.</p>
+        <p>데이터베이서는 기본 키의 값으로 각 로우를 구분한다. 반면에 객체는 동일성(identity) 비교와 동등성(equality) 비교라는 두 가지 비교 방법이 있다.
+<strong class="bg-result">따라서 테이블의 로우를 구분하는 방법과 객체를 구분하는 방법에는 차이가 있다.</strong></p>
 
         <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">memberUd</span> <span class="o">=</span> <span class="s">"100"</span><span class="o">;</span>
 <span class="nc">Member</span> <span class="n">member1</span> <span class="o">=</span> <span class="n">memberDAO</span><span class="o">.</span><span class="na">getMember</span><span class="o">(</span><span class="n">memberId</span><span class="o">);</span>

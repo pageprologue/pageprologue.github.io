@@ -13,7 +13,7 @@ categories: [Programming]
 
 ### 2) Library 특징
 - 유저의 코드가 라이브러리를 호출해서 사용하는 구조로 동작한다.
-  ➡︎  **코드의 흐름을 유저코드가 관장한다.**{: .underline}
+  ➡︎  **코드의 흐름을 유저코드가 관장한다.**{:.underline}
 - 기능들을 어떻게 사용할지 사용자가 결정한다.
 - 라이브러리를 사용하면 코드의 재사용, 부품화, 기술의 유출을 방지, 개발 시간을 단축 등의 장점이 있다.
 
@@ -29,23 +29,23 @@ categories: [Programming]
 ### 4) Framework  특징
 - 디자인 패턴은 프레임워크의 핵심적인 특징이고 프레임워크를 사용하는 애플리케이션에 그 패턴이 적용된다.
 - 프레임워크 쪽에서 사용자의 코드를 호출하는 구조로 동작한다.
-  ➡︎  **실행의 흐름에 대한 제어를 프레임워크가 담당**{: .underline}  
-  ➡︎  **제어의 역전**{: .bg-rose} 개념이 적용된 대표적인 기법
+  ➡︎  **실행의 흐름에 대한 제어를 프레임워크가 담당**{:.underline}  
+  ➡︎  **제어의 역전**{:.bg-rose} 개념이 적용된 대표적인 기법
 - 많은 프레임워크는 템플릿 메소드 패턴 기반으로 만들어진 클래스를 서브 클래싱해서 사용하도록 되어있다.  
   ➡︎ 이미 설계되어있는 흐름구조에 따라 동작하게 된다.
 
 ### 5) Framework와  Library 비교
-![](https://image.zdnet.co.kr/images/stories/news/enterprise/2007/09/0910/0611%20cs1%20t-1.bmp){: .center width="70%"}
+![](https://image.zdnet.co.kr/images/stories/news/enterprise/2007/09/0910/0611%20cs1%20t-1.bmp){:.center width="70%"}
 
 라이브러리와 프레임워크의 차이는 응용프로그램의 흐름 주도권을 누가 가지고 있는가이다.
-{: .notice-info}
+{:.notice-info}
 
-![](https://media.vlpt.us/images/tjdud0123/post/cf64f995-0315-442a-928e-0c3a2a68d64b/framework-vs-library.png){: .center width="70%"}
+![](https://media.vlpt.us/images/tjdud0123/post/cf64f995-0315-442a-928e-0c3a2a68d64b/framework-vs-library.png){:.center width="70%"}
 
 **Framework 활용의 지름길**  
 \- 프레임워크의 라이브러리를 살펴볼 때, 적용된 디자인 패턴을 주목해서 살펴보자.  
 \- 레퍼런스 매뉴얼과 API/클래스 문서를 꾸준히 보고, 유용한 라이브러리 기능에 대한 지식을 쌓자.
-{: .notice-info}
+{:.notice-info}
 
 <div class="post-reference">
   <p>Reference</p>

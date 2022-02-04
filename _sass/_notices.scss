@@ -3,7 +3,7 @@
   margin: 1.2em 0 !important;
   padding: 1em;
   color: $darkGray;
-  font-size: 0.80em !important;
+  font-size: 0.89em;
   text-indent: initial;
   background-color: mix(#fff, $noticeColor, 90%);
   border-radius: 5px;
@@ -56,6 +56,11 @@
 
 .notice {
   @include notice($paleGray);
+}
+
+.notice-list {
+  font-size: 0.8em !important;
+  @include notice($listColor);
 }
 
 .notice-basic {

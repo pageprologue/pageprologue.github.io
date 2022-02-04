@@ -100,6 +100,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $sans-font-family;
   font-weight: 700;
   line-height: 1.66666666667;
+
+  a {
+    border-bottom: none !important;
+  }
 }
 h1 {
   font-size: 30px;
@@ -116,7 +120,10 @@ h3 {
   border-bottom: $lightGray 0.1em solid;
 }
 
-h4 {font-size: 20px;}
+h4 {
+  font-size: 20px;
+  margin: 25px 0 15px;
+}
 
 h5 {font-size: 16px;}
 
@@ -125,17 +132,17 @@ h6 {font-size: 14px;}
 small, .text_small {font-size: 14px;}
 
 a {
-  color: $darkerGray;
+  color: $darkGray;
   text-decoration: none;
 
   &:visited, &:link {
-    color: $darkerGray;
+    color: $darkGray;
     text-decoration: none;
   }
 
   &:hover {
     color: $blue;
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 
@@ -272,12 +279,12 @@ hr {
     margin-bottom: 5px;
   }
   a {
-    display: block;
     font-size: 16px;
     display: list-item;
     list-style-type: disc;
     list-style-position: inside;
     padding: 0 20px;
+    border-bottom: none !important;
   }
 }
 .contact {
@@ -664,8 +671,21 @@ a.nav-menu-item:focus {
 //
 
 .posts > .post {
-  //padding-bottom: 02em;
+  border: 2px #f0f0f1 solid !important;
+  border-radius: 30px;
+  padding: 10px 1.5em;
+  margin: 15px 0px;
   border-bottom: 01px solid $lightGray;
+
+  h1 {
+    margin: 5px 0 0 !important;
+  }
+  h2, h3, h4, h5, h6 {
+    margin: 0 !important;
+  }
+  blockquote {
+    margin: 7px 0 7px !important;
+  }
 }
 
 .posts > .post:last-child {
@@ -682,25 +702,39 @@ a.nav-menu-item:focus {
   .comments {
     margin-top: 10px;
   }
+  a {
+    &:visited, &:link {
+      color: $darkGray;
+      text-decoration: none;
+      border-bottom: 1px dotted $mediumGray;
+    }
+
+    &:hover {
+      color: $blue;
+      text-decoration: none;
+      border-bottom: 1px solid $blue;
+    }
+  }
 
   .read-more {
     text-transform: uppercase;
     font-size: 14px !important;
     color: $mahogany;
+    border-bottom: none !important;
 
     a {
       color: $mahogany;
       text-decoration: none;
     }
 
-      &:visited {
-        color: $mahogany;
-      }
+    &:visited {
+      color: $mahogany;
+    }
 
-        &:hover {
-          color: $mahogany;
-          text-decoration: underline;
-        }
+    &:hover {
+      color: $mahogany;
+      text-decoration: underline;
+    }
   }
 
   .reading-time {

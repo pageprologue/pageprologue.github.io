@@ -6,13 +6,13 @@ categories: [Programming]
 
 어느날, Java를 프로그래밍 주 언어로 사용하지만 Java에 대한 지식이 부족하다는 생각이 들었습니다.
 개발에 필요한 지식만 익히지 말고 이번에는 **제대로 기본기를 잡아보자!** 하는 결심이 들어서 본격적으로 Java 공부를 다시 시작하게 되었습니다. 
-Java 기본기 공부를 하기 위해 **『Java의 정석』**{: .color-blue} 책과 인프런의 **『만들어 가면서 배우는 JAVA 플레이그라운드』**{: .color-blue} 강의를 먼저 학습하기로 했습니다. 
+Java 기본기 공부를 하기 위해 **『Java의 정석』**{:.color-blue} 책과 인프런의 **『만들어 가면서 배우는 JAVA 플레이그라운드』**{:.color-blue} 강의를 먼저 학습하기로 했습니다. 
 막상 강의를 들으려는데, 초반 내용은 개발환경을 세팅하는 부분이라 '그냥 넘어갈까?'하는 마음이 들었습니다. 
-그런데 프로그래밍 학습에 대한 어려움과 극복 방법, 연습에 대한 정리 내용이 있어서 듣다가 정말 중요하고 좋은 내용을 전해주셔서 글로 정리하게 되었습다.
+그런데 프로그래밍 학습에 대한 어려움과 극복 방법, 연습에 대한 정리 내용이 있어서 듣다가 정말 중요하고 좋은 내용을 전해주셔서 글로 정리하게 되었습니다.
 
 
 ### 프로그래밍 학습이 어려운 이유
-![](http://s3.amazonaws.com/viking_education/web_development/blog/coding_is_hard_combined_chart.png){: .center width="90%"}
+![](http://s3.amazonaws.com/viking_education/web_development/blog/coding_is_hard_combined_chart.png){:.center width="90%"}
 
 - 개발을 하기 시작한 초반에는 숙련도가 낮아도 자심감이 어느정도 있지만, 숙련도가 높아짐에도 어느 시점에서 자신감이 많이 떨어지는 시기가 생긴다.
 - 개발을 하기 시작한 초반에는 학습할 내용도 많고, 학습 자원도 매우 많지만 초급에서 중급 단계로 넘어가면서 학습할 자원들 찾기 어렵다고 느낀다.
@@ -20,7 +20,7 @@ Java 기본기 공부를 하기 위해 **『Java의 정석』**{: .color-blue} �
 
 
 ### 극복하는 방법
-![](http://s3.amazonaws.com/viking_education/web_development/blog/coding_is_hard_making_it_through.png){: .center width="85%"}
+![](http://s3.amazonaws.com/viking_education/web_development/blog/coding_is_hard_making_it_through.png){:.center width="85%"}
 
 1. Hand-Holding Honeymoon
     - 다양한 초보 강의를 검토한 후 하나를 선택해서 학습
@@ -54,13 +54,13 @@ Java 기본기 공부를 하기 위해 **『Java의 정석』**{: .color-blue} �
 
 자신이 어떤 방식으로 학습할 때 더 효과적으로 학습하는 성향인지 찾아야 한다.  
 어떤 방식으로 학습할 때 스트레스를 덜 받고 즐거움을 느끼는지 찾아야 한다. 
-{: .notice-info}
+{:.notice-info}
 
 ### 프로그래밍 연습
-1. 무엇인가 한 가지를 끝낸 후, 바로 다음 단계로 넘어가기 보다는 어색하거나, 이해되지 않거나, 궁금한 내용을 정리하는 시간을 갖자
-2. 반복해서 연습하자
-3. 과정 속에서 배운 부분이 있으면 그날 그날 내용을 정리하는 습관을 갖자
-4. 호기심을 가지고 다양한 시도를 해보자
+- 무엇인가 한 가지를 끝낸 후, 바로 다음 단계로 넘어가기 보다는 어색하거나, 이해되지 않거나, 궁금한 내용을 정리하는 시간을 갖자
+- 반복해서 연습하자
+- 과정 속에서 배운 부분이 있으면 그날 그날 내용을 정리하는 습관을 갖자
+- 호기심을 가지고 다양한 시도를 해보자
 
 
 <div class="post-reference">

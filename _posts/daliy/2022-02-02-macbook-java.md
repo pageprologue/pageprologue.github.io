@@ -25,7 +25,7 @@ macOS 관련해서는 더 공부가 필요하지만, 일단 필요한 개발 환
 
 - Rosetta 2를 설치해야 하는 경우  
   Rosetta 2는 Intel 프로세서가 장착된 Mac용으로 제작된 앱을 Apple Silicon이 장착된 Mac에서 사용할 수 있게 해주는 에뮬레이터이다. 아래와 같은 메시지가 나오면 '설치'를 클릭한 다음 사용자 이름과 암호를 입력하여 설치를 진행한다.
-  ![](https://support.apple.com/library/content/dam/edam/applecare/images/ko_KR/macos/Big-Sur/macos-big-sur-software-update-rosetta-alert.jpg){: .center width="70%"}
+  ![](https://support.apple.com/library/content/dam/edam/applecare/images/ko_KR/macos/Big-Sur/macos-big-sur-software-update-rosetta-alert.jpg){:.center width="70%"}
 
 - 설치된 Java 검색
   ```bash
@@ -36,7 +36,7 @@ macOS 관련해서는 더 공부가 필요하지만, 일단 필요한 개발 환
 #### Java 버전 바꾸기
 자바 버전을 바꾸는 방법중에는 jEnv를 활용하는 방법과 환경변수를 지정하는 방법이 있다.  
 여기서는 환경 변수를 변경하는 방법으로 작성되었다.  
-{: .notice-info}
+{:.notice-warning}
 
 - 환경 설정 값과 경로들을 저장하는 파일을 찾는다.  
   bash쉘을 사용하는 경우는 ~/.bash_profile이고 zsh쉘을 사용하는 경우 ~/.zshrc 파일을 수정한다.
