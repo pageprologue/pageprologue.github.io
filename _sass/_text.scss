@@ -59,6 +59,60 @@
   @include color($violetColor);
 }
 
+.color-navy {
+  @include color($navyColor);
+}
+
+.color-brown {
+  @include color($brownColor);
+}
+
+/* Custom List Style */
+.blank {
+  list-style-type: none;
+  height: 30px;
+}
+
+.no-marker {
+  margin: 10px 0 0;
+  list-style-type: none;
+}
+
+.no-indent {
+  margin-left: -30px;
+}
+
+.marker-dash {
+  margin: 0 0 0 -15px;
+  text-indent: -10px;
+  list-style-type: none;
+
+  ::before {
+    content: " - ";
+  }
+}
+
+
+/* Custom Before Style */
+@mixin content($iconStyle) {
+  content: $iconStyle;
+}
+
+[class^="pre"] {
+  font-weight: 400;
+}
+
+.pre-square::before {
+  @include content("▪ ");
+}
+
+.pre-arrow-1::before {
+  @include content("→ ");
+}
+.pre-arrow-2::before {
+  @include content("➡︎  ");
+}
+
 
 /* Custom Text Style */
 .bg-eg {
@@ -88,42 +142,6 @@
   text-decoration: underline;
   text-underline-position: under;
 }
-
-
-/* Custom List Style */
-.blank {
-  list-style-type: none;
-  height: 30px;
-}
-
-.no-marker {
-  margin: 10px 0 0;
-  list-style-type: none;
-}
-
-.no-indent {
-  margin-left: -30px;
-}
-
-.marker-dash {
-  margin: 0 0 0 -15px;
-  text-indent: -10px;
-  list-style-type: none;
-
-  ::before {
-    content: " - ";
-  }
-}
-
-
-/* Custom Before Style */
-.pre-square::before {
-  content: "▪ ";
-}
-
-.pre-arrow-1::before {
-  content: "→ ";
-}
-.pre-arrow-2::before {
-  content: "➡︎  ";
+.bold {
+  font-weight: bold;
 }
