@@ -671,11 +671,10 @@ a.nav-menu-item:focus {
 //
 
 .posts > .post {
-  border: 2px #f0f0f1 solid !important;
+  border: 1px #f0f0f1 solid !important;
   border-radius: 30px;
   padding: 10px 1.5em;
   margin: 15px 0px;
-  border-bottom: 01px solid $lightGray;
 
   h1 {
     margin: 5px 0 0 !important;
@@ -683,8 +682,31 @@ a.nav-menu-item:focus {
   h2, h3, h4, h5, h6 {
     margin: 0 !important;
   }
-  blockquote {
+  blockquote, p {
     margin: 7px 0 7px !important;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+  h2 {font-size: 20px;}
+  h3 {font-size: 18px;}
+  h4 {font-size: 15px;}
+  h5 {font-size: 11px;}
+  h6 {font-size: 9px;}
+  small, .text_small {font-size: 10px;}
+  p, blockquote, pre,ul, ol, dl, figure {font-size: 14px;}
+
+  .notice-list a {
+    font-size: 12px;
+
+    &:visited, &:link, &:hover {
+      color: $darkGray;
+      text-decoration: none;
+      border-bottom: 1px dotted $mediumGray;
+      pointer-events : none;
+      cursor: default;
+    }
   }
 }
 

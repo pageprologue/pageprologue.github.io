@@ -1265,11 +1265,10 @@ a.nav-menu-item:focus {
 }
 
 .posts > .post {
-  border: 2px #f0f0f1 solid !important;
+  border: 1px #f0f0f1 solid !important;
   border-radius: 30px;
   padding: 10px 1.5em;
   margin: 15px 0px;
-  border-bottom: 1px solid #EEEEEE;
 }
 
 .posts > .post h1 {
@@ -1280,8 +1279,52 @@ a.nav-menu-item:focus {
   margin: 0 !important;
 }
 
-.posts > .post blockquote {
+.posts > .post blockquote, .posts > .post p {
   margin: 7px 0 7px !important;
+}
+
+.posts > .post h1 {
+  font-size: 22px;
+}
+
+.posts > .post h2 {
+  font-size: 20px;
+}
+
+.posts > .post h3 {
+  font-size: 18px;
+}
+
+.posts > .post h4 {
+  font-size: 15px;
+}
+
+.posts > .post h5 {
+  font-size: 11px;
+}
+
+.posts > .post h6 {
+  font-size: 9px;
+}
+
+.posts > .post small, .posts > .post .text_small {
+  font-size: 10px;
+}
+
+.posts > .post p, .posts > .post blockquote, .posts > .post pre, .posts > .post ul, .posts > .post ol, .posts > .post dl, .posts > .post figure {
+  font-size: 14px;
+}
+
+.posts > .post .notice-list a {
+  font-size: 12px;
+}
+
+.posts > .post .notice-list a:visited, .posts > .post .notice-list a:link, .posts > .post .notice-list a:hover {
+  color: #333333;
+  text-decoration: none;
+  border-bottom: 1px dotted #AAAAAA;
+  pointer-events: none;
+  cursor: default;
 }
 
 .posts > .post:last-child {
