@@ -279,6 +279,32 @@ hr {
     padding: 0 20px;
   }
 }
+.contact {
+  width: 100%;
+  text-align: center;
+
+  .contact-icon {
+    display: inline-block;
+    margin: 0.6em 0.6em;
+  }
+  a {
+    color: $mediumGray;
+  }
+  .email span {
+    vertical-align: text-top;
+    margin-left: 5px;
+  }
+  .github {
+    vertical-align: top;
+  }
+  .github span {
+    vertical-align: text-bottom;
+    margin-left: 5px;
+  }
+}
+.fa-github:before {
+  padding-top: 5px;
+}
 
 .share-post {
   isolation: isolate;
