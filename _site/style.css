@@ -1,61 +1,46 @@
-/* ==========================================================================
-   NOTICE TEXT BLOCKS
-   ========================================================================== */
-/**
- *  Default Kramdown usage (no indents!):
- *  <div class="notice" markdown="1">
- *  #### Headline for the Notice
- *  Text for the notice
- *  </div>
- */
-/* Default notice */
+@charset "UTF-8";
+/* https://www.w3schools.com/cssref/css_colors.asp */
 .notice {
   margin: 1.2em 0 !important;
-  /* override*/
   padding: 1em;
   color: #333333;
   font-size: 0.80em !important;
   text-indent: initial;
-  /* override*/
-  background-color: #fdfdfd;
+  background-color: #fcfcfc;
   border-radius: 5px;
-  box-shadow: 0 1px 1px rgba(238, 238, 238, 0.25);
+  box-shadow: 0 1px 1px rgba(221, 221, 221, 0.25);
 }
 
 .notice h4 {
   margin-top: 0 !important;
-  /* override*/
   margin-bottom: 0.75em;
   line-height: inherit;
 }
 
 .entry .notice h4 {
-  /* using at-root to override .page-content h4 font size*/
   margin-bottom: 0;
   font-size: 1em;
 }
 
 .notice p:last-child {
   margin-bottom: 0 !important;
-  /* override*/
 }
 
 .notice h4 + p {
-  /* remove space above paragraphs that appear directly after notice headline*/
   margin-top: 0;
   padding-top: 0;
 }
 
 .notice a {
-  color: #EEEEEE;
+  color: #DDDDDD;
 }
 
 .notice a:hover {
-  color: #8f8f8f;
+  color: #858585;
 }
 
 .notice code {
-  background-color: #fefefe;
+  background-color: #fdfdfd;
 }
 
 .notice pre code {
@@ -64,57 +49,100 @@
 
 .notice ul:last-child {
   margin-bottom: 0;
-  /* override*/
 }
 
-/* Primary notice */
-.notice-primary {
+.notice-basic {
   margin: 1.2em 0 !important;
-  /* override*/
   padding: 1em;
   color: #333333;
   font-size: 0.80em !important;
   text-indent: initial;
-  /* override*/
-  background-color: #f1f1f2;
+  background-color: #fffce6;
   border-radius: 5px;
-  box-shadow: 0 1px 1px rgba(111, 119, 125, 0.25);
+  box-shadow: 0 1px 1px rgba(255, 221, 0, 0.25);
+}
+
+.notice-basic h4 {
+  margin-top: 0 !important;
+  margin-bottom: 0.75em;
+  line-height: inherit;
+}
+
+.entry .notice-basic h4 {
+  margin-bottom: 0;
+  font-size: 1em;
+}
+
+.notice-basic p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.notice-basic h4 + p {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.notice-basic a {
+  color: #ffdd00;
+}
+
+.notice-basic a:hover {
+  color: #998500;
+}
+
+.notice-basic code {
+  background-color: #fffdf2;
+}
+
+.notice-basic pre code {
+  background-color: inherit;
+}
+
+.notice-basic ul:last-child {
+  margin-bottom: 0;
+}
+
+.notice-primary {
+  margin: 1.2em 0 !important;
+  padding: 1em;
+  color: #333333;
+  font-size: 0.80em !important;
+  text-indent: initial;
+  background-color: #fff8fc;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(250, 187, 228, 0.25);
 }
 
 .notice-primary h4 {
   margin-top: 0 !important;
-  /* override*/
   margin-bottom: 0.75em;
   line-height: inherit;
 }
 
 .entry .notice-primary h4 {
-  /* using at-root to override .page-content h4 font size*/
   margin-bottom: 0;
   font-size: 1em;
 }
 
 .notice-primary p:last-child {
   margin-bottom: 0 !important;
-  /* override*/
 }
 
 .notice-primary h4 + p {
-  /* remove space above paragraphs that appear directly after notice headline*/
   margin-top: 0;
   padding-top: 0;
 }
 
 .notice-primary a {
-  color: #6f777d;
+  color: #fabbe4;
 }
 
 .notice-primary a:hover {
-  color: #43474b;
+  color: #967089;
 }
 
 .notice-primary code {
-  background-color: #f8f8f9;
+  background-color: #fffcfe;
 }
 
 .notice-primary pre code {
@@ -123,18 +151,14 @@
 
 .notice-primary ul:last-child {
   margin-bottom: 0;
-  /* override*/
 }
 
-/* Info notice */
 .notice-info {
   margin: 1.2em 0 !important;
-  /* override*/
   padding: 1em;
   color: #333333;
   font-size: 0.80em !important;
   text-indent: initial;
-  /* override*/
   background-color: #ebf5f8;
   border-radius: 5px;
   box-shadow: 0 1px 1px rgba(59, 156, 186, 0.25);
@@ -142,24 +166,20 @@
 
 .notice-info h4 {
   margin-top: 0 !important;
-  /* override*/
   margin-bottom: 0.75em;
   line-height: inherit;
 }
 
 .entry .notice-info h4 {
-  /* using at-root to override .page-content h4 font size*/
   margin-bottom: 0;
   font-size: 1em;
 }
 
 .notice-info p:last-child {
   margin-bottom: 0 !important;
-  /* override*/
 }
 
 .notice-info h4 + p {
-  /* remove space above paragraphs that appear directly after notice headline*/
   margin-top: 0;
   padding-top: 0;
 }
@@ -182,18 +202,14 @@
 
 .notice-info ul:last-child {
   margin-bottom: 0;
-  /* override*/
 }
 
-/* Warning notice */
 .notice-warning {
   margin: 1.2em 0 !important;
-  /* override*/
   padding: 1em;
   color: #333333;
   font-size: 0.80em !important;
   text-indent: initial;
-  /* override*/
   background-color: #fbf2e6;
   border-radius: 5px;
   box-shadow: 0 1px 1px rgba(214, 127, 5, 0.25);
@@ -201,24 +217,20 @@
 
 .notice-warning h4 {
   margin-top: 0 !important;
-  /* override*/
   margin-bottom: 0.75em;
   line-height: inherit;
 }
 
 .entry .notice-warning h4 {
-  /* using at-root to override .page-content h4 font size*/
   margin-bottom: 0;
   font-size: 1em;
 }
 
 .notice-warning p:last-child {
   margin-bottom: 0 !important;
-  /* override*/
 }
 
 .notice-warning h4 + p {
-  /* remove space above paragraphs that appear directly after notice headline*/
   margin-top: 0;
   padding-top: 0;
 }
@@ -241,18 +253,14 @@
 
 .notice-warning ul:last-child {
   margin-bottom: 0;
-  /* override*/
 }
 
-/* Success notice */
 .notice-success {
   margin: 1.2em 0 !important;
-  /* override*/
   padding: 1em;
   color: #333333;
   font-size: 0.80em !important;
   text-indent: initial;
-  /* override*/
   background-color: #ecf6ec;
   border-radius: 5px;
   box-shadow: 0 1px 1px rgba(63, 166, 63, 0.25);
@@ -260,24 +268,20 @@
 
 .notice-success h4 {
   margin-top: 0 !important;
-  /* override*/
   margin-bottom: 0.75em;
   line-height: inherit;
 }
 
 .entry .notice-success h4 {
-  /* using at-root to override .page-content h4 font size*/
   margin-bottom: 0;
   font-size: 1em;
 }
 
 .notice-success p:last-child {
   margin-bottom: 0 !important;
-  /* override*/
 }
 
 .notice-success h4 + p {
-  /* remove space above paragraphs that appear directly after notice headline*/
   margin-top: 0;
   padding-top: 0;
 }
@@ -300,18 +304,14 @@
 
 .notice-success ul:last-child {
   margin-bottom: 0;
-  /* override*/
 }
 
-/* Danger notice */
 .notice-danger {
   margin: 1.2em 0 !important;
-  /* override*/
   padding: 1em;
   color: #333333;
   font-size: 0.80em !important;
   text-indent: initial;
-  /* override*/
   background-color: #fdefef;
   border-radius: 5px;
   box-shadow: 0 1px 1px rgba(238, 95, 91, 0.25);
@@ -319,24 +319,20 @@
 
 .notice-danger h4 {
   margin-top: 0 !important;
-  /* override*/
   margin-bottom: 0.75em;
   line-height: inherit;
 }
 
 .entry .notice-danger h4 {
-  /* using at-root to override .page-content h4 font size*/
   margin-bottom: 0;
   font-size: 1em;
 }
 
 .notice-danger p:last-child {
   margin-bottom: 0 !important;
-  /* override*/
 }
 
 .notice-danger h4 + p {
-  /* remove space above paragraphs that appear directly after notice headline*/
   margin-top: 0;
   padding-top: 0;
 }
@@ -359,7 +355,101 @@
 
 .notice-danger ul:last-child {
   margin-bottom: 0;
-  /* override*/
+}
+
+/* eg. or reference */
+.bg-eg::before {
+  content: " ➔ ";
+}
+
+.bg-eg {
+  font-size: 15px;
+  font-weight: 400;
+  background-color: #F8F9FA;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.underline {
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+/* background color */
+.bg-gray {
+  padding: 2px 5px;
+  font-weight: 400;
+  border-radius: 4px;
+  background-color: #F8F9FA;
+  border: 0.1px #AAAAAA solid;
+  font-weight: 400;
+}
+
+.bg-ly {
+  padding: 2px 5px;
+  font-weight: 400;
+  border-radius: 4px;
+  background-color: #FFFFE0;
+  border: 0.1px #AAAAAA solid;
+  font-weight: 400;
+}
+
+.bg-rose {
+  padding: 2px 5px;
+  font-weight: 400;
+  border-radius: 4px;
+  background-color: #FFE4E1;
+  border: 0.1px #AAAAAA solid;
+  font-weight: 400;
+}
+
+.bg-mint {
+  padding: 2px 5px;
+  font-weight: 400;
+  border-radius: 4px;
+  background-color: #eefff8;
+  border: 0.1px #AAAAAA solid;
+  font-weight: 400;
+}
+
+.bg-lavender {
+  padding: 2px 5px;
+  font-weight: 400;
+  border-radius: 4px;
+  background-color: #E6E6FA;
+  border: 0.1px #AAAAAA solid;
+  font-weight: 400;
+}
+
+/* font color */
+.color-red {
+  color: #B22222;
+  font-weight: 400;
+}
+
+.color-green {
+  color: #2E8B57;
+  font-weight: 400;
+}
+
+.color-blue {
+  color: #1E90FF;
+  font-weight: 400;
+}
+
+.color-sky {
+  color: #00BFFF;
+  font-weight: 400;
+}
+
+.color-orange {
+  color: #FF8C00;
+  font-weight: 400;
+}
+
+.color-violet {
+  color: #9932CC;
+  font-weight: 400;
 }
 
 html {

@@ -1,0 +1,77 @@
+
+@mixin color($fontColor) {
+  color: $fontColor;
+  font-weight: 400;
+}
+
+@mixin bg($bgColor) {
+  padding: 2px 5px;
+  font-weight: 400;
+  border-radius: 4px;
+  background-color: $bgColor;
+  border: 0.1px $mediumGray solid;
+  font-weight: 400;
+}
+
+/* eg. or reference */
+.bg-eg::before {
+  content: " ➔ ";
+}
+.bg-eg {
+  font-size: 15px;
+  font-weight: 400;
+  background-color: $postGray;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.underline {
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+/* background color */
+.bg-gray {
+  @include bg($postGray);
+}
+
+.bg-ly {
+  @include bg($lightYellowColor);
+}
+
+.bg-rose {
+  @include bg($roseColor);
+}
+
+.bg-mint {
+  @include bg($mintColor);
+}
+
+.bg-lavender {
+  @include bg($lavenderColor);
+}
+
+/* font color */
+.color-red {
+  @include color($redColor);
+}
+
+.color-green {
+  @include color($greenColor);
+}
+
+.color-blue {
+  @include color($blueColor);
+}
+
+.color-sky {
+  @include color($skyColor);
+}
+
+.color-orange {
+  @include color($orangeColor);
+}
+
+.color-violet {
+  @include color($violetColor);
+}

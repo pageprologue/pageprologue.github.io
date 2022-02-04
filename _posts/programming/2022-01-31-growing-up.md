@@ -6,7 +6,7 @@ categories: [Programming]
 
 어느날, Java를 프로그래밍 주 언어로 사용하지만 Java에 대한 지식이 부족하다는 생각이 들었습니다.
 개발에 필요한 지식만 익히지 말고 이번에는 **제대로 기본기를 잡아보자!** 하는 결심이 들어서 본격적으로 Java 공부를 다시 시작하게 되었습니다. 
-Java 기본기 공부를 하기 위해 <span class="light-blue">『Java의 정석』</span> 책과 인프런의 <span class="light-blue">『만들어 가면서 배우는 JAVA 플레이그라운드』</span> 강의를 먼저 학습하기로 했습니다. 
+Java 기본기 공부를 하기 위해 **『Java의 정석』**{: .color-blue} 책과 인프런의 **『만들어 가면서 배우는 JAVA 플레이그라운드』**{: .color-blue} 강의를 먼저 학습하기로 했습니다. 
 막상 강의를 들으려는데, 초반 내용은 개발환경을 세팅하는 부분이라 '그냥 넘어갈까?'하는 마음이 들었습니다. 
 그런데 프로그래밍 학습에 대한 어려움과 극복 방법, 연습에 대한 정리 내용이 있어서 듣다가 정말 중요하고 좋은 내용을 전해주셔서 글로 정리하게 되었습다.
 
@@ -65,6 +65,7 @@ Java 기본기 공부를 하기 위해 <span class="light-blue">『Java의 정�
 
 <div class="post-reference">
    <p>Reference</p>
+   <a href="https://www.youtube.com/playlist?list=PLW2UjW795-f5JPTsYHGAawAck9cQRw5TD">자바의 정석 강의</a>
    <a href="https://www.inflearn.com/course/java-codesquad#curriculum">만들어 가면서 배우는 JAVA 플레이그라운드</a>
    <a href="https://www.thinkful.com/blog/why-learning-to-code-is-so-damn-hard">Why Learning to Code is So Damn Hard</a>
 </div>
