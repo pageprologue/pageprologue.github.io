@@ -1502,7 +1502,7 @@ a.nav-menu-item:focus {
   text-decoration: none;
 }
 
-.post .read-more:visited {
+.post .read-more:visited, .post .read-more:link {
   color: #BD2C00;
 }
 
@@ -1515,20 +1515,6 @@ a.nav-menu-item:focus {
   text-transform: uppercase;
   font-size: 14px !important;
   color: #BD2C00;
-}
-
-.post .reading-time a {
-  color: #BD2C00;
-  text-decoration: none;
-}
-
-.post .reading-time:visited {
-  color: #BD2C00;
-}
-
-.post .reading-time:hover {
-  color: #BD2C00;
-  text-decoration: underline;
 }
 
 .wrapper-footer {
