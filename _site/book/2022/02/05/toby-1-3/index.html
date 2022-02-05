@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="1.3 DAO의 확장
+1.3.1 클래스의 분리
+1.3.2 인터페이스의 도입
+1.3.3 관계 설정 책임의 분리
+1.3.4 원칙과 패턴
+" />
+<meta property="og:description" content="1.3 DAO의 확장
+1.3.1 클래스의 분리
+1.3.2 인터페이스의 도입
+1.3.3 관계 설정 책임의 분리
+1.3.4 원칙과 패턴
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="토비의 스프링 - 1장. 오브젝트와 의존관계(2)" />
+<meta property="twitter:title" content="토비의 스프링 - 1장. 오브젝트와 의존관계(2)" />
+
+
+
+    <title>토비의 스프링 - 1장. 오브젝트와 의존관계(2) – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">토비의 스프링 - 1장. 오브젝트와 의존관계(2)</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-02-05
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#13-dao의-확장">1.3 DAO의 확장</a><br />
+<a href="#클래스의-분리">1.3.1 클래스의 분리</a><br />
+<a href="#인터페이스의-도입">1.3.2 인터페이스의 도입</a><br />
+<a href="#관계-설정-책임의-분리">1.3.3 관계 설정 책임의 분리</a><br />
+<a href="#원칙과-패턴">1.3.4 원칙과 패턴</a></p>
+
+<h3 id="13-dao의-확장">1.3 DAO의 확장</h3>
+<ul class="notice no-marker no-indent">
+  <li>지금까지 <strong class="underline">데이터 액세스 로직을 어떻게 만들 것인가</strong>와 <strong class="underline">DB 연결을 어떤 방법으로 할 것인가</strong>라는 두 개의 관심을 상하위 클래스로 분리시켰다.</li>
+  <li><strong class="pre-result bold">변화의 성격이 다르다는 건 변화의 이유와 시기, 주기 등이 다르다는 뜻이다.</strong></li>
+</ul>
+
+<h4 class="pre-square" id="클래스의-분리">클래스의 분리</h4>
+
+<p><img src="https://user-images.githubusercontent.com/40616436/75679116-5e1bf700-5cd2-11ea-8700-f176678ca17b.png" alt="" class="center" width="70%" /></p>
+
+<ul>
+  <li>SimpleConnectionMaker라는 새로운 클래스를 만들고 DB 생성 기능을 그 안에 넣는다.</li>
+  <li><strong class="bg-lg outline">예제 코드</strong>
+    <ul>
+      <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.3.1/src/springbook/user/dao/UserDao.java#LC10">독립된 SimpleConnectionMaker를 사용하게 만든 UserDao</a></li>
+      <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.3.1/src/springbook/user/dao/SimpleConnectionMaker.java#LC7">독립시킨 DB 연결 기능인 SimpleConnectionMaker</a></li>
+    </ul>
+  </li>
+  <li><strong class="bg-old">클래스를 분리한 경우에도 상속을 이용했을 때와 마찬가지로 자유로운 확장이 가능하게 하려면 두 가지 문제를 해결해야 한다.</strong>
+    <ul class="marker-one">
+      <li>SimpleConnectionMaker의 메소드가 달라지면 일일이 수정해야 한다는 점</li>
+    </ul>
+    <ul class="marker-two">
+      <li>DB 커넥션을 제공하는 클래스가 어떤 것인지를 UserDao가 구체적으로 알고 있어야 한다는 점</li>
+    </ul>
+    <p><strong class="pre-result bold">이런 문제의 근본적인 원인은 UserDao가 바뀔 수 있는 정보, 즉 DB 커넥션을 가져오는 클래스에 대해 너무 많이 알고 있기 때문이다.</strong></p>
+    <ul>
+      <li class="blank small"></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 class="pre-square" id="인터페이스의-도입">인터페이스의 도입</h4>
+<ul>
+  <li>가장 좋은 해결책은 두 개의 클래스가 서로 긴밀하게 연결되어 있지 않도록 중간에 추상적인 느슨한 연결고리를 만들어주는 것이다.</li>
+  <li><strong>추상화</strong>란 어떤 것들의 공통적인 성격을 뽑아내어 이를 따로 분리해내는 작업이다.</li>
+  <li>자바가 추상화를 위해 제공하는 가장 유용한 도구는 바로 <strong>인터페이스</strong>다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/40616436/75682088-2c0d9380-5cd8-11ea-9894-3a819ba18a2b.png" alt="" class="center" width="70%" /></p>
+
+<ul>
+  <li>이제 UserDao는 자신이 사용할 클래스가 어떤 것인지 몰라도 된다. 단지 인터페이스를 통해 원하는 기능을 사용하기만 하면 된다.</li>
+  <li><strong class="bg-lg outline">예제 코드</strong>
+    <ul>
+      <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.3.2/src/springbook/user/dao/ConnectionMaker.java">ConnectionMaker 인터페이스</a></li>
+      <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.3.2/src/springbook/user/dao/DConnectionMaker.java">ConnectionMaker 구현 클래스</a></li>
+      <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.3.2/src/springbook/user/dao/UserDao.java#LC11">ConnectionMaker 인터페이스를 사용하도록 개선한 UserDao</a></li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 class="pre-square" id="관계-설정-책임의-분리">관계 설정 책임의 분리</h4>
+
+<ul>
+  <li>
+    <p>인터페이스를 이용한 분리에도 불구하고 여전히 UserDao 변경 없이는 DB 커넥션 기능의 확장이 자유롭지 못하다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="nf">UserDao</span><span class="o">()</span> <span class="o">{</span>
+      <span class="n">connectionMaker</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DConnectionMaker</span><span class="o">();</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>어떤 ConnectionMaker 구현 클래스의 오브젝트를 이용하게 할지에 대한 관심사가 UserDao 생성자에 포함되어 있다.</li>
+      <li>이 관심사를 UserDao에서 분리하지 않으면 UserDao는 결코 독립적으로 확장 가능한 클래스가 될 수 없다.</li>
+      <li>ConnectionMaker 인터페이스를 사용한 덕분에 UserDao와 ConnectionMaker의 구현 클래스들은 직접 연결되어 있지 않은 것처럼 보인다.</li>
+      <li>하지만 UserDao 에서 <code class="language-plaintext highlighter-rouge">new DConnectionMacker()</code> 를 해주는 코드가 있음으로써 클래스 사이에 직접적인 관계가 있다.</li>
+      <li>UserDao가 NConnectionMaker를 사용하게 하려면 UserDao의 코드를 변경해야 한다.</li>
+    </ul>
+
+    <p><img src="https://user-images.githubusercontent.com/40616436/75683517-9f180980-5cda-11ea-804e-106bea7825cd.png" alt="" class="center" width="80%" /></p>
+
+    <ul class="notice no-marker marker-dash">
+      <li>클래스 사이에 관계가 만들어진다는 것은 한 클래스가 인터페이스 없이 다른 클래스를 직접 사용한다는 뜻이다.</li>
+      <li>오브젝트 사이의 관계는 런타임 시에 한쪽이 다른 오브젝트의 레퍼런스를 갖고 있는 방식으로 만들어진다.</li>
+    </ul>
+    <ul>
+      <li class="blank half"></li>
+    </ul>
+  </li>
+  <li>이 문제를 해결하려면 객체지향의 <strong>다형성</strong>이라는 특징을 이용하면 된다.
+    <ul>
+      <li>특정 클래스를 알지 못하더라도 해당 클래스가 인터페이스를 구현했다면, 그 클래스의 인터페이스 타입을 사용할 수 있다.</li>
+      <li>
+        <p>UserDao가 DConnectionMacker를 사용하게 하려면 두 클래스 사이에 <strong class="color-orange">런타임 사용관계(=링크 =의존관계)</strong>를 맺어주면 된다.</p>
+
+        <p><img src="https://user-images.githubusercontent.com/40616436/75683933-5280fe00-5cdb-11ea-9c4c-a5a8ad5f3885.png" alt="" class="center" width="80%" /></p>
+      </li>
+      <li>ConnectionMaker의 구현 클래스를 선택하고, 선택한 클래스의 오브젝트를 생성하는 책임을 UserDao의 생성자가 아니라 UserDao의 클라이언트에게 넘기도록 수정한다.</li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li><strong class="bg-lg outline">예제 코드</strong>
+    <ul>
+      <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.3.3/src/springbook/user/dao/UserDao.java#LC11">UserDao - 수정한 생성자</a></li>
+      <li>
+        <p><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.3.3/src/springbook/user/dao/UserDaoTest.java#LC7">관계설정 책임이 추가된 UserDao 클라이언트인 main() 메소드</a></p>
+      </li>
+      <li>이제 UserDao는 자신의 관심사이자 책임인 사용자 데이터 액세스 작업을 수행하는데만 집중할 수 있다.</li>
+      <li>더 이상 DB 생성 방법이나 전략에 대해서는 고민할 필요가 없다.</li>
+      <li class="blank"></li>
+    </ul>
+
+    <p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FOocy4%2Fbtq1WKBCJK4%2FnF6wFTSWjX1TJECsVULCb0%2Fimg.png" alt="" class="center" width="80%" /></p>
+
+    <p><strong class="pre-result bg-sky">인터페이스를 도입하고 클라이언트의 도움을 받는 방법은 상속을 사용하는 것에 비해서 훨씬 더 유연하다.</strong></p>
+
+    <ul>
+      <li class="blank"></li>
+    </ul>
+  </li>
+</ul>
+
+<p class="notice">객체지향 설계와 프로그래밍 이론을 통해서 지금까지 적용한 벙법을 정리해보자 <strong class="case-link"><a href="">객체 지향 설계 원칙(SOLID)</a></strong></p>
+
+<h4 class="pre-square" id="원칙과-패턴">원칙과 패턴</h4>
+
+<h5 class="indent" id="개방-폐쇄-원칙">개방 폐쇄 원칙</h5>
+
+<p class="indent">개방 폐쇄 원칙(OCP, Open-Closed Principle)은 클래스나 모듈은 확장에는 열려 있어야 하고 변경에는 닫혀 있어야 한다는 원칙이다.</p>
+<p class="case-eg indent">UserDao는 DB 연결 방법이라는 기능을 확장하는 데는 열려 있다. 동시에 UserDao 자신의 핵심 기능을 구현한 코드는 변화에 영향을 받지 않으므로 변경에는 닫혀 있다.</p>
+<ul>
+  <li class="blank none"></li>
+</ul>
+
+<p><strong class="case-link indent"><a href="">객체지향 설계 원칙(SOLID)</a></strong></p>
+<ul>
+  <li class="blank half"></li>
+</ul>
+
+<h5 class="indent" id="높은-응집도-낮은-결합도">높은 응집도 낮은 결합도</h5>
+
+<ul class="indent">
+  <li>응집도가 높다는 것은 하나의 모듈, 클래스가 하나의 책임 또는 관심사에만 집중되어 있다는 뜻이다.</li>
+  <li>높은 응집도는 클래스 레벨뿐 아니라 패키지, 컴포넌트, 모듈에 이르기까지 그 대상의 크기가 달라도 동일한 원리로 적용될 수 있다.</li>
+  <li>응집도가 높다는 것은 변화가 일어날 때 해당 모듈에서 변하는 부분이 크다는 것으로 설명할 수도 있다.</li>
+</ul>
+
+<p class="case-eg indent">처음에 개발한 <a href="https://pageprologue.github.io/book/2022/02/04/toby-1-2/#11-%EC%B4%88%EB%82%9C%EA%B0%90-dao">초난감 DAO</a>처럼 여러 관심사와 책임이 얽혀있는 복잡한 코드에서는 변경이 필요한 부분을 찾아내는 것도 번거로울뿐더러 변경으로 인한 오류를 발생시키지 않는지도 일일이 확인해야 한다.</p>
+<p class="case-eg indent">반면, ConnectionMaker 인터페이스를 이용해 DB 연결 기능을 독립시킨 경우, DB 커넥션 풀을 활용하는 ConnectionMaker 구현 클래스를 새로 만들기만 하면 된다.</p>
+
+<ul class="indent">
+  <li>낮은 결합도는 높은 응집도보다 더 민감한 원칙이다.</li>
+  <li>결합도란 하나의 오브젝트에 변경이 일어날 때, 관계를 맺고 있는 다른 오브젝트에게 변화를 요구하는 정도이다.</li>
+</ul>
+
+<p class="case-eg indent">ConnectionMaker 인터페이스의 도입으로 인해 DB 연결 기능을 구현한 클래스가 바뀌더라도 DAO의 코드는 변경될 필요가 없다.</p>
+<p class="case-eg indent">ConnectionMaker의 클래스를 결정하는 책임을 DAO의 클라이언트로 분리한 덕분에 ConnectionMaker의 구현 클래스가 바뀌어도, DAO의 코드를 수정할 필요가 없다.</p>
+<ul>
+  <li class="blank half"></li>
+</ul>
+
+<h5 class="indent" id="전략-패턴">전략 패턴</h5>
+<ul class="indent">
+  <li>개선한 <code class="language-plaintext highlighter-rouge">UserDtoTest</code>, <code class="language-plaintext highlighter-rouge">UserDao</code>, <code class="language-plaintext highlighter-rouge">ConnectionMaker</code> 구조를 디자인 패턴의 시각으로 보면 전략 패턴에 해당한다고 볼 수 있다.</li>
+  <li>전략 패턴은 디자인 패턴의 꽃이라고 불릴 만큼 다양하게 자주 사용되는 패턴이다.</li>
+  <li>전략 패턴은 자신의 기능 맥락에서 필요에 따라 변경이 필요한 <strong class="color-orange">알고리즘(=전략)</strong>을 인터페이스를 통해 통째로 외부로 분리시키고, 이를 구현한 구체적인 클래스를 바꿔서 사용할 수 있게 하는 디자인 패턴이다.</li>
+</ul>
+
+<p class="case-eg indent">UserDao는 전략 패턴의 컨텍스트에 해당한다. 컨텍스트는 자신의 기능을 수행하는데 필요한 기능 중 변경 가능한, DB 연결 방식이라는 알고리즘을 ConnectionMaker라는 인터페이스로 정의하고, 이를 구현한 클래스(=전략)를 바꿔가면서 사용할 수 있게 분리했다.</p>
+
+<div class="post-reference">
+   <p>Reference</p>
+   <a href="https://it-mesung.tistory.com/111">[토비 스프링] 사용자 DAO</a>
+   <a href="https://roadofdevelopment.tistory.com/39">[토비의 스프링 vol.1]1장 오브젝트와 의존관계</a>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>&copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>

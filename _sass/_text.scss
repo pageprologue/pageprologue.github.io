@@ -32,6 +32,10 @@
   @include bg($roseColor);
 }
 
+.bg-green {
+  @include bg($bgGreenColor);
+}
+
 .bg-mint {
   @include bg($mintColor);
 }
@@ -91,6 +95,26 @@
   @include color($brownColor);
 }
 
+
+/* Font Size */
+[class^="font-"] {
+  font-weight: 400;
+  padding: 0;
+}
+.font-17 {
+  font-size: 17px;
+}
+.font-16 {
+  font-size: 16px;
+}
+.font-15 {
+  font-size: 15px;
+}
+.font-14 {
+  font-size: 14px;
+}
+
+
 /* Custom List Style */
 .no-marker {
   margin: 10px 0 0;
@@ -104,16 +128,66 @@
   margin-left: -30px;
 }
 
-.marker-dash {
+[class^="marker-"] {
   margin: 0 0 0 -15px;
   text-indent: -10px;
   list-style-type: none;
-
+}
+.marker-dash {
   li::before {
     content: " - ";
   }
 }
-
+.marker-one {
+  li::before {
+    content: " 1) ";
+  }
+}
+.marker-two {
+  li::before {
+    content: " 2) ";
+  }
+}
+.marker-three {
+  li::before {
+    content: " 3) ";
+  }
+}
+.marker-four {
+  li::before {
+    content: " 4) ";
+  }
+}
+.marker-five {
+  li::before {
+    content: " 5) ";
+  }
+}
+.marker-six {
+  li::before {
+    content: " 6) ";
+  }
+}
+.marker-seven {
+  li::before {
+    content: " 7) ";
+  }
+}
+.marker-eight {
+  li::before {
+    content: " 8) ";
+  }
+}
+.marker-nine {
+  li::before {
+    content: " 9) ";
+  }
+}
+.marker-ten {
+  li::before {
+    content: " 10) ";
+  }
+}
 
 /* Custom Before Style */
 @mixin content($iconStyle) {
@@ -135,17 +209,37 @@
   @include content("➡︎  ");
 }
 
+/* Custom Margin Style */
+.mb-10 {
+  margin-bottom: 10px;
+}
 
 /* Custom Text Style */
-.bg-eg {
+[class^="case-"] {
   font-size: 15px;
   font-weight: 400;
-  background-color: $lightGray;
   padding: 2px 5px;
   border-radius: 4px;
 }
-.bg-eg::before {
-  content: " ➔ ";
+
+.case-eg {
+  text-indent: -8px;
+  margin: -5px 0 0 8px;
+  padding: 0 5px 5px 15px;
+  background-color: $egColor;
+}
+.case-eg.indent, .indent.case-eg {
+  margin-left: 30px;
+}
+.case-eg::before {
+  content: ("- ");
+}
+
+.case-link {
+  background-color: $lightGray;
+}
+.case-link::before {
+  content: ("→ ");
 }
 
 .underline {
@@ -160,4 +254,13 @@
 .blank {
   list-style-type: none;
   height: 20px;
+}
+.blank.none {
+  height: 0px;
+}
+.blank.small {
+  height: 5px;
+}
+.blank.half {
+  height: 10px;
 }

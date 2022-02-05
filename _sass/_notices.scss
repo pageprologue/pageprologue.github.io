@@ -55,7 +55,7 @@
 }
 
 .notice {
-  @include notice($paleGray);
+  @include notice($mediumGray);
 }
 
 .notice-list {

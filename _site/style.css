@@ -6,9 +6,9 @@
   color: #333333;
   font-size: 0.89em;
   text-indent: initial;
-  background-color: #fcfcfc;
+  background-color: #f7f7f7;
   border-radius: 5px;
-  box-shadow: 0 1px 1px rgba(221, 221, 221, 0.25);
+  box-shadow: 0 1px 1px rgba(170, 170, 170, 0.25);
 }
 
 .notice h4 {
@@ -32,15 +32,15 @@
 }
 
 .notice a {
-  color: #DDDDDD;
+  color: #AAAAAA;
 }
 
 .notice a:hover {
-  color: #858585;
+  color: #666666;
 }
 
 .notice code {
-  background-color: #fdfdfd;
+  background-color: #fbfbfb;
 }
 
 .notice pre code {
@@ -455,6 +455,14 @@
   border-radius: 4px;
 }
 
+.bg-green {
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #e9f7e6;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
 .bg-mint {
   font-size: 18px;
   font-weight: 400;
@@ -536,6 +544,28 @@
   font-weight: 400;
 }
 
+/* Font Size */
+[class^="font-"] {
+  font-weight: 400;
+  padding: 0;
+}
+
+.font-17 {
+  font-size: 17px;
+}
+
+.font-16 {
+  font-size: 16px;
+}
+
+.font-15 {
+  font-size: 15px;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
 /* Custom List Style */
 .no-marker {
   margin: 10px 0 0;
@@ -550,7 +580,7 @@
   margin-left: -30px;
 }
 
-.marker-dash {
+[class^="marker-"] {
   margin: 0 0 0 -15px;
   text-indent: -10px;
   list-style-type: none;
@@ -558,6 +588,46 @@
 
 .marker-dash li::before {
   content: " - ";
+}
+
+.marker-one li::before {
+  content: " 1) ";
+}
+
+.marker-two li::before {
+  content: " 2) ";
+}
+
+.marker-three li::before {
+  content: " 3) ";
+}
+
+.marker-four li::before {
+  content: " 4) ";
+}
+
+.marker-five li::before {
+  content: " 5) ";
+}
+
+.marker-six li::before {
+  content: " 6) ";
+}
+
+.marker-seven li::before {
+  content: " 7) ";
+}
+
+.marker-eight li::before {
+  content: " 8) ";
+}
+
+.marker-nine li::before {
+  content: " 9) ";
+}
+
+.marker-ten li::before {
+  content: " 10) ";
 }
 
 /* Custom Before Style */
@@ -577,17 +647,40 @@
   content: "➡︎  ";
 }
 
+/* Custom Margin Style */
+.mb-10 {
+  margin-bottom: 10px;
+}
+
 /* Custom Text Style */
-.bg-eg {
+[class^="case-"] {
   font-size: 15px;
   font-weight: 400;
-  background-color: #EEEEEE;
   padding: 2px 5px;
   border-radius: 4px;
 }
 
-.bg-eg::before {
-  content: " ➔ ";
+.case-eg {
+  text-indent: -8px;
+  margin: -5px 0 0 8px;
+  padding: 0 5px 5px 15px;
+  background-color: #fdf8f2;
+}
+
+.case-eg.indent, .indent.case-eg {
+  margin-left: 30px;
+}
+
+.case-eg::before {
+  content: "- ";
+}
+
+.case-link {
+  background-color: #EEEEEE;
+}
+
+.case-link::before {
+  content: "→ ";
 }
 
 .underline {
@@ -603,6 +696,18 @@
 .blank {
   list-style-type: none;
   height: 20px;
+}
+
+.blank.none {
+  height: 0px;
+}
+
+.blank.small {
+  height: 5px;
+}
+
+.blank.half {
+  height: 10px;
 }
 
 html {
@@ -731,6 +836,7 @@ h4 {
 }
 
 h5 {
+  margin: 10px 0;
   font-size: 18px;
 }
 
