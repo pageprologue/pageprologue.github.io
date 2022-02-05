@@ -556,7 +556,7 @@
   list-style-type: none;
 }
 
-.marker-dash ::before {
+.marker-dash li::before {
   content: " - ";
 }
 

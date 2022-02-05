@@ -109,7 +109,7 @@
   text-indent: -10px;
   list-style-type: none;
 
-  ::before {
+  li::before {
     content: " - ";
   }
 }
