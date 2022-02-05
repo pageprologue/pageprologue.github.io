@@ -10,12 +10,10 @@
 <meta name="description" content="들어가며
 1.1 초난감 DAO
 1.2 DAO의 분리
-1.3 DAO의 확장
 " />
 <meta property="og:description" content="들어가며
 1.1 초난감 DAO
 1.2 DAO의 분리
-1.3 DAO의 확장
 " />
 
 <meta name="author" content="Chloe" />
@@ -146,7 +144,7 @@
         
       </div>-->
       <div class="date">
-        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-02-05
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-02-04
       </div>
     </div>
   </div>
@@ -154,8 +152,7 @@
   <div class="entry">
     <p class="notice-list"><a href="#들어가며">들어가며</a><br />
 <a href="#11-초난감-dao">1.1 초난감 DAO</a><br />
-<a href="#12-dao의-분리">1.2 DAO의 분리</a><br />
-<a href="#13-dao의-확장">1.3 DAO의 확장</a></p>
+<a href="#12-dao의-분리">1.2 DAO의 분리</a></p>
 
 <h3 id="들어가며">들어가며</h3>
 
@@ -171,18 +168,18 @@
   <li><strong>공통 프로그래밍 모델 - IoC/DI, 서비스 추상화, AOP</strong><br />
  스프링 프레임워크의 3가지 프로그레밍 모델 <strong class="bg-eg">(<a href="https://pageprologue.github.io/programming/2022/02/04/library-framework">라이브러리 VS. 프레임워크</a>)</strong>
     <ul>
-      <li><strong class="bg-ly">IoC/DI</strong>
+      <li><strong class="bg-ly outline">IoC/DI</strong>
         <ul>
           <li>오브젝트의 생명주기와 의존관계에 대한 프로그레밍 모델이다.</li>
           <li>스프링은 객체지향 설계 원칙과 디자인 패턴의 핵심 원리를 담고 있는 IoC/DI를 프레임워크의 근간으로 삼고 있다.</li>
         </ul>
       </li>
-      <li><strong class="bg-ly">서비스 추상화</strong>
+      <li><strong class="bg-ly outline">서비스 추상화</strong>
         <ul>
           <li>구체적인 기술과 환경에 종속되지 않도록 유연한 추상 계층을 두는 방법이다.</li>
         </ul>
       </li>
-      <li><strong class="bg-ly">AOP</strong>
+      <li><strong class="bg-ly outline">AOP</strong>
         <ul>
           <li>애플리케이션 코드에 산재해서 나타나는 부가적인 기능을 독립적으로 모듈화하는 프로그래밍 모델이다.</li>
           <li class="blank"></li>
@@ -208,7 +205,7 @@
       <li>작업 중에 생성된 Connection, Statement, ResultSet 같은 리소스는 작업을 마친 후 반드시 닫아준다.</li>
     </ul>
   </li>
-  <li><strong class="bg-gray">예제 코드</strong>
+  <li><strong class="bg-lg outline">예제 코드</strong>
     <ul>
       <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.1.2/src/springbook/user/domain/User.java">사용자 정보 저장용 자바빈 User 클래스</a></li>
       <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.1.2/src/springbook/user/dao/UserDao.java">JDBC를 이용한 등록과 조회 기능이 있는 UserDao</a></li>
@@ -218,29 +215,29 @@
 
 <h3 id="12-dao의-분리">1.2 DAO의 분리</h3>
 <h4 class="pre-square" id="관심사의-분리">관심사의 분리</h4>
-<ul class="no-maker">
+<ul class="no-marker">
   <li>객체지향 설계와 프로그래밍이 이전의 절차적 프로그래밍 패러다임에 비해 초기에 좀 더 많은, 번거로운 작업을 요구하는 이유는 객체지향 기술 자체가 지니는 변화에 효과적으로 대처할 수 있다는 기술적인 특징 때문이다.</li>
 </ul>
-<ul class="no-maker">
+<ul class="no-marker">
   <li>그러면 어떻게 변경이 일어날 때 필요한 작업을 최소화하고, 그 변경이 다른 곳에 문제를 일으키지 않게 할 수 있었을까? 그것은 <strong class="underline">분리와 확장을 고려한 설계</strong>가 있었기 때문이다.</li>
 </ul>
-<ul class="no-maker">
+<ul class="no-marker">
   <li><strong>관심사의 분리란</strong>, 관심사가 같은 것끼리 모으고 다른 것은 분리해줌으로써 같은 관심에 효과적으로 집중할 수 있게 만들어주는 것이다.</li>
 </ul>
-
 <ul>
-  <li><strong>중복 코드 메소드 추출</strong>
+  <li class="blank"></li>
+  <li><strong class="bg-lavender">중복 코드 메소드 추출</strong>
     <ul>
-      <li><strong class="bg-gray">예제 코드</strong> 
+      <li><strong class="bg-lg outline">예제 코드</strong> 
 - <a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.2.2/src/springbook/user/dao/UserDao.java#LC49">getConnection() 메소드를 추출해서 중복을 제거한 UserDao</a></li>
       <li class="blank"></li>
     </ul>
   </li>
-  <li><strong>변경사항에 대한 검증: 리팩토링과 테스트</strong></li>
+  <li><strong class="bg-lavender">변경사항에 대한 검증: 리팩토링과 테스트</strong></li>
   <li class="blank"></li>
-  <li><strong>상속을 통한 확장</strong>
+  <li><strong class="bg-lavender">상속을 통한 확장</strong>
     <ul>
-      <li><strong class="bg-gray">예제 코드</strong>
+      <li><strong class="bg-lg outline">예제 코드</strong>
 - <a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.2.3/src/springbook/user/dao/UserDao.java">상속을 통한 확장 방법이 제공되는 UserDao</a>
 <img src="https://user-images.githubusercontent.com/40616436/76166481-303b2480-61a2-11ea-8f7d-2776662ad6f8.png" alt="" class="center" width="78%" /></li>
       <li class="blank"></li>
@@ -273,8 +270,6 @@
     </ul>
   </li>
 </ul>
-
-<h3 id="13-dao의-확장">1.3 DAO의 확장</h3>
 
 <div class="post-reference">
    <p>Reference</p>

@@ -31,7 +31,8 @@ macOS 관련해서는 더 공부가 필요하지만, 일단 필요한 개발 환
   ```bash
   /usr/libexec/java_home -V
   java --version
-```
+  ```
+- {:.blank}
 
 #### Java 버전 바꾸기
 자바 버전을 바꾸는 방법중에는 jEnv를 활용하는 방법과 환경변수를 지정하는 방법이 있다.  

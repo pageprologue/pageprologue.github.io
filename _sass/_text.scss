@@ -1,15 +1,27 @@
 /* Background Color */
 @mixin bg($bgColor) {
-  padding: 2px 5px;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 400;
-  border-radius: 4px;
   background-color: $bgColor;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.outline {
+  font-size: 17px;
   border: 0.1px $mediumGray solid;
 }
 
 .bg-gray {
+  @include bg($bgGrayColor);
+}
+
+.bg-lg {
   @include bg($postGray);
+}
+
+.bg-old {
+  @include bg($oldlaceColor);
 }
 
 .bg-ly {
@@ -22,6 +34,18 @@
 
 .bg-mint {
   @include bg($mintColor);
+}
+
+.bg-blue {
+  @include bg($bgSkyColor);
+}
+
+.bg-sky {
+  @include bg($bgSkyColor);
+}
+
+.bg-violet {
+  @include bg($bgVioletColor);
 }
 
 .bg-lavender {
@@ -68,16 +92,14 @@
 }
 
 /* Custom List Style */
-.blank {
-  list-style-type: none;
-  height: 30px;
-}
-
 .no-marker {
   margin: 10px 0 0;
   list-style-type: none;
 }
 
+.indent {
+  margin-left: 30px;
+}
 .no-indent {
   margin-left: -30px;
 }
@@ -106,10 +128,10 @@
   @include content("▪ ");
 }
 
-.pre-arrow-1::before {
+.pre-result::before {
   @include content("→ ");
 }
-.pre-arrow-2::before {
+.pre-arrow::before {
   @include content("➡︎  ");
 }
 
@@ -126,17 +148,6 @@
   content: " ➔ ";
 }
 
-.bg-result {
-  font-size: 17px;
-  font-weight: 400;
-  background-color: $oldlaceColor;
-  padding: 2px 5px;
-  border-radius: 4px;
-}
-.bg-result::before {
-  content: " ➔ ";
-}
-
 .underline {
   font-weight: 400;
   text-decoration: underline;
@@ -144,4 +155,9 @@
 }
 .bold {
   font-weight: bold;
+}
+
+.blank {
+  list-style-type: none;
+  height: 20px;
 }
