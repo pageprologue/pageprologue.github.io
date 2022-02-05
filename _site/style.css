@@ -1517,6 +1517,20 @@ a.nav-menu-item:focus {
   color: #BD2C00;
 }
 
+.post .reading-time a {
+  color: #BD2C00;
+  text-decoration: none;
+}
+
+.post .reading-time:visited {
+  color: #BD2C00;
+}
+
+.post .reading-time:hover {
+  color: #BD2C00;
+  text-decoration: underline;
+}
+
 .wrapper-footer {
   margin-top: 30px;
   border-top: 01px solid #ddd;

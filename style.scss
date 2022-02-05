@@ -766,6 +766,20 @@ a.nav-menu-item:focus {
     text-transform: uppercase;  
     font-size: 14px !important;
     color: $mahogany;
+
+    a {
+      color: $mahogany;
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: $mahogany;
+    }
+
+    &:hover {
+      color: $mahogany;
+      text-decoration: underline;
+    }
   }
 }
 
