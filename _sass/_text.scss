@@ -32,6 +32,9 @@
   @include bg($roseColor);
 }
 
+.bg-orange {
+  @include bg($bgOrangeColor);
+}
 .bg-green {
   @include bg($bgGreenColor);
 }
@@ -41,7 +44,7 @@
 }
 
 .bg-blue {
-  @include bg($bgSkyColor);
+  @include bg($bgBlueColor);
 }
 
 .bg-sky {
@@ -206,7 +209,8 @@
   @include content("→ ");
 }
 .pre-arrow::before {
-  @include content("➡︎  ");
+  @include content("➡︎ ");
+  padding-right: 4px;
 }
 
 /* Custom Margin Style */

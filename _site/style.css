@@ -455,6 +455,14 @@
   border-radius: 4px;
 }
 
+.bg-orange {
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #ffede1;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
 .bg-green {
   font-size: 18px;
   font-weight: 400;
@@ -474,7 +482,7 @@
 .bg-blue {
   font-size: 18px;
   font-weight: 400;
-  background-color: #def1ff;
+  background-color: #defbff;
   padding: 2px 5px;
   border-radius: 4px;
 }
@@ -644,7 +652,8 @@
 }
 
 .pre-arrow::before {
-  content: "➡︎  ";
+  content: "➡︎ ";
+  padding-right: 4px;
 }
 
 /* Custom Margin Style */
@@ -1028,12 +1037,12 @@ hr {
 }
 
 .contact .email span {
-  vertical-align: text-top;
+  vertical-align: -webkit-baseline-middle;
   margin-left: 5px;
 }
 
 .contact .github {
-  vertical-align: top;
+  vertical-align: -webkit-baseline-middle;
 }
 
 .contact .github span {

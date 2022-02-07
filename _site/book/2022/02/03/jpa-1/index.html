@@ -7,13 +7,13 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
 
-<meta name="description" content="
-  “왜 실무에서 테이블 설계는 다들 열심히 하면서 제대로 된 객체 모델링은 하지 않을까?”
-
+<meta name="description" content="1. SQL을 직접 다룰때 발생하는 문제점
+2. 패러다임의 불일치
+3. JPA란 무엇일까?
 " />
-<meta property="og:description" content="
-  “왜 실무에서 테이블 설계는 다들 열심히 하면서 제대로 된 객체 모델링은 하지 않을까?”
-
+<meta property="og:description" content="1. SQL을 직접 다룰때 발생하는 문제점
+2. 패러다임의 불일치
+3. JPA란 무엇일까?
 " />
 
 <meta name="author" content="Chloe" />
@@ -150,7 +150,11 @@
   </div>
 
   <div class="entry">
-    <blockquote>
+    <p class="notice-list"><a href="#1-sql을-직접-다룰때-발생하는-문제점">1. SQL을 직접 다룰때 발생하는 문제점</a><br />
+<a href="#2-패러다임의-불일치">2. 패러다임의 불일치</a><br />
+<a href="#3-jpa란-무엇일까">3. JPA란 무엇일까?</a></p>
+
+<blockquote>
   <p>“왜 실무에서 테이블 설계는 다들 열심히 하면서 제대로 된 객체 모델링은 하지 않을까?”</p>
 </blockquote>
 
@@ -158,7 +162,7 @@
   <p>“왜 객체 지향의 장점을 포기하고 객체를 단순히 테이블에 맞추어 데이터 전달 역할만 하도록 개발할까?”</p>
 </blockquote>
 
-<h3 id="1-sql-을-직접-다룰-때-발생하는-문제점">1. SQL 을 직접 다룰 때 발생하는 문제점</h3>
+<h3 id="1-sql을-직접-다룰때-발생하는-문제점">1. SQL을 직접 다룰때 발생하는 문제점</h3>
 
 <ul>
   <li>진정한 의미의 계층 분할이 어렵다.</li>
@@ -219,15 +223,18 @@
 <h3 id="3-jpa란-무엇일까">3. JPA란 무엇일까?</h3>
 
 <ul>
-  <li>JPA(Java Persistence API)는 자바 진영의 ORM 기술 표준이다.</li>
+  <li>
+    <p>JPA(Java Persistence API)는 자바 진영의 ORM 기술 표준이다.</p>
+
+    <p><img src="https://media.vlpt.us/images/fordevelop/post/54176c09-ff4d-44ee-91fb-7f74830bb430/image.png" alt="" class="center" width="60%" /></p>
+  </li>
   <li>ORM(Object-Relational Mapping)은 객체와 관계형 데이터베이스를 매핑한다는 뜻이다.</li>
   <li>ORM 프레임워크는 객체와 테이블을 매핑해서 패러다임의 불일치 문제를 개발자 대신 해결해준다.</li>
-  <li>자바 진영에도 다양한 ORM 프레임워크들이 있는데 그중에 하이버네이트 프레임워크가 가장 많이 사용된다. 하이버네이트는 거의 대부분의 패러다임 불일치 문제를 해결해주는 성숙한 ORM 프레임워크이다.</li>
-</ul>
+  <li>
+    <p>자바 진영에도 다양한 ORM 프레임워크들이 있는데 그중에 하이버네이트 프레임워크가 가장 많이 사용된다. 하이버네이트는 거의 대부분의 패러다임 불일치 문제를 해결해주는 성숙한 ORM 프레임워크이다.</p>
 
-<p><img src="/image/jpa-1-1.png" alt="" class="center" width="70%" /></p>
-
-<ul>
+    <p><img src="https://media.vlpt.us/images/fordevelop/post/bee7eb5d-0c94-4406-96ce-b8ce49f6059d/image.png" alt="" class="center" width="70%" /></p>
+  </li>
   <li>JPA는 자바 ORM 기술에 대한 QPI 표준 명세다. 따라서 JPA를 사용하려면 JPA를 구현한 ORM 프레임워크를 선택해야 한다.</li>
   <li>왜 JPA를 사용해야 하는가?
     <ul>
@@ -240,7 +247,10 @@
   </li>
 </ul>
 
-<p><br /><br /></p>
+<div class="post-reference">
+   <p>Reference</p>
+   <a href="https://velog.io/@fordevelop/JPA-%EA%B3%B5%EB%B6%80-%EC%8B%9C%EC%9E%91">JPA 공부 시작!</a>
+</div>
 
   </div>
 

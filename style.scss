@@ -302,11 +302,11 @@ hr {
     color: $mediumGray;
   }
   .email span {
-    vertical-align: text-top;
+    vertical-align: -webkit-baseline-middle;
     margin-left: 5px;
   }
   .github {
-    vertical-align: top;
+    vertical-align: -webkit-baseline-middle;
   }
   .github span {
     vertical-align: text-bottom;
