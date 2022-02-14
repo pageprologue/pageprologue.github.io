@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="✓︎ 엔티티 매니저 팩토리와 엔티티 매니저
+✓︎ 영속성 컨텍스트란?
+✓︎ 엔티티의 생명주기
+✓︎ 영속성 컨텍스트의 특징
+✓︎ 플러시
+✓︎ 준영속
+" />
+<meta property="og:description" content="✓︎ 엔티티 매니저 팩토리와 엔티티 매니저
+✓︎ 영속성 컨텍스트란?
+✓︎ 엔티티의 생명주기
+✓︎ 영속성 컨텍스트의 특징
+✓︎ 플러시
+✓︎ 준영속
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="자바 ORM 표준 JPA 프로그래밍 - (3) 영속성 관리" />
+<meta property="twitter:title" content="자바 ORM 표준 JPA 프로그래밍 - (3) 영속성 관리" />
+
+
+
+    <title>자바 ORM 표준 JPA 프로그래밍 - (3) 영속성 관리 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">자바 ORM 표준 JPA 프로그래밍 - (3) 영속성 관리</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-02-14
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#1-엔티티-매니저-팩토리와-엔티티-매니저">✓︎ 엔티티 매니저 팩토리와 엔티티 매니저</a><br />
+<a href="#2-영속성-컨텍스트란">✓︎ 영속성 컨텍스트란?</a><br />
+<a href="#3엔티티의-생명주기">✓︎ 엔티티의 생명주기</a><br />
+<a href="#4-영속성-컨텍스트의-특징">✓︎ 영속성 컨텍스트의 특징</a><br />
+<a href="#5-플러시">✓︎ 플러시</a><br />
+<a href="#6-준영속">✓︎ 준영속</a></p>
+
+<h3 id="1-엔티티-매니저-팩토리와-엔티티-매니저">1. 엔티티 매니저 팩토리와 엔티티 매니저</h3>
+
+<ul>
+  <li><strong class="bg-rose outline">엔티티 매니저 팩토리</strong>는 <strong>엔티티를 만드는 공장</strong>인데, 공장을 만드는 비용이 상당히 크기 때문에, 한 개만 만들어서 애플리케이션 전체에서 공유하도록 설계되어 있다. 반면에, 엔티티 매니저 팩토리에서 엔티티 매니저를 생성하는 비용은 거의 들지 않는다.</li>
+  <li><strong class="bg-rose outline">엔티티 매니저</strong>는 엔티티를 저장하고, 수정하고, 삭제하고, 조회하는 등 엔티티와 관련된 모든 일을 처리한다.<br />
+<strong class="pre-arrow bold">엔티티 매니저는 엔티티를 저장하는 가상의 데이터베이스로 생각하면 된다.</strong></li>
+  <li><strong class="underline">엔티티 매니저 팩토리는 여러 스레드가 동시에 접근해도 안전하므로 서로 다른 스레드 간에 공유해도 되지만, 엔티티 매니저는 여러 스레드가 동시에 접근하면 동시성 문제가 발생하므로 스레드간에는 절대 공유하면 안된다.</strong></li>
+</ul>
+
+<p><img src="/image/jpa/jpa-3-1.png" alt="" class="center" width="90%" /></p>
+
+<ul>
+  <li>엔티티 매니저는 데이터베이스 연결이 꼭 필요한 시점까지 커넥션을 얻지 않는다. 보통 트랜잭션을 시작할 대 커넥션을 획득한다.</li>
+</ul>
+
+<p><img src="/image/jpa/jpa-3-2.png" alt="" class="center" width="85%" /></p>
+
+<ul>
+  <li>
+    <p>EntityManagerFactory / EntityManager 생성하기</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">EntityManagerFactory</span> <span class="n">emf</span> <span class="o">=</span> <span class="nc">Persistence</span><span class="o">.</span><span class="na">createEntityManagerFactory</span><span class="o">(</span><span class="s">"jpabook"</span><span class="o">);</span>
+<span class="nc">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">emf</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+</code></pre></div>    </div>
+
+    <p><strong class="pre-result"><code class="language-plaintext highlighter-rouge">Persistence.createEntityManagerFactory("jpabook")</code>를 호출하면META-INF/persistence.xml 에 있는 정보를 바탕으로 EntityManagerFactory를 생성한다.</strong></p>
+  </li>
+</ul>
+
+<h3 id="2-영속성-컨텍스트란">2. 영속성 컨텍스트란?</h3>
+
+<ul>
+  <li>엔티티 매니저로 엔티티를 저장하거나 조회하면 <strong class="underline">엔티티 매니저는 영속성 컨텍스트에 엔티티를 보관하고 관리한다.</strong></li>
+  <li>영속성 컨텍스트는 논리적인 개념으로, 엔티티 매니저를 생성할 때 만들어져서 엔티티 매니저를 통해 접근하고 관리할 수 있다.</li>
+  <li>
+    <p>엔티티 매니저를 사용해서 회원 엔티티를 영속성 컨텍스트에 저장하기</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="3-엔티티의-생명주기">3. 엔티티의 생명주기</h3>
+
+<ul>
+  <li>엔티티에는 4가지 상태가 존재한다.</li>
+</ul>
+
+<p><img src="/image/jpa/jpa-3-3.png" alt="" class="center" width="80%" />
+<img src="https://ultrakain.gitbooks.io/jpa/content/chapter3/images/JPA_3_2.png" alt="" class="center" width="70%" /></p>
+
+<ul>
+  <li>
+    <p>비영속</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//객체를 생성한 상태(비영속)</span>
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">"member1"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"sayho"</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>영속</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//객체를 저장한 상태(영속)</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+  
+<span class="c1">//JPQL을 사용해서 조회힌 상태(영속)</span>
+<span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>준영속</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//회원 엔티티를 영속성 컨텍스트에서 분리(준영속)</span>
+<span class="n">em</span><span class="o">.</span><span class="na">detach</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+  
+<span class="c1">//영속성 컨텍스트를 닫거나 초기화(준영속)</span>
+<span class="n">em</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="n">em</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>삭제</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//객체를 삭제한 상태(삭제)</span>
+<span class="n">em</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="4-영속성-컨텍스트의-특징">4. 영속성 컨텍스트의 특징</h3>
+
+<ul>
+  <li>영속 상태는 <strong class="bg-rose outline">식별자 값</strong>이 반드시 있어야 한다. 식별자 값이 없으면 예외가 발생한다.</li>
+  <li>JPA는 보통 트랜잭션을 커밋하는 순간 영속성 컨텍스트에 새로 저장된 엔티티를 데이터베이스에 반영한는데, 이것을 <strong class="bg-rose outline">플러시(flush)</strong>라고 한다.</li>
+</ul>
+
+<h4 id="영속성-컨텍스트가-엔티티를-관리할-때의-장점">영속성 컨텍스트가 엔티티를 관리할 때의 장점</h4>
+
+<ul>
+  <li><strong>1차 캐시</strong>
+    <ul>
+      <li>영속성 컨텍스트는 내부에 캐시를 가지고 있는데 이것을 1차 캐시라고 한다.</li>
+      <li>엔티티를 조회할 때 1차 캐시에서 먼저 찾고, 엔티티가 1차 캐시에 없으면 데이터베이스에서 조회한다.</li>
+      <li>1차 캐시는 <strong class="bg-lg outline">key: @Id로 매핑한 식별자, value: Entity 인스턴스인 Map 형태</strong>이다.<br />
+<strong class="pre-arrow">데이터베이스를 바로 조회하지 않고, 메모리에 있는 1차 캐시를 사용하여 성능상 이점이 생긴다.</strong></li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li><strong>동일성 보장</strong>
+    <ul>
+      <li>
+        <p>식별자가 같은 엔티티를 조회할 때 1차 캐시에 있는 같은 엔티티 인스턴스를 반환한다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">a</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+<span class="nc">Member</span> <span class="n">b</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+    
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="o">);</span> <span class="c1">//동일성 비교(true)</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+
+    <blockquote>
+      <p><strong>동일성과 동등성</strong><br />
+- 동일성(identity) : 실제 인스턴스가 같다. 따라서 참조 값을 비교하는 <code class="language-plaintext highlighter-rouge">==</code> 비교의 값이 같다.<br />
+- 동등성(equality) : 실제 인스턴스는 다를 수 있지만 인스턴스가 가지고 있는 값이 같다. 자바에서 동등성 비교는 <code class="language-plaintext highlighter-rouge">equals()</code> 메소드를 구현해야 한다.</p>
+    </blockquote>
+
+    <ul>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li><strong>트랜잭션을 지원하는 쓰기 지연</strong>
+    <ul>
+      <li>엔티티 매니저는 트랜잭션을 커밋하기 직전까지 <strong class="bg-rose outline">쓰기 지연 SQL 저장소</strong>에 모아둔다.</li>
+      <li>트랜잭션을 커밋하면 엔티티 매니저는 영속성 컨텍스트를 <code class="language-plaintext highlighter-rouge">flush()</code> 한다.<br />
+<strong class="pre-result">플러시는 영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화 하는 작업이다.</strong>
+(쓰기 지연 SQL 저장소에 모인 쿼리를 데이터베이스에 보낸다.)</li>
+      <li>이 기능을 잘 활용하면 쓰기 모아둔 쿼리를 데이터베이스에 한번에 전달해서 성능을 최적화 할 수 있다.</li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li><strong>변경 감지</strong>
+    <ul>
+      <li>
+        <p>JPA로 엔티티를 수정할 때는 단순히 엔티티를 조회해서 데이터만 변경하면 된다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Member</span> <span class="n">memberA</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"memberA"</span><span class="o">);</span>
+  <span class="n">memberA</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+  <span class="c1">// em.update(memberA); // 이런 코드가 없어도 된다.</span>
+  <span class="n">transaction</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</code></pre></div>        </div>
+      </li>
+      <li>엔티티의 변경사항을 데이터베이스에 자동으로 반영하는 기능을 <strong class="bg-rose outline">변경 감지</strong>라고 한다.</li>
+      <li>JPA는 엔티티를 영속성 컨텍스트에 보관할 때, 최초 상태를 복사해서 스냅샷을 저장한다. 그리고 플러시 시점에 스냅샷과 엔티티를 비교해서 변경된 엔티티를 찾는다.</li>
+      <li><strong>변경 감지는 영속성 컨텍스트가 관리하는 영속 상태의 엔티티에만 적용된다.</strong></li>
+      <li>JPA는 변경된 필드만 업데이트 하는 것이 아니라, <strong class="bg-rose outline">엔티티의 모든 필드를 업데이트</strong> 한다.</li>
+      <li>모든 필드를 데이터베이스에 보내면 데이터 전송량이 증가하는 단점이 있지만, 수정 쿼리가 동일하여 쿼리를 재사용할 수 있다.</li>
+      <li>엔티티에 필드가 많거나 저장되는 내용이 너무 크면 수정할 필드만 동적으로 UPDATE SQL을 생성하는 전략을 선택할 수 있다.<br />
+<strong class="pre-result"><code class="language-plaintext highlighter-rouge">@DynamicUpdate</code> : 상황에 따라 다르지만 컬럼이 대략 30개 이상이면 정적 수정 쿼리보다 동적 수정 쿼리가 빠르다고 한다.</strong></li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li><strong>지연 로딩</strong>
+    <ul>
+      <li>실제 객체 대신 프록시 객체를 로딩해두고 해당 객체를 실제 사용할 때 영속성 컨텍스트를 통해 데이터를 불러오는 방법이다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="5-플러시">5. 플러시</h3>
+
+<ul>
+  <li>플러시(flush())는 영속성 컨텍스트의 변경 내용을 데이터베이스에 <strong class="bg-rose outline">동기화</strong>한다.</li>
+  <li>데이터베이스와 동기화를 최대한 늦추는 것이 가능한 이유는 <strong class="bg-rose outline">트랜잭션</strong>이라는 작업 단위가 있기 때문이다.</li>
+</ul>
+
+<h4 id="영속성-컨텍스트를-플러시하는-방법">영속성 컨텍스트를 플러시하는 방법</h4>
+<p class="indent">1) <code class="language-plaintext highlighter-rouge">em.flush()</code> 를 직접 호출한다.<br />
+      <strong class="pre-result">테스트나 다른 프레임워크와 JPA를 함께 사용할 때를 제외하고 거의 사용하지 않는다.</strong><br />
+  2) 트랜잭션 커밋 시 플로시가 자동 호출된다.<br />
+  3) JPQL 쿼리 실행 시 플러시가 자동 호출된다.</p>
+
+<h4 id="플러시-모드-옵션">플러시 모드 옵션</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">FlushModeType.AUTO</code> : 커밋이나 쿼리를 실행할 때 플러시 (기본값)</li>
+  <li><code class="language-plaintext highlighter-rouge">FlushModeType.COMMIT</code> : 커밋할 때만 플러시
+  <strong class="pre-result">COMMIT 모드는 성능 최적화를 위해 사용할 수 있다.</strong></li>
+</ul>
+
+<h3 id="6-준영속">6. 준영속</h3>
+
+<ul>
+  <li>영속성 컨텍스트가 관리하는 영속 상태의 엔티티가 영속성 컨텍스트에서 분리된 것을 준영속 상태라고 한다.</li>
+  <li>준영속 상태에의 엔티티는 영속성 컨텍스트가 제공하는 기능을 사용할 수 없다.</li>
+</ul>
+
+<h4 id="준영속-상태로-만드는-방법">준영속 상태로 만드는 방법</h4>
+<p class="indent">1) <code class="language-plaintext highlighter-rouge">em.detach(entity)</code> : 특정 엔티티만 준영속 상태로 전환한다.<br />
+  2) <code class="language-plaintext highlighter-rouge">em.clear()</code> : 영속성 컨텍스트를 완전히 초기화한다.<br />
+  3) <code class="language-plaintext highlighter-rouge">em.close()</code> : 영속성 컨텍스트를 종료한다.</p>
+
+<ul>
+  <li>엔티티를 준영속 상태로 전환 : <code class="language-plaintext highlighter-rouge">detach()</code>
+    <ul>
+      <li>1차 캐시부터 쓰기 지연 SQL 저장소까지 해당 엔티티를 관리하기 위한 모든 정보가 제거된다.</li>
+    </ul>
+  </li>
+  <li>영속성 컨텍스트 초기화 : <code class="language-plaintext highlighter-rouge">clear()</code>
+    <ul>
+      <li>영속성 컨텍스트를 초기화해서 해당 영속성 컨텍스트의 모든 엔티티를 준영속 상태로 만든다.</li>
+    </ul>
+  </li>
+  <li>영속성 컨텍스트 종료 : <code class="language-plaintext highlighter-rouge">close()</code>
+    <ul>
+      <li>해당 영속성 컨텍스트가 관리하던 영속 상태의 엔티티가 모두 준영속 상태가 된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="준영속-상태의-특징">준영속 상태의 특징</h4>
+<ul>
+  <li>거의 비영속 상태에 가깝다.</li>
+  <li>식별자 값을 가지고 있다.</li>
+  <li>지연 로딩을 할 수 없다.</li>
+</ul>
+
+<h4 id="병합--merge">병합 : <code class="language-plaintext highlighter-rouge">merge()</code></h4>
+<ul>
+  <li>준영속 상태의 엔티티를 다시 영속 상태로 변경하려면 병합을 사용하면 된다.</li>
+  <li>병합은 비영속 엔티티도 영속 상태로 만들 수 있다.</li>
+  <li>병합은 파라미터로 넘어온 엔티티의 식별자 값으로 영속성 컨텍스트를 조회하고 찾는 엔티티가 없으면 데이터베이스에서 조회한다. 만약 데이터베이스에서도 발견하지 못하면 새로운 엔티티를 생성해서 병합한다.</li>
+</ul>
+
+<div class="post-reference">
+   <p>Reference</p>
+   <a href="https://ultrakain.gitbooks.io/jpa/content/chapter3/chapter3.3.html">3.3 엔티티의 생명주기</a>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>&copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>
