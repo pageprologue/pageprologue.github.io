@@ -158,7 +158,7 @@
   <div class="entry">
     <p class="notice-list"><a href="#1-엔티티-매니저-팩토리와-엔티티-매니저">✓︎ 엔티티 매니저 팩토리와 엔티티 매니저</a><br />
 <a href="#2-영속성-컨텍스트란">✓︎ 영속성 컨텍스트란?</a><br />
-<a href="#3엔티티의-생명주기">✓︎ 엔티티의 생명주기</a><br />
+<a href="#3-엔티티의-생명주기">✓︎ 엔티티의 생명주기</a><br />
 <a href="#4-영속성-컨텍스트의-특징">✓︎ 영속성 컨텍스트의 특징</a><br />
 <a href="#5-플러시">✓︎ 플러시</a><br />
 <a href="#6-준영속">✓︎ 준영속</a></p>
@@ -268,12 +268,37 @@
     <ul>
       <li>영속성 컨텍스트는 내부에 캐시를 가지고 있는데 이것을 1차 캐시라고 한다.</li>
       <li>엔티티를 조회할 때 1차 캐시에서 먼저 찾고, 엔티티가 1차 캐시에 없으면 데이터베이스에서 조회한다.</li>
-      <li>1차 캐시는 <strong class="bg-lg outline">key: @Id로 매핑한 식별자, value: Entity 인스턴스인 Map 형태</strong>이다.<br />
-<strong class="pre-arrow">데이터베이스를 바로 조회하지 않고, 메모리에 있는 1차 캐시를 사용하여 성능상 이점이 생긴다.</strong></li>
+      <li>
+        <p>1차 캐시는 <strong class="bg-lg outline">key: @Id로 매핑한 식별자, value: Entity 인스턴스인 Map 형태</strong>이다.<br />
+<strong class="pre-arrow">데이터베이스를 바로 조회하지 않고, 메모리에 있는 1차 캐시를 사용하여 성능상 이점이 생긴다.</strong></p>
+      </li>
+      <li>
+        <p><strong>엔티티 등록: <code class="language-plaintext highlighter-rouge">persist()</code>, <code class="language-plaintext highlighter-rouge">commit()</code></strong></p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">emf</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+<span class="nc">EntityTransaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
+    
+<span class="c1">// 엔티티 매니저는 데이터 쓰기 시 트랜잭션을 시작해야 한다.</span>
+<span class="n">transaction</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span>
+    
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">memberA</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">memberB</span><span class="o">);</span>
+<span class="c1">// 여기까지 INSERT SQL을 DB에 보내지 않는다.</span>
+    
+<span class="n">transaction</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span> <span class="c1">// 커밋하는 순간 DB에 INSERT SQL을 보낸다.</span>
+</code></pre></div>        </div>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">persist()</code>
+<img src="https://blog.kakaocdn.net/dn/kWqSx/btrcOTgHpBR/I5phLNmBmKfKLzVTykPgd1/img.png" alt="" class="center" width="70%" /></li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">commit()</code>
+<img src="https://blog.kakaocdn.net/dn/cOCQQz/btrcNMPY2y5/CpQatQIDX2xFrSzXyJQHDk/img.png" alt="" class="center" width="70%" /></p>
+      </li>
+      <li class="blank"></li>
       <li class="blank"></li>
     </ul>
   </li>
-  <li><strong>동일성 보장</strong>
+  <li><strong>영속 엔티티의 동일성 보장</strong>
     <ul>
       <li>
         <p>식별자가 같은 엔티티를 조회할 때 1차 캐시에 있는 같은 엔티티 인스턴스를 반환한다.</p>
