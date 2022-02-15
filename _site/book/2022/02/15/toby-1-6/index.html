@@ -165,10 +165,9 @@
 <h4 id="오브젝트-팩토리">오브젝트 팩토리</h4>
 <ul>
   <li>분리시킬 기능을 담당하는 클래스를 만든다. 이 클래스의 역할은 객체의 생성 방법을 결정하고 그렇게 만들어진 오브젝트를 돌려주는 것인데, 이런 일을 하는 오브젝트를 흔히 <strong class="bg-blue outline">팩토리(factory)</strong>라고 부른다.</li>
-  <li><strong class="bg-lg outline">예제 코드</strong>
-    <ul>
-      <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.4.1/src/springbook/user/dao/UserDaoFactory.java#LC1">UserDao의 생성 책임을 맡은 팩토리 클래스 - UserDaoFactory</a></li>
-    </ul>
+  <li>
+    <p><strong class="bg-lg outline">예제 코드</strong>
+- <a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.4.1/src/springbook/user/dao/UserDaoFactory.java#LC1">UserDao의 생성 책임을 맡은 팩토리 클래스</a></p>
 
     <p class="notice-warning">기존의 UserDaoTest 에서는 UserDao를 생성하기 위해 connectionMaker 구현체를 넘겨주어야 했다. <br />
   <strong class="pre-result"><code class="language-plaintext highlighter-rouge">new UserDao(connectionMaker)</code></strong><br />
@@ -193,8 +192,8 @@
 <ul>
   <li>여러 개의 DAO를 생성해야 하는 경우에도 중복 되는 코드를 별도의 메소드로 분리한뒤 생성하면 된다.</li>
   <li><strong class="bg-lg outline">예제 코드</strong>
+- <a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.4.2/src/springbook/user/dao/DaoFactory.java#LC1">여러 개의 DAO를 생성하기 위한 DaoFactory</a>
     <ul>
-      <li><a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.4.2/src/springbook/user/dao/DaoFactory.java#LC1">여러 개의 DAO 생성 - DaoFactory</a></li>
       <li class="blank"></li>
     </ul>
   </li>
@@ -235,22 +234,166 @@
 </ul>
 
 <h4 id="오브젝트-팩토리를-이용한-스프링-ioc">오브젝트 팩토리를 이용한 스프링 IoC</h4>
+<ul>
+  <li><strong class="bg-blue outline">빈(Bean)</strong> : 스프링이 제어권을 가지고 직접 만들고 관계를 부여하는 오브젝트 <strong class="pre-result underline">제어의 역전이 적용된 오브젝트</strong></li>
+  <li><strong class="bg-blue outline">빈 팩토리</strong> : 스프링에서 빈의 생성과 관계설정 같은 제어를 담당하는 IoC 오브젝트</li>
+  <li><strong class="bg-blue outline">애플리케이션 컨텍스트</strong> : 별도의 정보를 참고해서 빈의 생성, 관계설정 등의 제어 작업을 총괄하는 빈 팩토리</li>
+</ul>
+
+<p class="notice">✔︎ 빈 팩토리와 애플리케이션 컨텍스트라는 용어는 동일하다고 생각하면 된다.<br />
+<strong>빈 팩토리</strong>라고 말할 때는 빈을 생성하고 관계를 설정하는 IoC의 기본 기능에 초점을 맞춘 것이고, <strong>애플리케이션 컨텍스트</strong>라고 말할 때는 애플리케이션 전반에 걸쳐 모든 구성요소의 제어 작업을 담당하는 IoC 엔진이라는 의미가 좀 더 부각된다고 보면 된다.</p>
+
+<ul>
+  <li>DaoFactory를 설정정보로 사용하는 애플리케이션 컨텍스트
+    <ul>
+      <li>
+        <p><strong class="bg-lg outline">예제 코드</strong>
+- <a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.5.1/src/springbook/user/dao/DaoFactory.java#LC7">스프링 빈 팩토리가 사용할 설정정보를 담은 DaoFactory 클래스</a></p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DaoFactory</span> <span class="o">{</span>
+<span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">UserDao</span> <span class="nf">userDao</span><span class="o">()</span> <span class="o">{</span>
+<span class="nc">UserDao</span> <span class="n">dao</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">UserDao</span><span class="o">(</span><span class="n">connectionMaker</span><span class="o">());</span>
+<span class="k">return</span> <span class="n">dao</span><span class="o">;</span>
+<span class="o">}</span>
+    
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">ConnectionMaker</span> <span class="nf">connectionMaker</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">ConnectionMaker</span> <span class="n">connectionMaker</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DConnectionMaker</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">connectionMaker</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>        </div>
+
+        <p><strong class="pre-result">애노테이션 방식 설정정보 (자바 코드의 탈을 쓰고 있지만, 사실은 XML과 같은 스프링 전용 설정정보라고 보는 것이 좋다.)</strong></p>
+      </li>
+      <li><strong class="bg-ly outline">@Configuration</strong> : 스프링이 빈 팩토리를 위한 오브젝트 설정을 담당하는 클래스라고 인식</li>
+      <li><strong class="bg-ly outline">@Bean</strong> : 오브젝트 생성을 담당하는 IoC용 메소드라는 표시</li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+</ul>
 
 <h4 id="애플리케이션-컨텍스트의-동작방식">애플리케이션 컨텍스트의 동작방식</h4>
+<ul>
+  <li>애플리케이션 컨텍스트는 <code class="language-plaintext highlighter-rouge">ApplicationContext</code> 인터페이스를 구현하는데, <code class="language-plaintext highlighter-rouge">ApplicationContext는</code> 빈 팩토리가 구현하는 <code class="language-plaintext highlighter-rouge">BeanFactory</code> 인터페이스를 상속했으므로 애플리케이션 컨텍스트는 빈 팩토리인 셈이다.</li>
+</ul>
 
-<h4 id="스프링-ioc의-용어-정리">스프링 IoC의 용어 정리</h4>
+<p><img src="https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F3240b407-d1e6-4d43-91ef-fe93fbdc72b2%2FUntitled.png&amp;blockId=6ff01f85-01cb-45db-a9c8-65d7a7059596" alt="" class="center" width="70%" /></p>
+
+<ul>
+  <li class="blank"></li>
+  <li><strong>애플리케이션 컨텍스트를 사용했을 때 얻을 수 있는 장점</strong>
+    <ul>
+      <li>클라이언트는 구체적인 팩토리 클래스를 알 필요가 없다.</li>
+      <li>
+        <p>오브젝트의 생성과 관계설정 뿐만 아니라 종합 IoC 서비스를 제공한다.</p>
+
+        <p class="case-eg">오브젝트가 만들어지는 방식, 시점과 전략을 다르게 가져갈 수도 있고, 부가적으로 자동생성, 오브젝트에 대한 후처리, 정보의 조합, 설정 방식의 다변화, 인터셉팅 등 오브젝트를 효과적으로 활용할 수 있는 다양한 기능을 제공한다.</p>
+      </li>
+      <li class="blank half"></li>
+      <li>애플리케이션 컨텍스트는 빈을 검색하는 다양한 방법을 제공한다.</li>
+    </ul>
+  </li>
+  <li class="blank"></li>
+</ul>
 
 <h3 id="16-싱글톤-레지스트리와-오브젝트-스코프">1.6 싱글톤 레지스트리와 오브젝트 스코프</h3>
+<p>스프링은 여러 번에 걸쳐 빈을 요청하더라도 매번 <strong>동일한</strong> 오브젝트를 돌려준다.</p>
+
+<p class="notice"><strong>동일성과 동등성</strong><br />
+- 동일성(identity) : 실제 인스턴스가 같다. 따라서 참조 값을 비교하는 <code class="language-plaintext highlighter-rouge">==</code> 비교의 값이 같다.  <br />
+- 동등성(equality) : 실제 인스턴스는 다를 수 있지만 인스턴스가 가지고 있는 값이 같다. <code class="language-plaintext highlighter-rouge">equals()</code> 메소드 비교의 값이 같다.</p>
+
+<ul>
+  <li class="blank half"></li>
+</ul>
 
 <h4 id="싱글톤-레지스트리로서의-애플리케이션-컨텍스트">싱글톤 레지스트리로서의 애플리케이션 컨텍스트</h4>
+<p>애플리케이션 컨텍스트는 싱글톤을 저장하고 관리하는 <strong>싱글톤 레지스트리</strong>이기도 하다.<br />
+스프링은 기본적으로 별다른 설정을 하지 않으면 내부에서 생성하는 빈 오브젝트를 모두 싱글톤으로 만든다.</p>
+
+<p class="case-eg">스프링이 처음 설계됐던 대규모 엔터프라이즈 서버환경에서는 초당 수십에서 수백 번씩 요청을 받아서 처리할 수 있는 높은 성능이 요구되는 환경이었다.</p>
+<p class="case-eg">요청이 올 때마다 매번 각 로직을 담당하는 오브젝트를 새로 만들어서 사용한다면, 요청 한번에 n개의 오브젝트가 새로 만들어지고 초당 500개의 요청이 들어오면 (500 * n)개의 새로운 오브젝트가 생성된다.</p>
+<p class="case-eg">이런 문제를 해결하기 위해, <strong>서블릿</strong>은 클래스당 하나의 오브젝트만 만들어두고, 사용자의 요청을 담당하는 <strong>여러 스레드에서 하나의 오브젝트를 공유</strong>해 동시에 사용한다.</p>
+
+<ul>
+  <li>애플리케이션 안에서 제한된 수, 대개 한 개의 오브젝트만 만들어서 사용하는 것이 싱글톤 패턴의 원리다.</li>
+  <li>하지만, 디자인 패턴에 소개된 싱글톤 패턴은 사용하기가 까다롭고 여러 가지 문제점이 있다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">private</code> 생성자를 갖고 있기 대문에 상속할 수 없다.</li>
+      <li>싱글톤은 테스트 하기 힘들다.</li>
+      <li>서버환경에서는 싱글톤이 하나만 만들어지는 것을 보장하지 못한다.</li>
+      <li>싱글톤의 사용은 전역 상태를 만들 수 있기 때문에 바람직하지 못하다.</li>
+      <li class="blank half"></li>
+    </ul>
+  </li>
+  <li><strong class="bg-rose outline">스프링 레지스트리</strong> : 자바의 기본적인 싱글톤 패턴의 구현 방식은 여러 가지 단점이 있기 때문에, 스프링은 직접 싱글톤 형태의 오브젝트를 만들고 관리하는 기능을 제공한다.</li>
+  <li>싱글톤 레지스트리의 장점은 <code class="language-plaintext highlighter-rouge">static</code> 메소드와 <code class="language-plaintext highlighter-rouge">private</code> 생성자를 사용해야 하는 비정상적인 클래스가 아니라, <strong class="underline">평범한 자바 클래스를 싱글톤으로 활용하게 해준다는 점이다.</strong></li>
+  <li class="blank half"></li>
+</ul>
 
 <h4 id="싱글톤과-오브젝트의-상태">싱글톤과 오브젝트의 상태</h4>
+<ul>
+  <li>싱글톤은 멀티스레드 환경에서 여러 스레드가 동시에 접근해서 사용할 수 있다. <strong class="pre-result bold">상태관리에 주의해야 한.</strong></li>
+  <li>기본적으로 싱글톤이 멀티스레드 환경에서 서비스 형태의 오브젝트로 사용되는 경우에는 상태정보를 내부에 갖고 있지 않은 <strong class="bg-orange">무상태</strong> 방식으로 만들어져야 한다.</li>
+</ul>
+
+<p class="case-eg">다중 사용자의 요청을 한꺼번에 처리하는 스레드들이 동시에 싱글톤 오브젝트의 인스턴스 변수를 수정하는 것은 매우 위험하다. 저장할 공간이 하나뿐이니 서로 값을 덮어쓰고 자신이 저장하지 않은 값을 읽어올 수 있기 때문이다.</p>
+
+<ul>
+  <li><strong>따라서 싱글톤은 기본적으로 인스턴스 필드의 값을 변경하고 유지하는 상태유지 방식으로 만들지 않는다.</strong></li>
+  <li>스프링의 싱글톤 빈으로 사용되는 클래스를 만들 때는 개별적으로 바뀌는 정보는 <strong>로컬 변수</strong>로 정의하거나, <strong>파라미터</strong>로 주고받으면서 사용하게 해야 한다.</li>
+  <li>다만, <strong>읽기전용</strong>의 값이라면 초기화 시점에서 인스턴스 변수에 저장해두고 공유해도 문제가 되지 않는다.</li>
+  <li class="blank half"></li>
+</ul>
 
 <h4 id="스프링-빈의-스코프">스프링 빈의 스코프</h4>
+<ul>
+  <li>스프링 빈의 기본 스코프는 싱글톤이다.</li>
+  <li>스프링에서 만들어지는 대부분의 빈은 싱글톤 스코프를 갖는다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Scope</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>singleton</td>
+      <td>(기본값) 스프링 IoC 컨테이너당 하나의 인스턴스만 사용</td>
+    </tr>
+    <tr>
+      <td>prototype</td>
+      <td>매번 새로운 빈을 정의해서 사용</td>
+    </tr>
+    <tr>
+      <td>request</td>
+      <td>HTTP 라이프사이클 마다 하나의 빈을 사용</td>
+    </tr>
+    <tr>
+      <td>session</td>
+      <td>HTTP 세션마다 하나의 빈을 사용</td>
+    </tr>
+    <tr>
+      <td>application</td>
+      <td>ServeltContext 라이프사이클 동안 하나의 빈만 사용</td>
+    </tr>
+    <tr>
+      <td>websocket</td>
+      <td>websocket 라이프사이클 안에서 하나의 빈만 사용</td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="post-reference">
    <p>Reference</p>
    <a href="https://velog.io/@devjay/Spring-%EC%A0%9C%EC%96%B4%EC%9D%98-%EC%97%AD%EC%A0%84IoC">[Spring] 제어의 역전(IoC)</a>
+   <a href="https://catsbi.oopy.io/0f28d626-febb-421d-91c8-5d44c6df7d1f">스프링 컨테이너와 스프링 빈</a>
 </div>
 
   </div>
@@ -264,7 +407,7 @@
       <div class="container">
         <footer class="footer"><div class="copyright">
             
-            <p>&copy; 2022 Chloe.</p>
+            <p>Copyright &copy; 2022 Chloe.</p>
             
           </div>    
         </footer>
