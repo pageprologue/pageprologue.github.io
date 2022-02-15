@@ -352,43 +352,45 @@
 <h4 id="스프링-빈의-스코프">스프링 빈의 스코프</h4>
 <ul>
   <li>스프링 빈의 기본 스코프는 싱글톤이다.</li>
-  <li>스프링에서 만들어지는 대부분의 빈은 싱글톤 스코프를 갖는다.</li>
-</ul>
+  <li>
+    <p>스프링에서 만들어지는 대부분의 빈은 싱글톤 스코프를 갖는다.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Scope</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>singleton</td>
-      <td>(기본값) 스프링 IoC 컨테이너당 하나의 인스턴스만 사용</td>
-    </tr>
-    <tr>
-      <td>prototype</td>
-      <td>매번 새로운 빈을 정의해서 사용</td>
-    </tr>
-    <tr>
-      <td>request</td>
-      <td>HTTP 라이프사이클 마다 하나의 빈을 사용</td>
-    </tr>
-    <tr>
-      <td>session</td>
-      <td>HTTP 세션마다 하나의 빈을 사용</td>
-    </tr>
-    <tr>
-      <td>application</td>
-      <td>ServeltContext 라이프사이클 동안 하나의 빈만 사용</td>
-    </tr>
-    <tr>
-      <td>websocket</td>
-      <td>websocket 라이프사이클 안에서 하나의 빈만 사용</td>
-    </tr>
-  </tbody>
-</table>
+    <table class="table-basic">
+      <thead>
+        <tr>
+          <th>Scope</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>singleton</td>
+          <td>(기본값) 스프링 IoC 컨테이너당 하나의 인스턴스만 사용</td>
+        </tr>
+        <tr>
+          <td>prototype</td>
+          <td>매번 새로운 빈을 정의해서 사용</td>
+        </tr>
+        <tr>
+          <td>request</td>
+          <td>HTTP 라이프사이클 마다 하나의 빈을 사용</td>
+        </tr>
+        <tr>
+          <td>session</td>
+          <td>HTTP 세션마다 하나의 빈을 사용</td>
+        </tr>
+        <tr>
+          <td>application</td>
+          <td>ServeltContext 라이프사이클 동안 하나의 빈만 사용</td>
+        </tr>
+        <tr>
+          <td>websocket</td>
+          <td>websocket 라이프사이클 안에서 하나의 빈만 사용</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
 
 <div class="post-reference">
    <p>Reference</p>

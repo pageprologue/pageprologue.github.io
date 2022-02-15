@@ -99,6 +99,21 @@
 }
 
 
+/* Table */
+.table-basic {
+  width: 80%;
+  font-size: 15px;
+
+  thead th {
+    background-color: oldlace;
+  }
+
+  tr, td {
+    background-color: white;
+  }
+}
+
+
 /* Font Size */
 [class^="font-"] {
   font-weight: 400;

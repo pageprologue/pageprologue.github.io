@@ -552,6 +552,20 @@
   font-weight: 400;
 }
 
+/* Table */
+.table-basic {
+  width: 80%;
+  font-size: 15px;
+}
+
+.table-basic thead th {
+  background-color: oldlace;
+}
+
+.table-basic tr, .table-basic td {
+  background-color: white;
+}
+
 /* Font Size */
 [class^="font-"] {
   font-weight: 400;
