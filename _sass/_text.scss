@@ -227,6 +227,15 @@
   @include content("➡︎ ");
   padding-right: 4px;
 }
+.pre-pin::before {
+  @include content("📍︎ ");
+  padding-right: 4px;
+}
+.pre-bulb::before {
+  @include content("💡 ");
+  padding-right: 4px;
+}
+
 
 /* Custom Margin Style */
 .mb-10 {

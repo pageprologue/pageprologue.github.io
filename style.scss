@@ -405,7 +405,7 @@ blockquote {
 pre,
 code {
   font-family: $code-font-family !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
   color: $darkerGray;
   border: 01px solid #dddddd;
   border-radius: 03px;
@@ -424,6 +424,12 @@ pre {
     border: 0;
     padding-right: 0;
     padding-left: 0;
+  }
+}
+
+[class^="language-"] {
+  code {
+    font-size: 14px !important;
   }
 }
 
