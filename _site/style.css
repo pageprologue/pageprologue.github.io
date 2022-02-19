@@ -789,7 +789,7 @@ ul, ol, dl, figure,
 
 a.category-link {
   display: block;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: bold;
   margin: 6% 0;
   text-decoration: none;
@@ -1021,7 +1021,7 @@ hr {
   margin-top: 2em;
 }
 
-.side-category > h4 {
+.side-category h5 {
   margin: 15px 10px;
 }
 
@@ -1131,7 +1131,57 @@ hr {
 
 .category-head {
   font-weight: bold;
+  color: #5F9EA0;
+}
+
+.archive-item a:visited, .archive-item a:link, .archive-item a:hover {
   color: #666666;
+  text-decoration: none;
+  border-bottom: 1px #666666 dotted !important;
+}
+
+.archive-item h6 {
+  padding: 0;
+  margin: 0;
+}
+
+.archive-item ul {
+  margin: 10px;
+}
+
+.tag-list {
+  width: 90%;
+  text-align: center;
+  margin: auto;
+}
+
+.tag-list ul {
+  list-style: none;
+  margin: 40px 0 !important;
+  font-size: 17px;
+}
+
+.tag-list li {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0px 5px;
+  background-color: #5F9EA0;
+  border-radius: 10px;
+}
+
+.tag-list a {
+  color: #FFFFFF !important;
+  font-weight: bold;
+}
+
+.archive-tag {
+  width: 90%;
+  text-align: center;
+  margin: auto;
+}
+
+.archive-tag ul {
+  list-style: none;
 }
 
 ::-moz-selection {

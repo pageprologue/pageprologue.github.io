@@ -5,6 +5,7 @@
   {
     "title"    : "{{ post.title | strip_newlines | escape }}",
     "category" : "{{post.categories | join: ', '}}",
+    "tags" : "{{post.tags | join: ', '}}",
     "url"      : "{{ site.baseurl }}{{ post.url }}",
     "date"     : "{{ post.date | date: "%B %-d, %Y" }}",
     "excerpt"  : {{ post.content | strip_html | truncate: '250' | escape | jsonify }},

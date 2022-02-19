@@ -5,6 +5,7 @@ excerpt: 그동안 Window만 사용하다가 이번에 처음으로 Macbook으�
          개발을 하면서 Linux, Ubuntu도 간간이 사용하였지만, 주로 사용한 건 Window였기 때문에 macOS는 아직 서툴지만 그래도 이제는 새로운 환경에 제법 잘 적응할 수 있게 된 것 같습니다.
          macOS 관련해서는 더 공부가 필요하지만, 일단 필요한 환경을 조금씩 구축하면서 내용을 정리해 보았습니다.
 categories: [Daily]
+tags: [Mac]
 ---
 
 
