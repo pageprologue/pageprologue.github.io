@@ -7,8 +7,8 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
 
-<meta name="description" content="Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 의존성을 최소화하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것입니다." />
-<meta property="og:description" content="Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 의존성을 최소화하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것입니다." />
+<meta name="description" content="Layered Architecture란 말 그대로 계층이 나뉘어져 있는 아키텍쳐를 뜻합니다. Layered Architecture의 주된 목표는 어플리케이션을 여러 개의 굵직한 횡단 관심사(cross-cutting concern)로 분리해, 각각의 Layer는 하나의 관심사에만 집중할 수 있도록 하는 것입니다. Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 의존성을 최소화하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것입니다." />
+<meta property="og:description" content="Layered Architecture란 말 그대로 계층이 나뉘어져 있는 아키텍쳐를 뜻합니다. Layered Architecture의 주된 목표는 어플리케이션을 여러 개의 굵직한 횡단 관심사(cross-cutting concern)로 분리해, 각각의 Layer는 하나의 관심사에만 집중할 수 있도록 하는 것입니다. Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 의존성을 최소화하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것입니다." />
 
 <meta name="author" content="Chloe" />
 
@@ -149,26 +149,25 @@
     <h3 id="1-layered-architecture란">1) Layered Architecture란?</h3>
 
 <ul>
-  <li>Layered Architecture란 말 그대로 계층이 나뉘어져 있는 아키텍쳐를 뜻합니다.</li>
-  <li>Layered Architecture의 주된 목표는 어플리케이션을 여러 개의 굵직한 <strong>횡단 관심사(cross-cutting concern)</strong>로 분리해, 각각의 Layer는 하나의 관심사에만 집중할 수 있도록 하는 것입니다.</li>
-  <li>
-    <p>Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 <strong>의존성을 최소화</strong>하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것입니다.</p>
-
-    <p><img src="https://t1.daumcdn.net/cfile/tistory/99EA15365A827B1B11" alt="" class="center" width="90%" /></p>
-  </li>
+  <li>Layered Architecture란 말 그대로 계층이 나뉘어져 있는 아키텍쳐를 뜻한다.</li>
+  <li>Layered Architecture의 주된 목표는 어플리케이션을 여러 개의 굵직한 <strong>횡단 관심사(cross-cutting concern)</strong>로 분리해, 각각의 Layer는 하나의 관심사에만 집중할 수 있도록 하는 것이다.</li>
+  <li>Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 <strong>의존성을 최소화</strong>하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것이다.</li>
+  <li class="blank"></li>
 </ul>
+
+<p><img src="https://t1.daumcdn.net/cfile/tistory/99EA15365A827B1B11" alt="" class="center" width="90%" /></p>
 
 <h3 id="2-layered-architecture의-구성">2) Layered Architecture의 구성</h3>
 
 <h4 class="pre-square bold" id="presentation-layer">Presentation Layer</h4>
 
 <ul>
-  <li>처음 사용자가 서버에 요청을 하게 되면 요청은 Presentation Layer에 전달됩니다.</li>
-  <li>Presentation Layer는 주로 <strong class="bg-ly outline">Controller</strong>, <strong class="bg-ly outline">View(Template Engine)</strong>로 구성되며 사용자와 소프트웨어(웹 서버)간 상호작용의 최선단에 위치합니다.</li>
+  <li>처음 사용자가 서버에 요청을 하게 되면 요청은 Presentation Layer에 전달된다.</li>
+  <li>Presentation Layer는 주로 <strong class="bg-ly outline">Controller</strong>, <strong class="bg-ly outline">View(Template Engine)</strong>로 구성되며 사용자와 소프트웨어(웹 서버)간 상호작용의 최선단에 위치한다.</li>
   <li>
     <p><strong class="bg-ly outline">Controller</strong>는 Presentation Layer의 ‘필수’ 구성요소 중 하나입니다. 
-Presentation Layer의 뒤에 위치하는 Application Layer는 요청이 Android App으로부터의 API 호출인지, 웹 페이지의 Form으로부터 온 것인지, Socket 통신에 의해 온 것인지에 상관없이 동일하게 동작할 수 있어야 합니다. 
-이를 위해 Presentation Layer(Controller)에서는 외부로부터의 요청을 형태가 고정된 <strong class="bg-ly outline">DTO(Data Transfer Object)</strong>로 변환합니다.</p>
+Presentation Layer의 뒤에 위치하는 Application Layer는 요청이 Android App으로부터의 API 호출인지, 웹 페이지의 Form으로부터 온 것인지, Socket 통신에 의해 온 것인지에 상관없이 동일하게 동작할 수 있어야 한다.
+이를 위해 Presentation Layer(Controller)에서는 외부로부터의 요청을 형태가 고정된 <strong class="bg-ly outline">DTO(Data Transfer Object)</strong>로 변환한다.</p>
 
     <p class="notice-info"><strong>Presentation Layer의 역할</strong><br />
 - Client의 요청을 변환<br />
@@ -180,10 +179,10 @@ Presentation Layer의 뒤에 위치하는 Application Layer는 요청이 Android
 <h4 class="pre-square bold" id="application-layer">Application Layer</h4>
 
 <ul>
-  <li>Application Layer에는 <strong class="underline">고수준으로 추상화된 어플리케이션 기능</strong>이 담겨 있습니다.</li>
-  <li>Application Layer는 Domain 개념들이 상호작용하는 방식을 기반으로 Domain Layer를 단순하게 만들고, 이를 사용하기 위한 <strong class="bg-ly outline">Service</strong> 객체를 생성하게 됩니다.</li>
+  <li>Application Layer에는 <strong class="underline">고수준으로 추상화된 어플리케이션 기능</strong>이 담겨 있다.</li>
+  <li>Application Layer는 Domain 개념들이 상호작용하는 방식을 기반으로 Domain Layer를 단순하게 만들고, 이를 사용하기 위한 <strong class="bg-ly outline">Service</strong> 객체를 생성한다.</li>
   <li>
-    <p><strong class="bg-ly outline">Service</strong> 객체란 특정한 행위를 추상화하는 객체를 말합니다.</p>
+    <p><strong class="bg-ly outline">Service</strong> 객체란 특정한 행위를 추상화하는 객체이다.</p>
 
     <h5 id="application-layerservice가-필요한-이유">Application Layer(Service)가 필요한 이유</h5>
     <ol>
@@ -202,11 +201,11 @@ Presentation Layer의 뒤에 위치하는 Application Layer는 요청이 Android
 <h4 class="pre-square bold" id="domain-layer">Domain Layer</h4>
 
 <ul>
-  <li>Domain Layer는 백엔드 서버 아키텍처에 있어서 <strong class="bg-rose outline">핵심 로직</strong>을 구현하는 부분입니다.</li>
-  <li>Domain Layer에는 어떤 외부 관심사에도 의존하지 않고 순수한 비즈니스 로직만을 담아야 합니다.</li>
-  <li>Domain Layer를 순수하게 유지하는 것은 유지보수, 확장성을 결정하는 가장 중요한 요인이라고 할 수 있습니다.</li>
+  <li>Domain Layer는 백엔드 서버 아키텍처에 있어서 <strong class="bg-rose outline">핵심 로직</strong>을 구현하는 부분이다.</li>
+  <li>Domain Layer에는 어떤 외부 관심사에도 의존하지 않고 순수한 비즈니스 로직만을 담아야 한다.</li>
+  <li><strong>Domain Layer를 순수하게 유지하는 것은 유지보수, 확장성을 결정하는 가장 중요한 요인이라고 할 수 있다.</strong></li>
   <li>
-    <p>도메인 레이어의 유형은 크게 <strong class="bg-ly outline">Transaction Script</strong>와 <strong class="bg-ly outline">Domain Model Pattern</strong>을 들 수 있습니다.</p>
+    <p>도메인 레이어의 유형은 크게 <strong class="bg-ly outline">Transaction Script</strong>와 <strong class="bg-ly outline">Domain Model Pattern</strong>을 들 수 있다.</p>
 
     <ul>
       <li>
@@ -223,13 +222,13 @@ Presentation Layer의 뒤에 위치하는 Application Layer는 요청이 Android
       </li>
     </ul>
   </li>
-  <li>도메인 레이어를 구성할 때, <strong class="bg-rose outline">도메인 모델 패턴</strong>을 사용한다면, 객체를 얼마나 잘 정의하는지, 객체들 사이에 협력이 얼마나 잘 만들어지는지에 따라서 가독성, 생산성이 좌우됩니다.</li>
+  <li>도메인 레이어를 구성할 때, <strong class="bg-rose outline">도메인 모델 패턴</strong>을 사용한다면 <strong>객체를 얼마나 잘 정의하는지, 객체들 사이에 협력이 얼마나 잘 만들어지는지에 따라서 가독성, 생산성이 좌우된다.</strong></li>
 </ul>
 
 <h4 class="pre-square bold" id="infrastructure-layer">Infrastructure Layer</h4>
 
 <ul>
-  <li>Infra Layer는 다른 애플리케이션이나, 데이터베이스 등 외부 요소와 연결을 수행합니다.</li>
+  <li>Infra Layer는 다른 애플리케이션이나, 데이터베이스 등 외부 요소와 연결을 수행한다.</li>
   <li>
     <p>DB 서버 연결(Spring Data), Message Queue 연결(kafka, rabbitMQ), 외부 API 요청 방식 정의(RestTemplate, Feign) 등</p>
 

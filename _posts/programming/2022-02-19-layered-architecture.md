@@ -1,16 +1,19 @@
 ---
 layout: post
 title: Layered Architecture
-excerpt: Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 의존성을 최소화하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것입니다.
+excerpt: Layered Architecture란 말 그대로 계층이 나뉘어져 있는 아키텍쳐를 뜻합니다.
+         Layered Architecture의 주된 목표는 어플리케이션을 여러 개의 굵직한 횡단 관심사(cross-cutting concern)로 분리해, 각각의 Layer는 하나의 관심사에만 집중할 수 있도록 하는 것입니다.
+         Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 의존성을 최소화하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것입니다.
 categories: [Programming]
 ---
 
 
 ### 1) Layered Architecture란?
 
-- Layered Architecture란 말 그대로 계층이 나뉘어져 있는 아키텍쳐를 뜻합니다.
-- Layered Architecture의 주된 목표는 어플리케이션을 여러 개의 굵직한 **횡단 관심사(cross-cutting concern)**로 분리해, 각각의 Layer는 하나의 관심사에만 집중할 수 있도록 하는 것입니다.
-- Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 **의존성을 최소화**하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것입니다.
+- Layered Architecture란 말 그대로 계층이 나뉘어져 있는 아키텍쳐를 뜻한다.
+- Layered Architecture의 주된 목표는 어플리케이션을 여러 개의 굵직한 **횡단 관심사(cross-cutting concern)**로 분리해, 각각의 Layer는 하나의 관심사에만 집중할 수 있도록 하는 것이다.
+- Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 **의존성을 최소화**하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것이다.
+- {:.blank}
 
   ![](https://t1.daumcdn.net/cfile/tistory/99EA15365A827B1B11){:.center width="90%"}
 
@@ -20,11 +23,11 @@ categories: [Programming]
 #### Presentation Layer
 {:.pre-square .bold}
 
-- 처음 사용자가 서버에 요청을 하게 되면 요청은 Presentation Layer에 전달됩니다.
-- Presentation Layer는 주로 **Controller**{:.bg-ly .outline}, **View(Template Engine)**{:.bg-ly .outline}로 구성되며 사용자와 소프트웨어(웹 서버)간 상호작용의 최선단에 위치합니다.
+- 처음 사용자가 서버에 요청을 하게 되면 요청은 Presentation Layer에 전달된다.
+- Presentation Layer는 주로 **Controller**{:.bg-ly .outline}, **View(Template Engine)**{:.bg-ly .outline}로 구성되며 사용자와 소프트웨어(웹 서버)간 상호작용의 최선단에 위치한다.
 - **Controller**{:.bg-ly .outline}는 Presentation Layer의 ‘필수’ 구성요소 중 하나입니다. 
-  Presentation Layer의 뒤에 위치하는 Application Layer는 요청이 Android App으로부터의 API 호출인지, 웹 페이지의 Form으로부터 온 것인지, Socket 통신에 의해 온 것인지에 상관없이 동일하게 동작할 수 있어야 합니다. 
-  이를 위해 Presentation Layer(Controller)에서는 외부로부터의 요청을 형태가 고정된 **DTO(Data Transfer Object)**{:.bg-ly .outline}로 변환합니다.
+  Presentation Layer의 뒤에 위치하는 Application Layer는 요청이 Android App으로부터의 API 호출인지, 웹 페이지의 Form으로부터 온 것인지, Socket 통신에 의해 온 것인지에 상관없이 동일하게 동작할 수 있어야 한다.
+  이를 위해 Presentation Layer(Controller)에서는 외부로부터의 요청을 형태가 고정된 **DTO(Data Transfer Object)**{:.bg-ly .outline}로 변환한다.
 
   **Presentation Layer의 역할**  
   \- Client의 요청을 변환  
@@ -36,9 +39,9 @@ categories: [Programming]
 #### Application Layer
 {:.pre-square .bold}
 
-- Application Layer에는 **고수준으로 추상화된 어플리케이션 기능**{:.underline}이 담겨 있습니다.
-- Application Layer는 Domain 개념들이 상호작용하는 방식을 기반으로 Domain Layer를 단순하게 만들고, 이를 사용하기 위한 **Service**{:.bg-ly .outline} 객체를 생성하게 됩니다.
-- **Service**{:.bg-ly .outline} 객체란 특정한 행위를 추상화하는 객체를 말합니다.
+- Application Layer에는 **고수준으로 추상화된 어플리케이션 기능**{:.underline}이 담겨 있다.
+- Application Layer는 Domain 개념들이 상호작용하는 방식을 기반으로 Domain Layer를 단순하게 만들고, 이를 사용하기 위한 **Service**{:.bg-ly .outline} 객체를 생성한다.
+- **Service**{:.bg-ly .outline} 객체란 특정한 행위를 추상화하는 객체이다.
 
   ##### Application Layer(Service)가 필요한 이유
   1. 도메인 레이어가 외부(Infra, External Service)에 대해 가지는 의존을 최소화 한다.
@@ -56,10 +59,10 @@ categories: [Programming]
 #### Domain Layer
 {:.pre-square .bold}
 
-- Domain Layer는 백엔드 서버 아키텍처에 있어서 **핵심 로직**{:.bg-rose .outline}을 구현하는 부분입니다.
-- Domain Layer에는 어떤 외부 관심사에도 의존하지 않고 순수한 비즈니스 로직만을 담아야 합니다.
-- Domain Layer를 순수하게 유지하는 것은 유지보수, 확장성을 결정하는 가장 중요한 요인이라고 할 수 있습니다.
-- 도메인 레이어의 유형은 크게 **Transaction Script**{:.bg-ly .outline}와 **Domain Model Pattern**{:.bg-ly .outline}을 들 수 있습니다.
+- Domain Layer는 백엔드 서버 아키텍처에 있어서 **핵심 로직**{:.bg-rose .outline}을 구현하는 부분이다.
+- Domain Layer에는 어떤 외부 관심사에도 의존하지 않고 순수한 비즈니스 로직만을 담아야 한다.
+- **Domain Layer를 순수하게 유지하는 것은 유지보수, 확장성을 결정하는 가장 중요한 요인이라고 할 수 있다.**
+- 도메인 레이어의 유형은 크게 **Transaction Script**{:.bg-ly .outline}와 **Domain Model Pattern**{:.bg-ly .outline}을 들 수 있다.
 
   - **Transaction Script**  
     트랜잭션 스크립트(Transaction Script) 패턴은 이렇게 하나의 트랜잭션으로 구성된 로직을 단일 함수 또는 단일 스크립트에서 처리하는 구조를 갖는다. 
@@ -71,13 +74,13 @@ categories: [Programming]
     명사와 동사를 구분해서 명사로부터 객체를 추출해내고, 동사로부터 객체의 기능 및 객체 사이의 관계를 유추해낸다.
     객체를 기반으로 하는 도메인 모델의 주요 특징은 데이터와 프로세스가 혼합되어 있다는 것이며, 객체 간의 복잡한 연관 관계를 갖고 있고, 상속 등을 통해서 객체의 기능과 역할을 확장할 수 있다.
 
-- 도메인 레이어를 구성할 때, **도메인 모델 패턴**{:.bg-rose .outline}을 사용한다면, 객체를 얼마나 잘 정의하는지, 객체들 사이에 협력이 얼마나 잘 만들어지는지에 따라서 가독성, 생산성이 좌우됩니다.
+- 도메인 레이어를 구성할 때, **도메인 모델 패턴**{:.bg-rose .outline}을 사용한다면 **객체를 얼마나 잘 정의하는지, 객체들 사이에 협력이 얼마나 잘 만들어지는지에 따라서 가독성, 생산성이 좌우된다.**
 
 
 #### Infrastructure Layer
 {:.pre-square .bold}
 
-- Infra Layer는 다른 애플리케이션이나, 데이터베이스 등 외부 요소와 연결을 수행합니다.
+- Infra Layer는 다른 애플리케이션이나, 데이터베이스 등 외부 요소와 연결을 수행한다.
 - DB 서버 연결(Spring Data), Message Queue 연결(kafka, rabbitMQ), 외부 API 요청 방식 정의(RestTemplate, Feign) 등
 
   **Infra Layer의 기능**  
