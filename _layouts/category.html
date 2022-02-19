@@ -6,12 +6,22 @@ layout: default
 
     {% assign category = page.category | default: page.title %}
     {% for post in site.categories[category] %}
-    <h5>
-        <a href="{{ site.baseurl }}{{ post.url }}">
-            {{ post.title }}
-        </a>
-        <small>{{ post.date | date_to_string }}</small>
-    </h5>
+
+<!--    <h5>-->
+<!--        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>-->
+<!--        <small>{{ post.date | date_to_string }}</small>-->
+<!--    </h5>-->
+
+    <div class="posts">
+        <article class="post">
+            <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+            <div class="entry">
+                {{ post.excerpt }}
+            </div>
+            <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read more&nbsp;&#183;{% include read-time.html content=post.content %}</a>
+        </article>
+    </div>
+
     {% endfor %}
 
 </div>
