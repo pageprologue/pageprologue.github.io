@@ -103,7 +103,7 @@ p.title {
   font-weight: bold;
 
   @media (max-width:900px) {
-    font-size: 15px;
+    font-size: 20px;
   }
 }
 div.post-title {
@@ -297,7 +297,7 @@ hr {
   text-align: right;
 
   @media (max-width:900px) {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 .date {
@@ -885,7 +885,7 @@ a.nav-menu-item:focus {
   .entry {
     font-size: 14px;
     @media (max-width:900px) {
-      font-size: 10px;
+      font-size: 12px;
     }
   }
 
@@ -902,7 +902,7 @@ a.nav-menu-item:focus {
   h1 {
     font-size: 22px;
     @media (max-width:900px) {
-      font-size: 14px;
+      font-size: 16px;
     }
   }
   h2 {
@@ -1000,7 +1000,7 @@ a.nav-menu-item:focus {
     border-bottom: none !important;
 
     @media (max-width:900px) {
-      font-size: 8px !important;
+      font-size: 10px !important;
     }
 
     a {
@@ -1024,7 +1024,7 @@ a.nav-menu-item:focus {
     color: $mahogany;
 
     @media (max-width:900px) {
-      font-size: 8px !important;
+      font-size: 10px !important;
     }
   }
 }

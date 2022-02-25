@@ -1013,7 +1013,7 @@ p.title {
 
 @media (max-width: 900px) {
   p.title {
-    font-size: 15px;
+    font-size: 20px;
   }
 }
 
@@ -1244,7 +1244,7 @@ hr {
 
 @media (max-width: 900px) {
   .post-option {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -1868,7 +1868,7 @@ a.nav-menu-item:focus {
 
 @media (max-width: 900px) {
   .posts > .post .entry {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -1890,7 +1890,7 @@ a.nav-menu-item:focus {
 
 @media (max-width: 900px) {
   .posts > .post h1 {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
@@ -2016,7 +2016,7 @@ a.nav-menu-item:focus {
 
 @media (max-width: 900px) {
   .post .read-more {
-    font-size: 8px !important;
+    font-size: 10px !important;
   }
 }
 
@@ -2043,7 +2043,7 @@ a.nav-menu-item:focus {
 
 @media (max-width: 900px) {
   .post .reading-time {
-    font-size: 8px !important;
+    font-size: 10px !important;
   }
 }
 
