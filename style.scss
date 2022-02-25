@@ -800,8 +800,7 @@ a[href^="#fnref:"] {
   font-size: 16px !important;
 
   @include mobile {
-    font-size: 12px !important;
-    margin: 0;
+    display: none;
   }
   @media (max-width:900px) {
     font-size: 18px !important;
