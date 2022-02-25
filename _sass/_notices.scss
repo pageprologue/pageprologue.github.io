@@ -43,14 +43,18 @@
     background-color: mix(#fff, $noticeColor, 95%)
   }
 
-	pre code {
-		background-color: inherit;
-	}
+  pre code {
+      background-color: inherit;
+  }
 
   ul {
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  @media (max-width:900px) {
+    font-size: 10px !important;
   }
 }
 

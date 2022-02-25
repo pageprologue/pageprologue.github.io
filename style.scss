@@ -31,6 +31,11 @@ p, blockquote, pre,
 ul, ol, dl, figure,
 %vertical-rhythm {
   margin-bottom: 15px;
+
+  @media (max-width:900px) {
+    margin-bottom: 0;
+    font-size: 12px;
+  }
 }
 
 .container {
@@ -39,6 +44,13 @@ ul, ol, dl, figure,
   max-width: 60%;
   padding: 0 10px;
   width: 100%;
+
+  @include mobile {
+    max-width: none;
+  }
+  @media (max-width:900px) {
+    max-width: 90%;
+  }
 }
 
 .category {
@@ -48,6 +60,9 @@ ul, ol, dl, figure,
   text-align: center;
   vertical-align: top;
 
+  @media (max-width:900px) {
+    display: none;
+  }
 }
 a.category-link {
   display: block;
@@ -67,6 +82,17 @@ a.category-link {
   max-width: 60%;
   padding: 0 10px;
   width: 100%;
+
+  @include mobile {
+    max-width: none;
+    padding: 0 20px;
+  }
+  @media (max-width:900px) {
+    max-width: 90%;
+    padding: 0 20px;
+    display: block;
+    margin: auto;
+  }
 }
 .post-container {
   flex: 1 0 auto;
@@ -75,6 +101,10 @@ a.category-link {
 p.title {
   font-size: 30px;
   font-weight: bold;
+
+  @media (max-width:900px) {
+    font-size: 15px;
+  }
 }
 div.post-title {
   background-color: $postGray;
@@ -104,6 +134,10 @@ h1, h2, h3, h4, h5, h6 {
   a {
     border-bottom: none !important;
   }
+
+  @media (max-width:900px) {
+    margin: 1em 0 5px;
+  }
 }
 h1 {
   font-size: 30px;
@@ -111,28 +145,55 @@ h1 {
   a {
     color: inherit;
   }
+  @media (max-width:900px) {
+    font-size: 16px;
+  }
 }
 
-h2 {font-size: 28px;}
+h2 {
+  font-size: 28px;
+  @media (max-width:900px) {
+    font-size: 15px;
+  }
+}
 
 h3 {
   font-size: 24px;
   border-bottom: $lightGray 0.1em solid;
+  @media (max-width:900px) {
+    font-size: 14px;
+  }
 }
 
 h4 {
   font-size: 20px;
   margin: 25px 0 15px;
+  @media (max-width:900px) {
+    font-size: 13px;
+  }
 }
 
 h5 {
   margin: 10px 0;
   font-size: 18px;
+  @media (max-width:900px) {
+    font-size: 12px;
+  }
 }
 
-h6 {font-size: 16px;}
+h6 {
+  font-size: 16px;
+  @media (max-width:900px) {
+    font-size: 11px;
+  }
+}
 
-small, .text_small {font-size: 14px;}
+small, .text_small {
+  font-size: 14px;
+  @media (max-width:900px) {
+    font-size: 10px;
+  }
+}
 
 a {
   color: $darkGray;
@@ -156,6 +217,10 @@ span.light-blue {
 ul, ol {
   margin: 15px 0;
   padding-left: 30px;
+
+  @media (max-width:900px) {
+    padding-left: 15px;
+  }
 }
 
 ul {
@@ -168,6 +233,9 @@ ol {
 
 ol ul, ul ol, ul ul, ol ol {
   margin: 0;
+  @media (max-width:900px) {
+    font-size: 12px;
+  }
 }
 
 ul ul, ol ul {
@@ -179,6 +247,10 @@ em, i {
 
 strong, b {
   font-weight: bold;
+
+  @media (max-width:900px) {
+    font-size: 11px;
+  }
 }
 
 img {
@@ -223,6 +295,10 @@ hr {
 .post-option {
   display: inline-block;
   text-align: right;
+
+  @media (max-width:900px) {
+    font-size: 10px;
+  }
 }
 .date {
   display: inline-block;
@@ -281,6 +357,10 @@ hr {
   p {
     font-size: 20px;
     margin-bottom: 5px;
+
+    @media (max-width:900px) {
+      font-size: 13px !important;
+    }
   }
   a {
     font-size: 16px;
@@ -289,6 +369,10 @@ hr {
     list-style-position: inside;
     padding: 0 20px;
     border-bottom: none !important;
+
+    @media (max-width:900px) {
+      font-size: 11px !important;
+    }
   }
 }
 .contact {
@@ -312,6 +396,10 @@ hr {
   .github span {
     vertical-align: text-bottom;
     margin-left: 5px;
+  }
+
+  @media (max-width:900px) {
+    font-size: 11px;
   }
 }
 .fa-github:before {
@@ -401,11 +489,15 @@ hr {
     list-style: none;
     margin: 40px 0 !important;
     font-size: 17px;
+
+    @media (max-width:900px) {
+      font-size: 12px !important;
+    }
   }
   li {
     display: inline-block;
     padding: 5px 10px;
-    margin: 0px 5px;
+    margin: 5px 5px;
     background-color: $tagClor; // FF7F50FF
     border-radius: 10px;
   }
@@ -463,14 +555,18 @@ code {
   border: 01px solid #dddddd;
   border-radius: 03px;
   background-color: $codeBaseColor;
+
+  @media (max-width:900px) {
+    font-size: 10px !important;
+  }
 }
 
 code {
-  padding: 01px 03.55px;
+  padding: 1px 03.55px;
 }
 
 pre {
-  padding: 08px 12px;
+  padding: 8px 12px;
   overflow-x: auto;
 
   > code {
@@ -478,11 +574,19 @@ pre {
     padding-right: 0;
     padding-left: 0;
   }
+
+  @media (max-width:900px) {
+    padding: 4px 0px;
+  }
 }
 
 [class^="language-"] {
   code {
     font-size: 14px !important;
+
+    @media (max-width:900px) {
+      font-size: 10px !important;
+    }
   }
 }
 
@@ -575,7 +679,7 @@ table {
     text-align: center;
   }
 
-  @include mobile {
+  @media (max-width:900px) {
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -618,9 +722,16 @@ a[href^="#fnref:"] {
   padding: 20px 0;
   border-bottom: 01px solid $lightGray;
 
-  @include mobile {
-    display: block;
-    text-align: center;
+  @media (max-width:900px) {
+    width: 100%;
+    padding: 10px 0;
+
+    .site-info {
+      display: inline-block;
+    }
+    .nav-menu {
+      float: right;
+    }
   }
 }
 
@@ -630,6 +741,15 @@ a[href^="#fnref:"] {
   margin-right: 15px;
 
   @include mobile {
+    width: 40px;
+    height: 40px;
+    float: none;
+    display: block;
+    margin: 0 auto;
+  }
+  @media (max-width:900px) {
+    width: 60px;
+    height: 60px;
     float: none;
     display: block;
     margin: 0 auto;
@@ -644,10 +764,10 @@ a[href^="#fnref:"] {
   flex: 1;
   align-self: flex-start;
 
-  @include mobile {
+  @media (max-width:900px) {
     float: none;
     display: block;
-    margin: 0 auto;
+    margin: 15px 10px;
   }
 }
 
@@ -667,7 +787,11 @@ a[href^="#fnref:"] {
     &:visited {
       color: inherit;
     }
+    @media (max-width:900px) {
+      display: none;
+    }
   }
+
 }
 
 .site-description {
@@ -676,7 +800,12 @@ a[href^="#fnref:"] {
   font-size: 16px !important;
 
   @include mobile {
-    margin: 03px 0;
+    font-size: 12px !important;
+    margin: 0;
+  }
+  @media (max-width:900px) {
+    font-size: 18px !important;
+    margin: 0 10px;
   }
 }
 
@@ -688,27 +817,32 @@ nav {
     float: none;
     margin-top: 09px;
     display: block;
-    font-size: 16px !important;
+    font-size: 10px !important;
+  }
+  @media (max-width:900px) {
+    float: none;
+    margin-top: 09px;
+    display: block;
+    font-size: 15px !important;
   }
 
   a {
-    margin-left: 20px;
+    margin: 0 10px;
     color: $darkGray;
     text-align: right;
     font-weight: 300;
     letter-spacing: 01px;
 
-      &:hover {
-        color: inherit;
-        text-decoration: underline;
-      }
-      &:visited {
-        color: inherit;
-      }
-        @include mobile {
-          margin: 0 10px;
-          color: $blue;
-        }
+    &:hover {
+      color: inherit;
+      text-decoration: underline;
+    }
+    &:visited {
+      color: inherit;
+    }
+    @include mobile{
+      margin: 0 5px;
+    }
   }
 }
 
@@ -729,7 +863,7 @@ a.nav-menu-item:focus {
   }
 
 //
-// .main
+// .mainnotice-list
 //
 
 .posts > .post {
@@ -738,8 +872,22 @@ a.nav-menu-item:focus {
   padding: 10px 1.5em;
   margin: 15px 0px;
 
+  @include mobile {
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin: 10px 0px;
+  }
+  @media (max-width:900px) {
+    border-radius: 25px;
+    padding: 15px 20px;
+    margin: 15px 0px;
+  }
+
   .entry {
     font-size: 14px;
+    @media (max-width:900px) {
+      font-size: 10px;
+    }
   }
 
   h1 {
@@ -754,14 +902,52 @@ a.nav-menu-item:focus {
 
   h1 {
     font-size: 22px;
+    @media (max-width:900px) {
+      font-size: 14px;
+    }
   }
-  h2 {font-size: 20px;}
-  h3 {font-size: 18px;}
-  h4 {font-size: 15px;}
-  h5 {font-size: 11px;}
-  h6 {font-size: 9px;}
-  small, .text_small {font-size: 10px;}
-  p, blockquote, pre,ul, ol, dl, figure {font-size: 14px;}
+  h2 {
+    font-size: 20px;
+    @media (max-width:900px) {
+      font-size: 13px;
+    }
+  }
+  h3 {
+    font-size: 18px;
+    @media (max-width:900px) {
+      font-size: 12px;
+    }
+  }
+  h4 {
+    font-size: 15px;
+    @media (max-width:900px) {
+      font-size: 11px;
+    }
+  }
+  h5 {
+    font-size: 11px;
+    @media (max-width:900px) {
+      font-size: 10px;
+    }
+  }
+  h6 {
+    font-size: 9px;
+    @media (max-width:900px) {
+      font-size: 9px;
+    }
+  }
+  small, .text_small {
+    font-size: 10px;
+    @media (max-width:900px) {
+      font-size: 8px;
+    }
+  }
+  p, blockquote, pre, ul, ol, dl, figure {
+    font-size: 14px;
+    @media (max-width:900px) {
+      font-size: 9px;
+    }
+  }
 
   .notice-list a {
     font-size: 12px;
@@ -772,6 +958,10 @@ a.nav-menu-item:focus {
       border-bottom: 1px dotted $mediumGray;
       pointer-events : none;
       cursor: default;
+    }
+
+    @media (max-width:900px) {
+      font-size: 9px;
     }
   }
 }
@@ -810,6 +1000,10 @@ a.nav-menu-item:focus {
     color: $mahogany;
     border-bottom: none !important;
 
+    @media (max-width:900px) {
+      font-size: 8px !important;
+    }
+
     a {
       color: $mahogany;
       text-decoration: none;
@@ -825,10 +1019,14 @@ a.nav-menu-item:focus {
     }
   }
 
-  .reading-time {
+  .reading-time {padding: 10px 1.5em;
     text-transform: uppercase;  
     font-size: 14px !important;
     color: $mahogany;
+
+    @media (max-width:900px) {
+      font-size: 8px !important;
+    }
   }
 }
 
@@ -864,6 +1062,10 @@ footer {
   p {
     margin: 0;
     padding: 0;
+
+    @media (max-width:900px) {
+      font-size: 8px !important;
+    }
   }
 }
 

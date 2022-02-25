@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /tags/
+permalink: /tags
 ---
 
 <div id="archives">
@@ -18,7 +18,6 @@ permalink: /tags/
           {{tag_name}} ({{tag_size}})
         </a>
       </li>
-
       {% endfor %}
     </ul>
   </div>

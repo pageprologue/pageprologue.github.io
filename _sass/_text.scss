@@ -5,11 +5,20 @@
   background-color: $bgColor;
   padding: 1px 5px;
   border-radius: 4px;
+
+  @media (max-width:900px) {
+    font-size: 12px;
+    padding: 0 3px;
+  }
 }
 
 .outline {
   font-size: 17px;
   border: 0.1px $mediumGray solid;
+
+  @media (max-width:900px) {
+    font-size: 12px;
+  }
 }
 
 .bg-gray {
@@ -110,6 +119,10 @@
 
   tr, td {
     background-color: white;
+  }
+
+  @media (max-width:900px) {
+    font-size: 10px;
   }
 }
 
@@ -248,6 +261,10 @@
   font-weight: 400;
   padding: 2px 5px;
   border-radius: 4px;
+
+  @media (max-width:900px) {
+    font-size: 10px;
+  }
 }
 
 .case-eg {
