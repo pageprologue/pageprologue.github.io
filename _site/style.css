@@ -649,6 +649,21 @@
   }
 }
 
+.bg-pink {
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #fce9f9;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+  .bg-pink {
+    font-size: 12px;
+    padding: 0 3px;
+  }
+}
+
 /* Font Color */
 .color-red {
   color: #B22222;

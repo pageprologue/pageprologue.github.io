@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="✓︎ 단방향 연관관계
+✓︎ 연관관계 사용
+✓︎ 양방향 연관관계
+✓︎ 연관관계의 주인
+✓︎ 양방향 연관관계 저장
+✓︎ 양방향 연관관계의 주의점
+" />
+<meta property="og:description" content="✓︎ 단방향 연관관계
+✓︎ 연관관계 사용
+✓︎ 양방향 연관관계
+✓︎ 연관관계의 주인
+✓︎ 양방향 연관관계 저장
+✓︎ 양방향 연관관계의 주의점
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="자바 ORM 표준 JPA 프로그래밍 - (5) 연관관계 매핑 기초" />
+<meta property="twitter:title" content="자바 ORM 표준 JPA 프로그래밍 - (5) 연관관계 매핑 기초" />
+
+
+
+    <title>자바 ORM 표준 JPA 프로그래밍 - (5) 연관관계 매핑 기초 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/tags">Tag</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">자바 ORM 표준 JPA 프로그래밍 - (5) 연관관계 매핑 기초</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-03-08
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#1-단방향-연관관계">✓︎ 단방향 연관관계</a><br />
+<a href="#2-연관관계-사용">✓︎ 연관관계 사용</a><br />
+<a href="#3-양방향-연관관계">✓︎ 양방향 연관관계</a><br />
+<a href="#4-연관관계의-주인">✓︎ 연관관계의 주인</a><br />
+<a href="#5-양방향-연관관계-저장">✓︎ 양방향 연관관계 저장</a><br />
+<a href="#6-양방향-연관관계의-주의점">✓︎ 양방향 연관관계의 주의점</a></p>
+
+<h4 id="핵심-키워드">핵심 키워드</h4>
+
+<ul>
+  <li><strong class="bg-old outline">방향</strong> : 단방향, 양방향이 있다.</li>
+  <li>한 쪽이 어느 한 쪽만 참조하는 → 단방향 관계</li>
+  <li>양쪽 모두 서로를 참조하는 것 → 양방향 관계</li>
+  <li>방향은 객체관계에만 존재하고 테이블 관계는 항상 양방향이다.</li>
+  <li><strong class="bg-old outline">다중성</strong> : 다대일(N:1), 일대다(1:N), 다대다(N:N) 다중성이 있다.</li>
+  <li><strong class="bg-old outline">관계의 주인</strong> : 객체를 양방향 연관관계로 만들면 연관관계의 주인을 정해야 한다.</li>
+</ul>
+
+<h3 id="1-단방향-연관관계">1. 단방향 연관관계</h3>
+<ul>
+  <li>다대일(N:1) 단방향 관계
+    <ul>
+      <li>회원(Member) - 팀(Team)</li>
+      <li>회원은 하나의 팀에만 소속될 수 있다. → 다대일(N:1) 관계
+<img src="/image/jpa/jpa-5-1.png" alt="" class="center" width="80%" /></li>
+      <li>회원 객체는 <code class="language-plaintext highlighter-rouge">Member.team</code> 필드로 팀 객체와 연관관계를 맺는다. 반대로 팀은 회원을 알 수 없다.</li>
+      <li>회원 테이블은 <code class="language-plaintext highlighter-rouge">TEAM_ID</code> 외래키로 팀 테이블과 연관관계를 맺는다.</li>
+      <li class="blank"></li>
+    </ul>
+
+    <p><strong class="pre-arrow">참조를 통한 연관관계는 언제나 단방향이다.</strong><br />
+<strong class="pre-arrow">테이블을 통한 연관관계는 언제나 양방향이다.</strong><br />
+<strong class="pre-arrow">그렇다면 객체 간의 양방향 관계는?</strong><br />
+  객체 간에 연관관계를 양방향으로 만들고 싶으면 반대쪽에도 필드를 추가해서 참조를 보관해야 한다.<br />
+  (정확히 이야기하면 이것은 양방향 관계가 아니라 서로 다른 단반향 관계 2개이다.)</p>
+  </li>
+</ul>
+
+<h4 class="pre-square" id="객체-연관관계-vs-테이블-연관관계-정리">객체 연관관계 vs 테이블 연관관계 정리</h4>
+
+<ul>
+  <li>
+    <p>참조를 사용하는 <strong class="underline">객체의 연관관계는 단방향</strong>이다.<br />
+<code class="language-plaintext highlighter-rouge">A → B (a.b)</code></p>
+  </li>
+  <li>
+    <p>외래 키를 사용하는 <strong class="underline">테이블의 연관관계는 양방향</strong>이다.<br />
+<code class="language-plaintext highlighter-rouge">A JOIN B</code> 가 가능하면 반대로 <code class="language-plaintext highlighter-rouge">B JOIN A</code> 도 가능</p>
+  </li>
+  <li>
+    <p>객체를 양방향으로 참조하려면 단방향 연관관계를 2개 만들어야 한다.<br />
+<code class="language-plaintext highlighter-rouge">A → B (a.b)</code><br />
+<code class="language-plaintext highlighter-rouge">B → A (b.a)</code></p>
+  </li>
+</ul>
+
+<h4 id="1-순수한-객체-연관관계">1) 순수한 객체 연관관계</h4>
+<ul>
+  <li>객체 탐색 그래프: 객체는 참조를 사용해서 연관관계를 탐색할 수 있다.
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="n">memer1</span><span class="o">.</span><span class="na">getTeam</span><span class="o">();</span>
+</code></pre></div>    </div>
+  </li>
+  <li class="blank"></li>
+</ul>
+
+<p class="indent"><img src="/image/jpa/jpa-5-2.png" alt="" width="50%" /></p>
+
+<h4 id="2-테이블-연관관계">2) 테이블 연관관계</h4>
+<ul>
+  <li>데이터베이스는 외래 키를 사용해서 연관관계를 탐색할 수 있는데 이것을 조인이라 한다.
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">T</span><span class="p">.</span><span class="o">*</span>
+<span class="k">FROM</span> <span class="n">MEMBER</span> <span class="n">M</span>
+<span class="k">JOIN</span> <span class="n">TEAM</span> <span class="n">T</span> <span class="k">ON</span> <span class="n">M</span><span class="p">.</span><span class="n">TEAM_ID</span> <span class="o">=</span> <span class="n">T</span><span class="p">.</span><span class="n">TEAM_ID</span>
+<span class="k">WHERE</span> <span class="n">M</span><span class="p">.</span><span class="n">MEMBER_ID</span> <span class="o">=</span> <span class="s1">'memeber1'</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="3-객체-관계-매핑">3) 객체 관계 매핑</h4>
+<ul>
+  <li>JPA를 통한 연관 관계 매핑
+    <ul>
+      <li>객체 연관관계 : 회원 객체의 Member.team <strong>필드를 사용</strong></li>
+      <li>테이블 연관관계 : 회원 테이블의 MEMBER.TEAM_ID <strong>외래 키 컬럼을 사용</strong></li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ManyToOne</span>
+<span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TEAM_ID"</span><span class="o">)</span>
+<span class="kd">private</span> <span class="nc">Team</span> <span class="n">team</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="4-joincolumn">4) @JoinColumn</h4>
+<p><img src="/image/jpa/jpa-5-3.png" alt="" class="center" width="80%" /></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@JoinColumn</code> 을 생략하면 외래 키를 찾을 때 기본 전략을 사용한다.
+    <ul>
+      <li>기본 잔략 : 필드명 + _ + 참조하는 테이블의 컬럼명</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="5-manytoone">5) @ManyToOne</h4>
+<p><img src="/image/jpa/jpa-5-4.png" alt="" class="center" width="80%" /></p>
+
+<ul>
+  <li>다대일(@ManyToOne)과 비슷한 일대일(@OneToOne) 관계도 있다. 단방향 관계를 매핑할 때 둘 중 어떤 것을 사용해야 할지는 반대편 관계에 달려 있다.
+    <ul>
+      <li>일대다(1:N) ↔︎ 다대일(N:1) / 일대일(1:1) ↔ 일대일(1:1)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-연관관계-사용">2. 연관관계 사용</h3>
+
+<h4 id="1-저장">1) 저장</h4>
+<ul>
+  <li>회원 엔티티가 팀 엔티티를 참조하여 저장한다.
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">testSave</span><span class="o">()</span> <span class="o">{</span>
+<span class="nc">Team</span> <span class="n">team1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Team</span><span class="o">(</span><span class="s">"team1"</span><span class="o">,</span> <span class="s">"팀1"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team1</span><span class="o">);</span>  <span class="c1">//연관된 엔티티는 영속 상태여야 함</span>
+  
+    <span class="nc">Member</span> <span class="n">member1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">(</span><span class="s">"member1"</span><span class="o">,</span> <span class="s">"회원1"</span><span class="o">);</span>
+    <span class="n">member1</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="n">team1</span><span class="o">);</span>  <span class="c1">//연관관계 설정 (member1 -&gt; team1)</span>
+    <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member1</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p class="notice">📍 JPA에서 엔티티를 저장할 때 연관된 모든 엔티티는 영속 상태여야 한다.</p>
+
+<h4 id="2-조회">2) 조회</h4>
+<ul>
+  <li>연관관계가 있는 엔티티를 조회하는 방법은 크게 2가지이다.
+    <ul>
+      <li><strong>객체 그래프 탐색(객체 연관관계를 사용한 조회)</strong>
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+  <span class="nc">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="n">member</span><span class="o">.</span><span class="na">getTeam</span><span class="o">();</span>
+</code></pre></div>        </div>
+      </li>
+      <li><strong>객체지향 쿼리(JPAL) 사용</strong>
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">String</span> <span class="n">jpql</span> <span class="o">=</span> <span class="s">"select m from Member m join m.team t where t.name = :teamName"</span><span class="o">;</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="n">jpql</span><span class="o">,</span> <span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+                      <span class="o">.</span><span class="na">setParameter</span><span class="o">(</span><span class="s">"teamName"</span><span class="o">,</span> <span class="s">"팀1"</span><span class="o">)</span>
+                      <span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="3-수정">3) 수정</h4>
+<ul>
+  <li>
+    <p>단순히 불러온 엔티티의 값만 변경하면 트랜잭션을 커밋할 때 플러시가 일어나면서 <code class="language-plaintext highlighter-rouge">변경 감지</code> 기능이 작동한다. <code class="language-plaintext highlighter-rouge">em.update()</code> 와 같은 메소드는 없다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="n">team2</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="4-연관관계-제거">4) 연관관계 제거</h4>
+<ul>
+  <li>연관관계를 null 로 설정한다.
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"member1"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>  <span class="c1">//연관관계 제거</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="5-연관된-엔티티-삭제">5) 연관된 엔티티 삭제</h4>
+
+<ul>
+  <li>연관된 엔티티를 삭제하려면 기존에 있던 연관관계를 먼저 제거하고 삭제해야 한다.
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">membe1</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>  <span class="c1">//연관관계 제거</span>
+<span class="n">em</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">team1</span><span class="o">);</span>  <span class="c1">//팀 삭제</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="3-양방향-연관관계">3. 양방향 연관관계</h3>
+
+<h4 id="1-양방향-연관관계-매핑">1) 양방향 연관관계 매핑</h4>
+<ul>
+  <li>일대다(1:N) 관계는 여러 건과 연관관계를 맺을 수 있으므로 컬렉션을 사용해야 한다.
+    <ul>
+      <li>Mamber.clss
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ManyToOne</span>
+<span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TEAM_ID"</span><span class="o">)</span>
+<span class="kd">private</span> <span class="nc">Team</span> <span class="n">team</span><span class="o">;</span>
+</code></pre></div>        </div>
+      </li>
+      <li>Team.class
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"team"</span><span class="o">)</span>
+<span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="2-일대다-컬렉션-조회">2) 일대다 컬렉션 조회</h4>
+<ul>
+  <li>객체 그래프 탐색을 사용
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Team</span> <span class="n">team</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Team</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"team1"</span><span class="o">);</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">();</span> <span class="c1">//(팀 -&gt; 회원)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="4-연관관계의-주인">4. 연관관계의 주인</h3>
+
+<ul>
+  <li>엔티티를 양방향 연관관계로 설정하면 객체의 참조는 둘인데 외래 키는 하나다.</li>
+  <li>JPA에서는 두 객체 연관관계 중 하나를 정해서 테이블의 외래키를 관리해야 하는데 이것을 <strong class="bg-pink outline">연관관계의 주인</strong>이라 한다.</li>
+</ul>
+
+<h4 id="1-양방향-매핑의-규칙--연관관계의-주인">1) 양방향 매핑의 규칙 : 연관관계의 주인</h4>
+
+<ul>
+  <li><strong class="bg-pink outline">양방향 연관관계</strong> 매핑 시 연관관계의 주인을 정해야 한다.
+    <ul>
+      <li>연관관계의 주인은 데이터베이스 연관관계와 매핑되고 외래키를 관리(등록, 수정, 삭제) 할 수 있다.</li>
+      <li>연관관계의 주인이 아닌 쪽은 읽기만 할 수 있다.</li>
+    </ul>
+  </li>
+  <li>연관관계의 주인을 정한다는 것은 사실 외래 키 관리자를 선택하는 것이다.</li>
+</ul>
+
+<h4 id="2-연관관계의-주인은-외래-키가-있는-곳">2) 연관관계의 주인은 외래 키가 있는 곳</h4>
+
+<ul>
+  <li>
+    <p>연관관계의 주인은 테이블에 외래 키가 있는 곳으로 정해야 한다.</p>
+
+    <p class="notice-basic">📍 데이터베이스 테이블의 다대일, 일대다 관계에서는 항상 다 쪽이 외래 키를 가진다. 다 쪽인 @ManyToOne은 항상 연관관계의 주인이 되므로 mappedBy를 설정할 수 없다. 따라서 @ManyToOne 에는 mappedBy 속성이 없다.</p>
+  </li>
+</ul>
+
+<h3 id="5-양방향-연관관계-저장">5. 양방향 연관관계 저장</h3>
+<ul>
+  <li><strong>연관관계의 주인이 아닌 곳에 입력된 값은 외래 키에 영향을 주지 않는다.</strong>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">team</span><span class="o">.</span><span class="na">getMember</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>  <span class="c1">//무시(연관관계의 주인 아님)</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>  <span class="c1">//연관관계 설정(연관관계의 주인)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="6-양방향-연관관계의-주의점">6. 양방향 연관관계의 주의점</h3>
+<ul>
+  <li>양방향 연관관계를 설정하고 가장 흔히 하는 실수는 연관관계의 주인에는 값을 입력하지 않고, 주인이 아닌 곳에만 값을 입력하는 것이다.</li>
+</ul>
+
+<h4 id="1-순수한-객체까지-고려한-양방향-연관관계">1) 순수한 객체까지 고려한 양방향 연관관계</h4>
+
+<ul>
+  <li>그렇다면 연관관계의 주인에만 값을 저장하고 주인이 아닌 곳에는 값을 저장하지 않아도 될까?<br />
+<strong class="pre-result">객체 관점에서 양쪽 방향에 모두 값을 입력해주는 것이 안전하다.</strong></li>
+  <li>객체를 고려한 양방향 연관관계
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Team</span> <span class="n">team1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Team</span><span class="o">(</span><span class="s">"team1"</span><span class="o">,</span> <span class="s">"팀1"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>
+  
+<span class="nc">Member</span> <span class="n">member1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">(</span><span class="s">"member1"</span><span class="o">,</span> <span class="s">"회원1"</span><span class="o">);</span>
+  
+<span class="c1">//양방향 연관관계 설정</span>
+<span class="n">member1</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="n">team1</span><span class="o">);</span>
+<span class="n">team1</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">member1</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member1</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="2-연관관계-편의-메소드">2) 연관관계 편의 메소드</h4>
+
+<ul>
+  <li>양방향 연관관계는 결국 양쪽 다 신경을 써야 하는데 연관관계를 설정하는 메소드를 각각 호출하다보면 실수로 둘 중 하나만 호출해서 양방향이 깨질 수 있다.</li>
+  <li>한 번에 양방향 관계를 설정하는 메소드를 <strong class="bg-pink outline">연관관계 편의 메소드</strong>라고 한다.
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTeam</span><span class="o">(</span><span class="nc">Team</span> <span class="n">team</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">this</span><span class="o">.</span><span class="na">team</span> <span class="o">=</span> <span class="n">team</span><span class="o">;</span>
+   <span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="3-연관관계-편의-메소드-작성-시-주의사항">3) 연관관계 편의 메소드 작성 시 주의사항</h3>
+
+<ul>
+  <li>연관관계를 변경할 때 이전에 설정한 연관관계가 제거되지 않기 때문에 이전의 연관관계를 삭제하는 코드를 추가해야 한다.
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTeam</span><span class="o">(</span><span class="nc">Team</span> <span class="n">team</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">//기존 팀과 관계를 제거</span>
+   <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">team</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+   		<span class="k">this</span><span class="o">.</span><span class="na">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">remove</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+   <span class="o">}</span>
+   <span class="k">this</span><span class="o">.</span><span class="na">team</span> <span class="o">=</span> <span class="n">team</span><span class="o">;</span>
+   <span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+    <p><strong class="pre-arrow">객체에서 양방향 연관관계를 사용하려면 로직을 견고하게 작성해야 한다.</strong></p>
+  </li>
+</ul>
+
+<h3 id="7-정리">7. 정리</h3>
+
+<h4 id="--단방향">- 단방향</h4>
+
+<ul>
+  <li>연관관계가 하나인 단방향 매핑은 언제나 연관관계의 주인이다.</li>
+  <li>단방향은 항상 외래 키가 있는 곳을 기준으로 매핑하면 된다.</li>
+</ul>
+
+<h4 id="--양방향">- 양방향</h4>
+
+<ul>
+  <li>단방향 매핑과 비교해서 양방향 매핑은 복잡하다. 연관관계의 주인도 정해야 하고, 두 개의 단방향 연관관계를 양방향으로 만들기 위해 로직도 잘 관리해야 한다.</li>
+  <li>양방향의 장점은 반대방향으로 객체 그래프 탐색 기능이 추가된 것뿐이다.</li>
+  <li>연관관계 주인의 반대편은 <strong class="bg-orange outline">mappedBy</strong>로 주인을 지정해야 한다.</li>
+  <li>양방향 매핑 시에는 무한 루프에 빠지지 않게 조심해야 한다.
+    <ul>
+      <li>예를 들어, <code class="language-plaintext highlighter-rouge">Member.toString()</code>에서 <code class="language-plaintext highlighter-rouge">getTeam()</code>을 호출하고, <code class="language-plaintext highlighter-rouge">Team.toString()</code>에서 <code class="language-plaintext highlighter-rouge">getMember()</code>를 호출하면 무한 루프에 빠질 수 있다.</li>
+      <li>이런 문제는 엔티티를 JSON으로 변환할 때 자주 발생한다. JSON 라이브러리들은 보통 무한루프에 빠지지 않도록 하는 어노테이션이나 기능을 제공한다.</li>
+      <li>Lombok 라이브러리를 사용할 때도 자주 발생한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>Copyright &copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>

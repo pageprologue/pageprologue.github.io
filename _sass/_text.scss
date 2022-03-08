@@ -68,6 +68,10 @@
   @include bg($lavenderColor);
 }
 
+.bg-pink {
+  @include bg($bgPinkColor);
+}
+
 
 /* Font Color */
 @mixin color($fontColor) {
