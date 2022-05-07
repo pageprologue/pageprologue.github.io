@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="✓︎ 다대일
+✓︎ 일대다
+✓︎ 일대일[1:1]
+✓︎ 다대다[N:M]
+" />
+<meta property="og:description" content="✓︎ 다대일
+✓︎ 일대다
+✓︎ 일대일[1:1]
+✓︎ 다대다[N:M]
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="자바 ORM 표준 JPA 프로그래밍 - (6) 다양한 연관관계 매핑" />
+<meta property="twitter:title" content="자바 ORM 표준 JPA 프로그래밍 - (6) 다양한 연관관계 매핑" />
+
+
+
+    <title>자바 ORM 표준 JPA 프로그래밍 - (6) 다양한 연관관계 매핑 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/tags">Tag</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">자바 ORM 표준 JPA 프로그래밍 - (6) 다양한 연관관계 매핑</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-03-21
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#1-다대일">✓︎ 다대일</a><br />
+<a href="#2-일대다">✓︎ 일대다</a><br />
+<a href="#3-일대일11">✓︎ 일대일[1:1]</a><br />
+<a href="#4-다대다nm">✓︎ 다대다[N:M]</a></p>
+
+<h4 id="핵심-키워드">핵심 키워드</h4>
+
+<ul>
+  <li>엔티티의 연관관계를 매핑할 때는 다음 3가지를 고려해야 한다.
+    <ul>
+      <li>다중성</li>
+      <li>단방향, 양방향</li>
+      <li>연관관계의 주인</li>
+    </ul>
+
+    <p><img src="/image/jpa/jpa-6-1.png" alt="" width="70%" /></p>
+  </li>
+</ul>
+
+<h3 id="1-다대일">1. 다대일</h3>
+<ul>
+  <li><strong class="bg-ly outline">다대일</strong> 관계의 반대 방향은 항상 <strong class="bg-ly outline">일대다</strong> 관계이고, <strong class="bg-ly outline">일대다</strong> 관계의 반대 방향은 항상 <strong class="bg-ly outline">다대일</strong> 관계이다.</li>
+  <li>데이터베이스 테이블의 일(1), 다(N) 관계에서 외래 키는 항상 다 쪽에 있다.<br />
+→ <strong class="underline">따라서 객체 양방향 관계에서 연관관계의 주인은 항상 다쪽이다.</strong></li>
+</ul>
+
+<h4 id="1-다대일-단방향-n1">1) 다대일 단방향 [N:1]</h4>
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2F5d05ccfe-05b9-4b6d-88b2-726747b64240%2Fimage.png" alt="" class="center" width="65%" /></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@ManyToOne</span>
+  <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TEAM_ID"</span><span class="o">)</span>  <span class="c1">// Member.team 필드를 TEAM_ID 외래키와 매핑</span>
+  <span class="kd">private</span> <span class="nc">Team</span> <span class="n">team</span><span class="o">;</span>
+</code></pre></div></div>
+<ul>
+  <li class="blank"></li>
+</ul>
+
+<h4 id="2-다대일-양방향-n1---1n">2) 다대일 양방향 [N:1 - 1:N]</h4>
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2F251648a9-1002-4da8-a6ad-8880a1ca1a1c%2Fimage.png" alt="" class="center" width="72%" /></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@ManyToOne</span>
+  <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TEAM_ID"</span><span class="o">)</span>  <span class="c1">// Member.team 필드를 TEAM_ID 외래키와 매핑</span>
+  <span class="kd">private</span> <span class="nc">Team</span> <span class="n">team</span><span class="o">;</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"team"</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;();</span>
+</code></pre></div></div>
+
+<ul>
+  <li>양방향은 외래 키가 있는 쪽이 연관관계의 주인이다.
+    <ul>
+      <li>일대다와 다대일 연관관계는 항상 다(N)에 외래 키가 있다.</li>
+    </ul>
+  </li>
+  <li>양방향 연관관계는 항상 서로를 참조해야 한다.
+    <ul>
+      <li>양방향 관계에서 객체가 항상 서로 참조하게 하려면 <strong class="bg-green outline">연관관계 편의 메소드</strong>를 사용하는 것이 좋다.</li>
+      <li>연관관계 편의 메소드는 한 곳에만 작성하거나 양쪽에 작성할 수 있는데, 양쪽에 작성할 경우 무한루프에 빠지므로 주의해야 한다. <em>→ 무한루프에 빠지지 않도록 검사하는 로직을 추가한다.</em></li>
+      <li class="blank"></li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTeam</span><span class="o">(</span><span class="nc">Team</span> <span class="n">team</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">team</span> <span class="o">=</span> <span class="n">team</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">contains</span><span class="o">(</span><span class="k">this</span><span class="o">))</span> <span class="o">{</span>  <span class="c1">// 무한 루프에 빠지지 않도록 체크</span>
+        <span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">);</span> 
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">addMember</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">members</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getTeam</span><span class="o">()</span> <span class="o">!=</span> <span class="k">this</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// 무한 루프에 빠지지 않도록 체크</span>
+        <span class="n">members</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li class="blank"></li>
+</ul>
+
+<h3 id="2-일대다">2. 일대다</h3>
+<ul>
+  <li>일대다 관계는 다대일 관계의 반대 방향이다.</li>
+  <li>일대다 관계는 엔티티를 하나 이상 참조할 수 있으므로, <strong class="underline">자바 컬렉션을 사용해야 한다.</strong></li>
+</ul>
+
+<h4 id="1-일대다-단방향-1n">1) 일대다 단방향 [1:N]</h4>
+<ul>
+  <li>일대다 단방향 관계를 매핑할 때는 <code class="language-plaintext highlighter-rouge">@JoinColumn</code>을 명시해야 한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">@JoinColumn</code>을 명시하지 않으면 JPA는 연결 테이블을 중간에 두고 연관관계를 관리하는 조인 테이블 전략을 기본으로 사용해서 매핑한다.</li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2F05318e22-7e0a-4569-a7ef-02ec6bb7ae73%2Fimage.png" alt="" class="center" width="75%" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@OneToMany</span>
+  <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TEAM_ID"</span><span class="o">)</span>  <span class="c1">// Member 테이블의 TEAM_ID (FK)</span>
+  <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;();</span>
+</code></pre></div></div>
+
+<ul>
+  <li>일대다 매핑의 단점
+    <ul>
+      <li>매핑한 객체가 관리하는 외래 키가 다른 테이블에 있다.<br />
+→ 본인 테이블에 외래 키가 있으면 엔티티의 저장과 연관관계 처리를 INSERT SQL 한 번으로 끝낼 수 있지만, 다른 테이블에 외래키가 있으면 연관관계 처리를 위한 <strong class="bg-orange outline">UPDATE SQL</strong>을 추가로 실행해야 한다.</li>
+      <li>일대다 단방향 매핑보다는 다대일 양방향 매핑을 사용하자.</li>
+    </ul>
+  </li>
+  <li class="blank"></li>
+</ul>
+
+<h4 id="2-일대다-양방향-1n---n1">2) 일대다 양방향 [1:N - N:1]</h4>
+<ul>
+  <li><strong class="bold color-navy">일대다 양방향 매핑은 존재하지 않는다. 대신 다대일 양방향 매핑을 사용해야 한다.</strong></li>
+  <li>더 정확히 말해서, 양방향 매핑에서 <strong class="bg-sky outline">@OneToMany</strong>는 연관관계의 주인이 될 수 없다.<br />
+<strong class="font-15">관계형 데이터베이스의 특성상 일대다, 다대일 관계는 항상 다 쪽에 외래 키가 있다.</strong><br />
+<strong class="font-15">따라서 @OneToMany, @ManyToOne 둘 중에 연관관계의 주인은 항상 다 쪽인 @ManyToOne을 사용한 곳이다.</strong></li>
+  <li>빈면, 일대다 양방향 매핑에서 연관관계의 주인인 <strong class="bg-sky outline">@ManyToOne</strong>에는 mappedBy 속성이 없다.</li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2Fce9374ac-4f67-4f49-99d5-f80734e227f5%2Fimage.png" alt="" class="center" width="80%" /></p>
+
+<ul>
+  <li>이 방법은 일대다 양방향 매핑이라기 보다는 일대다 단방향 매핑 반대편에 다대일 단방향 매핑을 읽기 전용으로 추가해서 일대다 양방향처럼 보이도록 하는 방법니다.</li>
+  <li>
+    <p>이렇게 되면 둘 다 같은 키를 관리하므로 문제가 발생할 수 있으므로, 다대일 쪽에 <strong class="bg-orange outline">insertable = false, updatable = false</strong>로 설정해서 읽기만 가능하게 한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@OneToMany</span>
+<span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TEAM_ID"</span><span class="o">)</span>  <span class="c1">// Member 테이블의 TEAM_ID (FK)</span>
+<span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;();</span>
+</code></pre></div>    </div>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ManyToOne</span>
+<span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TEAM_ID"</span><span class="o">,</span> <span class="n">insertable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span> <span class="n">updatable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">private</span> <span class="nc">Team</span> <span class="n">team</span><span class="o">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li class="blank"></li>
+</ul>
+
+<h3 id="3-일대일11">3. 일대일[1:1]</h3>
+<ul>
+  <li>일대일 관계는 그 반대도 일대일 관계다.</li>
+  <li>일대일 관계는 주 테이블이나 대상 테이블 둘 중 외래키를 선택할 수 있다.</li>
+</ul>
+
+<h4 id="1-주-테이블에-외래-키">1) 주 테이블에 외래 키</h4>
+<ul>
+  <li>일대일 관계를 구성할 때 객체지향 개발자들은 주 테이블에 외래 키가 있는 것을 선호한다.</li>
+  <li>이 방법은 주 테이블이 외래 키를 가지고 있으므로 주 테이블만 확인해도 대상 테이블과 연관관계가 있는지 알 수 있다.</li>
+</ul>
+
+<h4 class="indent" id="--단방향">- 단방향</h4>
+<ul class="indent">
+  <li>이 관계는 다대일 단방향(@ManyToOne)과 거의 비슷하다.</li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2F9c8b7e93-d911-49fa-be47-aefce3564e35%2Fimage.png" alt="" class="center" width="72%" /></p>
+<div class="language-java indent highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@OneToOne</span>
+  <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"LOCKER_ID"</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Locker</span> <span class="n">locker</span><span class="o">;</span>
+</code></pre></div></div>
+<ul>
+  <li class="blank half"></li>
+</ul>
+
+<h4 class="indent" id="--양방향">- 양방향</h4>
+
+<ul class="indent">
+  <li>일대일 매핑에서 대상 테이블에 외래 키를 두고 싶으면 양방향으로 매핑한다.</li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2F41956cd3-c75d-4a43-8359-621718c8e24a%2Fimage.png" alt="" class="center" width="75%" /></p>
+<div class="language-java indent highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@OneToOne</span>
+  <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"LOCKER_ID"</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Locker</span> <span class="n">locker</span><span class="o">;</span>
+</code></pre></div></div>
+<div class="language-java indent highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@OneToOne</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"locker"</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Member</span> <span class="n">member</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li class="blank"></li>
+</ul>
+
+<h4 id="2-대상-테이블에-외래-키">2) 대상 테이블에 외래 키</h4>
+
+<h4 class="indent" id="--단방향-1">- 단방향</h4>
+
+<ul class="indent">
+  <li>일대일 관계 중 대상 테이블에 외래 키가 있는 단방향 관계는 JPA에서 지원하지 않는다.
+    <ul>
+      <li>단방향 관계를 <code class="language-plaintext highlighter-rouge">Locker</code>에서 <code class="language-plaintext highlighter-rouge">Member</code> 방향으로 수정하거나, 양방향 관계로 만들고 <code class="language-plaintext highlighter-rouge">Locker</code>를 연관관계의 주인으로 설정해야 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2Fdb7e19cb-0ea6-4e49-b787-692db5c8dae2%2Fimage.png" alt="" class="center" width="70%" /></p>
+
+<h4 class="indent" id="--양방향-1">- 양방향</h4>
+
+<ul class="indent">
+  <li>일대일 매핑에서 대상 테이블에 외래 키를 두고 싶으면 양방향으로 매핑한다.</li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2Ff845dc37-177b-479a-962b-df03cb948836%2Fimage.png" alt="" class="center" width="70%" /></p>
+
+<div class="language-java indent highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@OneToOne</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"member"</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Locker</span> <span class="n">locker</span><span class="o">;</span>
+</code></pre></div></div>
+<div class="language-java indent highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@OneToOne</span>
+  <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Member</span> <span class="n">member</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li class="blank"></li>
+</ul>
+
+<p class="notice">프록시를 사용할 때 외래 키를 직접 관리하지 않는 일대일 관계는 지연 로딩으로 설정해도 즉시 로딩된다.<br />
+여기서 Locker.member는 지연 로딩할 수 있지만, Member.locker는 지연 로딩으로 설정해도 즉시 로딩된다.</p>
+
+<ul>
+  <li class="blank"></li>
+</ul>
+
+<h3 id="4-다대다nm">4. 다대다[N:M]</h3>
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2F06287f58-a14e-4a59-8e34-1587283b5408%2Fimage.png" alt="" class="center" width="70%" /></p>
+
+<ul>
+  <li>관계형 데이터베이스는 정규화돈 테이블 2개로 다대다 관계를 표현할 수 없다.<br />
+→ 그래서 보통 다대다 관계를 일대다, 다대일 관계로 풀어내는 <strong class="bg-green outline">연결 테이블</strong>을 사용한다.</li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2Fe772323b-5abe-4c23-975b-9821a16afe7f%2Fimage.png" alt="" class="center" width="85%" /></p>
+
+<ul>
+  <li>객체는 테이블과 다르게 객체 2개로 다대다 관걔를 만들 수 있다.
+    <ul>
+      <li><strong class="bg-sky outline">@ManyToMany</strong>를 사용하면 다대다 관계를 편리하게 매핑할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2Fd8fdf32b-e61c-4b51-aa44-c71b0c9f1053%2Fimage.png" alt="" class="center" width="60%" /></p>
+
+<h4 id="1-다대다--단방향">1) 다대다 : 단방향</h4>
+<ul>
+  <li>
+    <p><strong class="bg-sky outline">@ManyToMany</strong>를 사용하면 복잡한 다대다 관계를 단순하게 사용할 수 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
+  
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+  
+    <span class="nd">@ManyToMany</span>
+    <span class="nd">@JoinTable</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_PRODUCT"</span><span class="o">,</span>
+            <span class="n">joinColumns</span> <span class="o">=</span> <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">),</span>
+            <span class="n">inverseJoinColumns</span> <span class="o">=</span> <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"PRODUCT_ID"</span><span class="o">))</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="n">products</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">@JoinTable.name</code>
+연결 테이블을 지정한다.</li>
+      <li><code class="language-plaintext highlighter-rouge">@JoinTable.joinColumns</code>
+현재 방향인 회원과 매핑할 조인 컬럼 정보를 지정한다.</li>
+      <li><code class="language-plaintext highlighter-rouge">@JoinTable.inverseJoinColumns</code>
+반대 방향인 상품과 매핑할 조인 컬럼 정보를 지정한다.</li>
+      <li class="blank"></li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"PRODUCT_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="2-다대다--양방향">2) 다대다 : 양방향</h4>
+<ul>
+  <li>
+    <p>역방향에도 <strong class="bg-sky outline">@ManyToMany</strong>를 사용하고, 양쪽 중 원하는 곳에 <strong class="bg-sky outline">mappedBy</strong>로 연관관계의 주인을 지정한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"PRODUCT_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
+  
+    <span class="nd">@ManyToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"product"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li class="blank"></li>
+</ul>
+
+<h4 id="3-다대다--매핑의-한계와-극복-연결-엔티티-사용">3) 다대다 : 매핑의 한계와 극복, 연결 엔티티 사용</h4>
+<ul>
+  <li><strong class="bg-sky outline">@ManyToMany</strong>를 사용하면 연결 테이블을 자동으로 만들어주어 편리하지만, 실무에서 사용하는데 한계가 있다.
+    <ul>
+      <li>보통 연결 테이블에는 외래 키만 필요한 것이 아니라, 주문수량이나 주문한 날짜 같은 추가적인 컬림이 필요하다.</li>
+      <li><strong class="underline">하지만 이렇게 컬럼을 추가하면 더는 @ManyToMany를 사용할 수 없다.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2F1fbe48ec-54e2-49bf-98a4-bffa46d452f0%2Fimage.png" alt="" class="center" width="85%" /></p>
+
+<ul>
+  <li>결국 연결 테이블을 매핑하는 연결 엔티티를 만들고 이곳에 추가한 컬럼들을 매핑해야 한다.
+    <ul>
+      <li><strong class="underline">엔티티 간의 관계도 다대다에서 일대다, 다대일 관계로 풀어햐 한다.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2Fee216f2e-6213-46dd-bfde-936a6448e611%2Fimage.png" alt="" class="center" width="85%" /></p>
+
+<ul>
+  <li>
+    <p>회원상품 엔티티에서 기본 키를 매핑하는 <code class="language-plaintext highlighter-rouge">@Id</code>와 외래 키를 매핑하는 <code class="language-plaintext highlighter-rouge">@JoinColumn</code>을 사용해서 기본 키와 외래 키를 한번에 매핑했다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@IdClass</span><span class="o">(</span><span class="nc">MemberProductId</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberProduct</span> <span class="o">{</span>
+    <span class="nd">@Id</span>
+    <span class="nd">@ManyToOne</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Member</span> <span class="n">member</span><span class="o">;</span>      <span class="c1">// MemberProductId.member와 연결</span>
+  
+    <span class="nd">@Id</span>
+    <span class="nd">@ManyToOne</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"PRODUCT_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Product</span> <span class="n">product</span><span class="o">;</span>    <span class="c1">// MemberProductId.product와 연결</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>JPA에서 복합 키를 사용하려면 별도의 <strong class="bg-green outline">식별자 클래스</strong>를 만들어야 한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberProductId</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">member</span><span class="o">;</span>   <span class="c1">//MemberProduct.member와 연결</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">product</span><span class="o">;</span>  <span class="c1">//MemberProduct.product와 연결</span>
+      
+    <span class="c1">// Equals and HashCode</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+  
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>복합 기본 키
+    <ul>
+      <li>회원상품 엔티티는 기본 키가 <code class="language-plaintext highlighter-rouge">MEMBER_ID</code>와 <code class="language-plaintext highlighter-rouge">PRODUCT_ID</code>로 이루어진 <strong class="bg-old outline">복합 기본키</strong>다.</li>
+      <li>복합 키를 위한 식별자 클래스의 특징
+        <ul>
+          <li>복합 키는 별도의 식별자 클래스로 만들어야 한다.</li>
+          <li><code class="language-plaintext highlighter-rouge">Serializable</code>을 구현해야 한다.</li>
+          <li><code class="language-plaintext highlighter-rouge">equals</code>와 <code class="language-plaintext highlighter-rouge">hashCode</code> 메소드를 구현해야 한다.</li>
+          <li>기본 생성자가 있어야 한다.</li>
+          <li>식별자 클래스는 <code class="language-plaintext highlighter-rouge">public</code>이어야 한다.</li>
+          <li><strong class="bg-ly outline">@IdClass</strong>를 사용하는 방법 외에 <strong class="bg-ly outline">@EmbeddedId</strong>를 사용하는 방법도 있다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>식별 관계
+    <ul>
+      <li>회원상품은 회원과 상품의 기본 키를 받아서 자신의 기본 키로 사용한다. 이렇게 부모 테이블의 기본 키를 받아서 자신의 <strong class="bg-old outline">기본 키 + 외래 키</strong>로 사용하는 것을 데이터베이스 용어로 <strong class="bg-old outline">식별 관계</strong>라고 한다.</li>
+    </ul>
+  </li>
+  <li class="blank"></li>
+</ul>
+
+<h4 id="4-다대다--새로운-기본-키-사용">4) 다대다 : 새로운 기본 키 사용</h4>
+<ul>
+  <li>기본 키 생성 전략은 데이터베이스에서 자동으로 생성해 주는 <strong class="bg-old outline">대리 키</strong>를 <code class="language-plaintext highlighter-rouge">Long</code> 값으로 사용하는 것을 추천한다.
+    <ul>
+      <li>연결 테이블에 새로운 기본 키 <code class="language-plaintext highlighter-rouge">ORDER_ID</code>를 추가한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/images%2Fsyleemk%2Fpost%2F403ecdce-1dd1-424c-a80a-cbeef6e94498%2Fimage.png" alt="" class="center" width="85%" /></p>
+
+<h4 id="5-다대다-연관관계-정리">5) 다대다 연관관계 정리</h4>
+<ul>
+  <li>다대다 관계를 일대다 다대일 관계로 풀어내기 위해 <strong>연결 테이블을 만들 때 식별자를 어떻게 구성할지 선택해야 한다.</strong>
+    <ul>
+      <li><strong class="bg-ly outline">식별 관계</strong> : 받아온 식별자를 <strong class="bg-lg outline">기본 키 + 외래 키</strong>로 사용한다.</li>
+      <li><strong class="bg-ly outline">비식별 관계</strong> : 받아온 식별자는 <strong class="bg-lg outline">외래 키</strong>로만 사용하고 새로운 식별자를 추가한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<div class="post-reference">
+   <p>Reference</p>
+   <a href="https://velog.io/@syleemk/JPA-%EB%8B%A4%EC%96%91%ED%95%9C-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EB%A7%A4%ED%95%91#%EC%9D%BC%EB%8C%80%EB%8B%A4-%EB%8B%A8%EB%B0%A9%ED%96%A5">[JPA] 다양한 연관관계 매핑</a>
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>Copyright &copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>
