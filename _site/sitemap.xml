@@ -61,6 +61,10 @@
 <lastmod>2022-03-21T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/book/2022/04/01/http-1/</loc>
+<lastmod>2022-04-01T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/category/Book/</loc>
 </url>
 <url>
@@ -92,5 +96,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page/3/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page/4/</loc>
 </url>
 </urlset>
