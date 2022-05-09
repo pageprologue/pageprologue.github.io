@@ -7,18 +7,28 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
 
-<meta name="description" content="1) 네트워크의 기본이 되는 TCP/IP 통신 2) IP/TCP/DNS 프로토콜 3) URI와 URL" />
-<meta property="og:description" content="1) 네트워크의 기본이 되는 TCP/IP 통신 2) IP/TCP/DNS 프로토콜 3) URI와 URL" />
+<meta name="description" content="네트워크의 기본이 되는 TCP/IP 통신
+TCP/IP 계층
+TCP/IP 통신의 흐름
+IP 프로토콜
+TCP 프로토콜
+" />
+<meta property="og:description" content="네트워크의 기본이 되는 TCP/IP 통신
+TCP/IP 계층
+TCP/IP 통신의 흐름
+IP 프로토콜
+TCP 프로토콜
+" />
 
 <meta name="author" content="Chloe" />
 
 
-<meta property="og:title" content="그림으로 배우는 Http&Network Basic - (1)" />
-<meta property="twitter:title" content="그림으로 배우는 Http&Network Basic - (1)" />
+<meta property="og:title" content="그림으로 배우는 Http&Network Basic - (1) TCP/IP" />
+<meta property="twitter:title" content="그림으로 배우는 Http&Network Basic - (1) TCP/IP" />
 
 
 
-    <title>그림으로 배우는 Http&Network Basic - (1) – Chloe – 조금씩, 천천히, 꾸준히</title>
+    <title>그림으로 배우는 Http&Network Basic - (1) TCP/IP – Chloe – 조금씩, 천천히, 꾸준히</title>
 
     <link rel="stylesheet" type="text/css" href="/style.css"/>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
@@ -132,7 +142,7 @@
         <article class="post">
   <div class="post-title">
 
-    <p class="title">그림으로 배우는 Http&Network Basic - (1)</p>
+    <p class="title">그림으로 배우는 Http&Network Basic - (1) TCP/IP</p>
 
     <div class="post-option">
       <!--<div class="post-categories">
@@ -150,18 +160,30 @@
   </div>
 
   <div class="entry">
-    <p class="notice-info"><a href="#1-네트워크의-기본이-되는-tcpip-통신">1) 네트워크의 기본이 되는 TCP/IP 통신</a><br />
-<a href="#2-iptcpdns-프로토콜">2) IP/TCP/DNS 프로토콜</a><br />
-<a href="#3-uri와-url">3) URI와 URL</a></p>
+    <p class="notice-list"><a href="#네트워크의-기본이-되는-tcpip-통신">네트워크의 기본이 되는 TCP/IP 통신</a><br />
+<a href="#tcpip-계층">TCP/IP 계층</a><br />
+<a href="#tcpip-통신의-흐름">TCP/IP 통신의 흐름</a><br />
+<a href="#ip-프로토콜">IP 프로토콜</a><br />
+<a href="#tcp-프로토콜">TCP 프로토콜</a></p>
 
-<h3 id="1-네트워크의-기본이-되는-tcpip-통신">1) 네트워크의 기본이 되는 TCP/IP 통신</h3>
+<h3 id="네트워크의-기본이-되는-tcpip-통신">네트워크의 기본이 되는 TCP/IP 통신</h3>
 <blockquote>
-  <p>프로토콜이란 서로 다른 하드웨어와 운영체제가 통신하기 위한 규칙이다.</p>
+  <p>프로토콜이란 서로 다른 하드웨어와 운영체제가 통신하기 위한 규칙이다.<br />
+인터넷과 관련된 프로토콜들을 모은 것이 TCP/IP 이다.</p>
 </blockquote>
 
-<h4 id="tcpip-프로토콜">TCP/IP 프로토콜</h4>
 <ul>
-  <li>인터넷과 관련된 프로토콜들을 모은 것이 TCP/IP 이다.</li>
+  <li class="blank half"></li>
+</ul>
+
+<p><img src="https://velog.velcdn.com/post-images%2Fconatuseus%2Fe76c2f70-d195-11e9-8ab6-1bd1eebc78e4%2Fimage.png" alt="" class="center" width="45%" /></p>
+
+<ul>
+  <li class="blank"></li>
+</ul>
+
+<h3 id="tcpip-계층">TCP/IP 계층</h3>
+<ul>
   <li>TCP/IP에서 중요한 개념 중 하나가 계층(Layer)이다.</li>
   <li>TCP/IP의 4계층
     <ul>
@@ -181,12 +203,20 @@ eg. 디바이스 드라이버, 네트워크 인터페이스 카드(NIC), 케이�
   <li class="blank"></li>
 </ul>
 
-<h4 id="tcpip-통신의-흐름">TCP/IP 통신의 흐름</h4>
+<p><img src="http://www.ktword.co.kr/img_data/205_1.JPG" alt="" class="center" width="45%" /></p>
+
+<ul>
+  <li class="blank"></li>
+</ul>
+
+<h3 id="tcpip-통신의-흐름">TCP/IP 통신의 흐름</h3>
 <p><img src="https://velog.velcdn.com/post-images%2Fconatuseus%2Fc7817610-d3c1-11e9-9be1-d7af2d4620a0%2Fimage.png" alt="" class="center" width="60%" /></p>
 
 <ul>
+  <li class="blank"></li>
   <li>클라이언트 ➡️ 애플리케이션 계층(HTTP Request) ➡️ 트랜스포트 계층(TCP) ➡️ 네트워크 계층(패킷) ➡️ 링크 계층(수신지 MAC 주소)</li>
   <li>서버 ➡️ 링크 계층 ➡️ 네트워크 계층 ➡️️ 트랜스포트 계층 ➡️ 애플리케이션 계층</li>
+  <li class="blank"></li>
   <li class="blank"></li>
 </ul>
 
@@ -195,11 +225,65 @@ eg. 디바이스 드라이버, 네트워크 인터페이스 카드(NIC), 케이�
   <li class="blank"></li>
 </ul>
 
-<h3 id="2-iptcpdns-프로토콜">2) IP/TCP/DNS 프로토콜</h3>
+<blockquote>
+  <p>헤더는 해당 계층에 필요한 정보이다. (TCP 헤더, IP 헤더, Ethernet 헤더)</p>
+</blockquote>
 
-<h3 id="3︎-uri와-url">3)︎ URI와 URL</h3>
+<ul>
+  <li>송신측에서는 각 계층을 거칠 때는 헤더를 추가한다.</li>
+  <li>수신측에서는 각 계층을 거칠 때 마다 해당 계층에서 사용한 헤더를 삭제한다.</li>
+  <li>이렇게 정보(데이터)를 감싸는 것을 캡슐화라고 부른다.</li>
+  <li class="blank"></li>
+</ul>
+
+<h3 id="ip-프로토콜">IP 프로토콜</h3>
+<ul>
+  <li>IP는 TCP/IP에서 네트워크 계층에 해당된다. (IP는 ‘IP 주소’가 아닌 프로토콜의 명칭)</li>
+  <li>IP의 역할은 개별 패킷을 수신측에 전달하는 것이다.
+    <ul>
+      <li>패킷을 전달하기까지 여러 가지 요소가 필요한데, 그 중에서도 <strong class="bg-sky outline">IP 주소</strong>와 <strong class="bg-sky outline">MAC 주소</strong>가 중요하다.</li>
+      <li>IP 주소는 각 노드에 부여된 주소이다.</li>
+      <li>MAC 주소(Media Access Control Address)는 각 네트워크 카드에 할당된 고유의 주소이다.</li>
+      <li>IP 주소는 변경 가능하지만 기본적으로 MAC 주소는 변경할 수 없다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p class="notice-primary indent"><strong>ARP 프로토콜</strong> <br />
+인터넷에서 통신 상대가 같은 랜선 내에 있을 경우는 적어서 여러 대의 컴퓨터와 네트워크를 중계하기 위한 프로토콜이 필요하다.<br />
+ARP(Address Resolution Protocal)는 주소를 해결하기 위한 프로토콜 중 하나로, 수신지의 IP 주로를 바탕으로 MAC 주소를 조사할 수 있다.</p>
+<ul>
+  <li class="blank half"></li>
+</ul>
+
+<h3 id="tcp-프로토콜">TCP 프로토콜</h3>
+<ul>
+  <li>TCP는 TCP/IP에서 트랜스포트 계층에 해당된다.</li>
+  <li>TCP는 신뢰성 있는 바이트 스트림 서비스를 제공한다.
+    <ul>
+      <li>바이트 스트림 서비스란 용량이 큰 데이터를 보내기 쉽게 TCP 세그먼트라고 불리는 단위 패킷으로 작게 분해하여 관리하는 것이다.</li>
+      <li><strong class="bg-sky outline">TCP</strong>는 연결형으로, 순차적인 데이터를 안전하게 전송하는 프로토콜이다.</li>
+      <li>반면, <strong class="bg-sky outline">UDP</strong>는 비연결형으로, 순차적이지 않은 데이터를 빠르게 전송하는 프로토콜이다.</li>
+    </ul>
+  </li>
+  <li>TCP는 신뢰성을 보장하기 위해 3-Way-Handshaking 방법을 사용한다.
+    <ul>
+      <li><strong class="bg-sky outline">3-Way-Handshaking</strong>은 <code class="language-plaintext highlighter-rouge">SYN</code>, <code class="language-plaintext highlighter-rouge">ACK</code> 플래그를 사용하여 연결 수립을 확인한다.</li>
+      <li>송신(SYN) ➡️️ 수신(SYN/ACK) ➡️️ 송신(ACK)️️</li>
+    </ul>
+
+    <p><img src="https://velog.velcdn.com/post-images%2Fconatuseus%2F07fac630-d3d9-11e9-8214-155afa157874%2Fimage.png" alt="" class="center" width="60%" /></p>
+  </li>
+</ul>
 
 <p><br /></p>
+
+<div class="post-reference">
+   <p>Reference</p>
+   <a href="https://velog.io/@conatuseus/2019-09-10-2009-%EC%9E%91%EC%84%B1%EB%90%A8-xsk0ds2eqf">웹과 네트워크의 기본(TCP/IP)</a>
+   <a href="http://www.ktword.co.kr/word/abbr_view.php?nav=2&amp;opt=&amp;m_temp1=205&amp;id=861">TCP/IP의 망 계층 구조 (4 계층 모델)</a>
+</div>
+
 
   </div>
 
