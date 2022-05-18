@@ -76,6 +76,7 @@
 /* Font Color */
 @mixin color($fontColor) {
   color: $fontColor;
+  opacity: 80%;
   font-weight: 400;
 }
 

@@ -667,41 +667,49 @@
 /* Font Color */
 .color-red {
   color: #B22222;
+  opacity: 80%;
   font-weight: 400;
 }
 
 .color-green {
   color: #2E8B57;
+  opacity: 80%;
   font-weight: 400;
 }
 
 .color-blue {
   color: #1E90FF;
+  opacity: 80%;
   font-weight: 400;
 }
 
 .color-sky {
   color: #00BFFF;
+  opacity: 80%;
   font-weight: 400;
 }
 
 .color-orange {
   color: #FF8C00;
+  opacity: 80%;
   font-weight: 400;
 }
 
 .color-violet {
   color: #9932CC;
+  opacity: 80%;
   font-weight: 400;
 }
 
 .color-navy {
   color: #191970;
+  opacity: 80%;
   font-weight: 400;
 }
 
 .color-brown {
   color: #A0522D;
+  opacity: 80%;
   font-weight: 400;
 }
 

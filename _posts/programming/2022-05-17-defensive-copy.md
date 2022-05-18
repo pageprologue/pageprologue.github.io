@@ -1,0 +1,203 @@
+---
+layout: post
+title: Java - 인스턴스를 복제하는 방법
+categories: [Programming]
+tags: [Study, Java]
+---
+
+개발을 할 때 종종 값을 복제해서 사용하는 경우가 있습니다. 자바 언어에서 인스턴스를 복제하는 방법에는 얕은 복사와 깊은 복사가 있습니다. 
+이번 포스트에서는 **얕은 복사**{:.bg-blue.outline}, **깊은 복사**{:.bg-blue.outline}, 그리고 **방어적 복사**{:.bg-blue.outline}에 대해 살펴보도록 하겠습니다.
+
+복사본을 만드는 이유는 어떤 인스턴스에 대해 원본 인스턴스를 보존하고 새로운 인스턴스를 생성하면, 변경 전의 값도 유지되어 작업이 실패하는 경우에도 원본이 손상되지 않기 때문입니다.
+
+### 새로운 변수에 할당
+- 복사본을 만드는 방법은 쉽게 생각해서 복사할 타입과 같은 변수를 하나 생성한 뒤 값을 할당해 줄 수 있습니다.
+  ```java
+  Color originColor = Color.of("blue");
+  Color copyColor = originColor;
+  ```
+- 하지만 Color 객체가 불변객체가 아닌 경우, `copyColor`를 수정하면 `originColor`까지 변경됩니다.
+  ```java
+  copyColor.changeColor("sky");
+  // 결과 : originColor = sky, copyColor = sky
+  ```
+
+### copy 메서드
+- 원본 인스턴스의 값을 새로운 인스턴스에 복제하기 위해 **clone**{:.bg-blue.outline} 메서드를 사용합니다.  
+
+**clone() 재정의 방법**  
+  \- clone() 메서드를 사용하려면 먼저 Cloneable을 구현해야 합니다.  
+  \- 그리고 clone() 메서드를 오버라이딩 해줍니다.  
+  \- 접근 제어자를 protected 에서 public으로 변경해 줍니다.  
+  \- Object 반환 타입을 해당 객체의 타입으로 변경합니다.(공변 반환타입)  
+  \- CloneNotSupportedException을 적절하게 처리합니다.  
+{:.notice-info.indent}
+
+  ```java
+  class Color implements Cloneable {
+      ...
+      @Override 
+      public Color clone() {
+          try {
+              return (Color) super.clone();
+          } catch (CloneNotSupportedException e) {
+              throw new AssertionError();
+          }
+      }
+  }
+  ```
+
+- {:.blank}
+- clone()을 사용하면 복제본을 변경하여도 원본의 값이 변경되지 않습니다.
+
+  ```java
+  Color originColor = Color.of("blue");
+  Color copyColor = originColor.clone();
+  copyColor.changeColor("sky");
+  // 결과 : originColor = blue, copyColor = sky
+  ``` 
+
+- 배열에서는 일반적으로 같은 길이의 새로운 배열을 생성한 후 System.arraycopy()로 복사하지만, clone()을 이용하면 간단하게 복사할 수 있습니다.
+
+  ```java
+  int[] numbers = {1, 2, 3, 4, 5};
+
+  int[] copyArr = new int[numbers.length];
+  System.arraycopy(numbers, 0, copyArr, 0, numbers.length);
+  
+  int[] cloneArr = numbers.clone();
+  ``` 
+
+### 얕은 복사
+- **하지만 clone()은 객체에 저장된 값을 그대로 복제할 뿐, 객체가 참조하고 있는 객체까지 복제하지는 않습니다.**{:.color-orange}
+- 기본형 배열인 경우에는 아무런 문제가 없지만, 객체배열을 clone()으로 복제하는 경우에는 원본과 복제본이 같은 객체를 공유하므로 완전한 복제하고 보기 어렵습니다.
+- 이러한 복제(복사)를 **얕은 복사**라고 합니다. **얕은 복사에서는 원본을 변경하면 복사본도 영향을 받습니다.**{:.underline}
+
+  ```java
+  @ToString
+  @AllArgsConstructor
+  class Point implements Cloneable {
+      private int x;
+      private int y;
+
+      @Override
+      public Point clone() {
+          try {
+              return (Point) super.clone();
+          } catch (CloneNotSupportedException e) {
+              throw new AssertionError();
+          }
+      }
+  }
+  ``` 
+  ```java
+  @ToString
+  @AllArgsConstructor
+  class Circle implements Cloneable {
+      private Point p;
+      private double r;
+
+      @Override
+      public Circle clone() {
+          try {
+              return (Circle) super.clone();
+          } catch (CloneNotSupportedException e) {
+              throw new AssertionError();
+          }
+      }
+  }
+  ```
+  
+  - `clone` 메서드로 `Circle` 인스턴스를 복제하더라도 `Circle`에서 참조하고 있는 `Point` 객체까지 복제되지는 않습니다.
+    
+    ```java
+    Circle origin = new Circle(new Point(1, 1), 2.0);
+    Circle copy = circle.clone();
+      
+    copy.p.x = 9;
+    copy.p.y = 9;
+    
+    // origin = (p=Point(x=9, y=9), r=2.0)
+    // copy = (p=Point(x=9, y=9), r=2.0)
+    ```
+
+
+### 깊은 복사
+- 깊은 복사는 원본이 **참조하고 있는 객체까지 복제**{:.color-orange}하는 것입니다.
+- 원본과 복사본이 서로 다른 객체를 참조하기 때문에 **원본(또는 복사본)을 변경해도 다른 쪽에 영향을 미치지 않게 됩니다.**{:.underline}
+  - {:.blank.half}
+  
+  ```java
+    @ToString
+    @AllArgsConstructor
+    class Circle implements Cloneable {
+        private Point p;
+        private double r;
+
+        @Override
+        public Circle clone() {
+            Object obj;
+            try {
+                obj = super.clone();
+            } catch (CloneNotSupportedException e) {
+                throw new AssertionError();
+            }
+
+            Circle c = (Circle) obj;
+            c.p = new Point(this.p.x, this.p.y);  // 참조 객체를 새로운 인스턴스로 생성
+            return c;
+        }
+  }
+  ```
+
+  - `clone` 메서드로 `Circle` 인스턴스를 복제할 때 참조하고 있는 `Point` 객체까지 새로운 인스턴스로 복제합니다.
+
+    ```java
+    Circle origin = new Circle(new Point(1, 1), 2.0);
+    Circle copy = circle.clone();
+        
+    copy.p.x = 9;
+    copy.p.y = 9;
+      
+    // origin = (p=Point(x=1, y=1), r=2.0)
+    // copy = (p=Point(x=9, y=9), r=2.0)
+    ```
+  
+
+
+### 방어적 복사
+- 방어적 복사란 **외부와 내부에서 주소값을 공유하는 인스턴스의 관계를 끊어주기 위해 사용하는 복사 방식**{:.color-orange}입니다.
+  - **생성자를 통해를 초기화 할 때, 새로운 객체로 감싸서 복사해 주는 방법**
+    ```java
+    public Period(Date start, Date end) {
+        this.start = new Date(start.getTime()); // 방어적 복사
+        this.end = new Date(end.getTime());     // 방어적 복사
+        if (validation(this.start, this.end)) {
+            throw new IllegalArgumentException("");
+        }
+    }
+    ```
+  - **값을 반환할 때, 변경되지 못하도록 객체의 복사본을 반환하는 방법**
+    ```java
+    class Palette implements Cloneable {
+        private final List<Color> colors;
+        ...
+        public List<Color> unmodifiable() {
+            return Collections.unmodifiableList(colors); // 방어적 복
+        }
+    }
+    ```
+    ```java
+    List<Color> unmodifiable = palette.unmodifiable();
+    unmodifiable.add(Color.of("orange")); // UnsupportedOperationException 발생!
+    ```
+
+
+
+<div class="post-reference">
+   <p>Reference</p>
+   <a href="https://github.com/pageprologue/study-effective-java/blob/main/heejin/docs/chapter3/item_13.md">[Effective Java] 13.clone 재정의는 주의해서 진행하라</a>
+   <a href="https://velog.io/@max9106/Java-%EB%B0%A9%EC%96%B4%EC%A0%81-%EB%B3%B5%EC%82%ACDefensive-copy">[Java] 방어적 복사(Defensive copy)</a>
+   <a href="https://velog.io/@miot2j/%EC%96%95%EC%9D%80%EB%B3%B5%EC%82%AC-%EA%B9%8A%EC%9D%80%EB%B3%B5%EC%82%AC-%EB%B0%A9%EC%96%B4%EC%A0%81-%EB%B3%B5%EC%82%AC%EB%9E%80">[얕은복사 / 깊은복사] 방어적 복사란 ?</a>
+</div>
+
