@@ -203,7 +203,7 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>mas 
 </code></pre></div></div>
 
-<h3 id="2-homebrew-설치-기본-명령">2. homebrew 설치 기본 명령</h3>
+<h3 id="2-homebrew-기본-명령어">2. homebrew 기본 명령어</h3>
 
 <h4 id="1-brew-명령어">1) brew 명령어</h4>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew list
@@ -241,6 +241,7 @@ brew uninstall mas <span class="o">[</span>앱번호]
           <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />gradle</li>
           <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />jq : 커맨드라인 JSON 프로세서</li>
           <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />tree : tree 명령어</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />newman</li>
         </ul>
       </li>
       <li>cask
@@ -256,6 +257,7 @@ brew uninstall mas <span class="o">[</span>앱번호]
           <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Karabiner-Elements : 한/영키</li>
           <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Alfred : 검색</li>
           <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />kap : 화면 기록</li>
+          <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Postman</li>
         </ul>
       </li>
       <li>mas
@@ -296,6 +298,50 @@ brew bundle
 </code></pre></div>        </div>
       </li>
     </ul>
+
+  </div>
+</details>
+
+<details>
+<summary>homebrew 초기화 (재설치) <br />
+&nbsp; &nbsp; Error: Cannot install in Homebrew on ARM processor in Intel default prefix</summary>
+<div>
+    <ul>
+      <li>
+        <p>brew install 시 아래와 같은 에러가 발생하여 homebrew 재설치</p>
+
+        <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: Cannot install in Homebrew on ARM processor in Intel default prefix
+Some of Homebrew's bottles (binary packages) can only be used with the default
+prefix (/usr/local).
+You will encounter build failures with some formulae.
+Please create pull requests instead of asking for help on Homebrew's GitHub,
+Twitter or any other official channels. You are responsible for resolving
+any issues you experience while you are running this
+unsupported configuration.
+</code></pre></div>        </div>
+      </li>
+    </ul>
+
+    <p>1) /usr/local 폴더에서 Homebrew 폴더 삭제</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nb">rm</span> <span class="nt">-rf</span> Homebrew/
+</code></pre></div>    </div>
+
+    <p>2) Uninstall Homebrew</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  /bin/bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh<span class="si">)</span><span class="s2">"</span>
+</code></pre></div>    </div>
+
+    <p>3) Install Homebrew</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  /bin/bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/Homebrew/
+</code></pre></div>    </div>
+
+    <p>4) .zshrc에 PATH 추가</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  vi ~/.zshrc
+  <span class="nb">export</span> <span class="nv">$PATH</span><span class="o">=</span>/usr/local/bin:<span class="nv">$PATH</span>
+</code></pre></div>    </div>
 
   </div>
 </details>
