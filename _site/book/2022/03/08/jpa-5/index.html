@@ -485,7 +485,7 @@
 <ul>
   <li>단방향 매핑과 비교해서 양방향 매핑은 복잡하다. 연관관계의 주인도 정해야 하고, 두 개의 단방향 연관관계를 양방향으로 만들기 위해 로직도 잘 관리해야 한다.</li>
   <li>양방향의 장점은 반대방향으로 객체 그래프 탐색 기능이 추가된 것뿐이다.</li>
-  <li>연관관계 주인의 반대편은 <strong class="bg-green">mappedBy</strong>로 주인을 지정해야 한다.</li>
+  <li>연관관계 주인의 반대편은 <code class="language-plaintext highlighter-rouge">mappedBy</code>로 주인을 지정해야 한다.</li>
   <li>양방향 매핑 시에는 무한 루프에 빠지지 않게 조심해야 한다.
     <ul>
       <li>예를 들어, <code class="language-plaintext highlighter-rouge">Member.toString()</code>에서 <code class="language-plaintext highlighter-rouge">getTeam()</code>을 호출하고, <code class="language-plaintext highlighter-rouge">Team.toString()</code>에서 <code class="language-plaintext highlighter-rouge">getMember()</code>를 호출하면 무한 루프에 빠질 수 있다.</li>

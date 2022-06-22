@@ -237,7 +237,9 @@
 .pre-square::before {
   @include content("▪ ");
 }
-
+.pre-dash::before {
+  @include content("- ");
+}
 .pre-result::before {
   @include content("→ ");
 }

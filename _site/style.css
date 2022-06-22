@@ -828,6 +828,10 @@
   content: "▪ ";
 }
 
+.pre-dash::before {
+  content: "- ";
+}
+
 .pre-result::before {
   content: "→ ";
 }

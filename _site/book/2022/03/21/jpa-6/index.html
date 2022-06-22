@@ -179,7 +179,7 @@
 
 <h3 id="1-다대일">1. 다대일</h3>
 <ul>
-  <li><strong class="bg-ly outline">다대일</strong> 관계의 반대 방향은 항상 <strong class="bg-ly">일대다</strong> 관계이고, <strong class="bg-ly">일대다</strong> 관계의 반대 방향은 항상 <strong class="bg-ly">다대일</strong> 관계이다.</li>
+  <li><strong class="bg-ly outline">다대일</strong> 관계의 반대 방향은 항상 <strong class="bg-ly outline">일대다</strong> 관계이고, <strong class="bg-ly outline">일대다</strong> 관계의 반대 방향은 항상 <strong class="bg-ly outline">다대일</strong> 관계이다.</li>
   <li>데이터베이스 테이블의 일(1), 다(N) 관계에서 외래 키는 항상 다 쪽에 있다.<br />
 → <strong class="underline">따라서 객체 양방향 관계에서 연관관계의 주인은 항상 다쪽이다.</strong></li>
 </ul>
@@ -499,7 +499,7 @@
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>JPA에서 복합 키를 사용하려면 별도의 <strong class="bg-green">식별자 클래스</strong>를 만들어야 한다.</p>
+    <p>JPA에서 복합 키를 사용하려면 별도의 <strong>식별자 클래스</strong>를 만들어야 한다.</p>
 
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberProductId</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="nc">String</span> <span class="n">member</span><span class="o">;</span>   <span class="c1">//MemberProduct.member와 연결</span>
