@@ -176,45 +176,35 @@
 <ul>
   <li>JPA 구현체로 하이버네이트를 사용하기 위한 핵심 라이브러리
     <ul>
-      <li><strong class="bg-orange outline">hibernate-core</strong> : 하이버네이트 라이브러리</li>
-      <li><strong class="bg-orange outline">hibernate-entitymanager</strong> : 하이버네이트가 JPA 구현체로 동작하도록 JPA 표준을 구현한 라이브러리</li>
-      <li><strong class="bg-orange outline">hibernate-jpa-2.1-api</strong> : JPA 2.1 표준 API를 모아둔 라이브러리</li>
+      <li><code class="language-plaintext highlighter-rouge">hibernate-core</code> : 하이버네이트 라이브러리</li>
+      <li><code class="language-plaintext highlighter-rouge">hibernate-entitymanager</code>: 하이버네이트가 JPA 구현체로 동작하도록 JPA 표준을 구현한 라이브러리</li>
+      <li><code class="language-plaintext highlighter-rouge">hibernate-jpa-2.1-api</code> : JPA 2.1 표준 API를 모아둔 라이브러리</li>
     </ul>
   </li>
 </ul>
 
 <h3 id="4-객체-매핑-시작">4. 객체 매핑 시작</h3>
 
-<ul>
-  <li>
-    <p><strong class="bg-ly">@Entity</strong><br />
-이 클래스를 테이블과 매핑한다고 JPA에게 알려준다. <code class="language-plaintext highlighter-rouge">@Entity</code>가 사용된 클래스를 엔티티 클래스라고 한다.</p>
-  </li>
-  <li>
-    <p><strong class="bg-ly">@Table</strong><br />
-엔티티 클래스에 매핑할 테이블 정보를 알려준다. <code class="language-plaintext highlighter-rouge">@Table</code>을 생략하면 클래스 이름을 테이블 이름으로 매핑한다. <code class="language-plaintext highlighter-rouge">name</code> 속성을 사용하여 원하는 테이블 명을 지정할 수 있다.</p>
-  </li>
-  <li>
-    <p><strong class="bg-ly">@Id</strong><br />
-엔티티 클래스의 필드를 테이블의 기본키(Primary Key)에 매핑한다. <code class="language-plaintext highlighter-rouge">@Id</code>가 사용된 필드를 식별자 필드라고 한다.</p>
-  </li>
-  <li>
-    <p><strong class="bg-ly">@Column</strong><br />
-필드를 컬럼에 매핑한다. <code class="language-plaintext highlighter-rouge">name</code> 속성을 사용하여 원하는 컬럼명을 지정할 수 있다.</p>
-  </li>
-  <li>
-    <p><strong class="bg-ly">매핑 정보가 없는 필드</strong><br />
+<h5 class="indent" id="entity">@Entity</h5>
+<p class="indent">이 클래스를 테이블과 매핑한다고 JPA에게 알려준다. <code class="language-plaintext highlighter-rouge">@Entity</code>가 사용된 클래스를 엔티티 클래스라고 한다.</p>
+
+<h5 class="indent" id="table">@Table</h5>
+<p class="indent">엔티티 클래스에 매핑할 테이블 정보를 알려준다. <code class="language-plaintext highlighter-rouge">@Table</code>을 생략하면 클래스 이름을 테이블 이름으로 매핑한다. <code class="language-plaintext highlighter-rouge">name</code> 속성을 사용하여 원하는 테이블 명을 지정할 수 있다.</p>
+
+<h5 class="indent" id="id">@Id</h5>
+<p class="indent">엔티티 클래스의 필드를 테이블의 기본키(Primary Key)에 매핑한다. <code class="language-plaintext highlighter-rouge">@Id</code>가 사용된 필드를 식별자 필드라고 한다.</p>
+
+<h5 class="indent" id="column">@Column</h5>
+<p class="indent">필드를 컬럼에 매핑한다. <code class="language-plaintext highlighter-rouge">name</code> 속성을 사용하여 원하는 컬럼명을 지정할 수 있다.<br />
 매핑 어노테이션을 생략하면 필드명을 사용해서 컬럼명으로 매핑한다.</p>
 
-    <p class="notice">JPA 어노테이션의 패키지는 javax.persistence 이다.</p>
-  </li>
-</ul>
+<p class="notice">JPA 어노테이션의 패키지는 javax.persistence 이다.</p>
 
 <h2 id="5-persistencexml-설정">5. persistence.xml 설정</h2>
 
 <ul>
   <li>
-    <p>JPA는 persistence.xml을 사용해서 필요한 설정 정보를 관리한다. 이 설정파일이 META-INF/persistence.xml 클래스 패스 경로에 있으면 별도의 설정 없이 JPA가 인식할 수 있다.</p>
+    <p>JPA는 persistence.xml을 사용해서 필요한 설정 정보를 관리한다. 설정파일이 <strong>META-INF/persistence.xml</strong> 클래스 패스 경로에 있으면 별도의 설정 없이 JPA가 인식할 수 있다.</p>
   </li>
   <li>
     <p><code class="language-plaintext highlighter-rouge">&lt;persistence-unit name="jpabook"&gt;</code><br />
