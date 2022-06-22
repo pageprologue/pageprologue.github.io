@@ -172,12 +172,12 @@
 <h4 id="핵심-키워드">핵심 키워드</h4>
 
 <ul>
-  <li><strong class="bg-old outline">방향</strong> : 단방향, 양방향이 있다.</li>
+  <li><strong class="bg-blue">방향</strong> : 단방향, 양방향이 있다.</li>
   <li>한 쪽이 어느 한 쪽만 참조하는 → 단방향 관계</li>
   <li>양쪽 모두 서로를 참조하는 것 → 양방향 관계</li>
   <li>방향은 객체관계에만 존재하고 테이블 관계는 항상 양방향이다.</li>
-  <li><strong class="bg-old outline">다중성</strong> : 다대일(N:1), 일대다(1:N), 다대다(N:N) 다중성이 있다.</li>
-  <li><strong class="bg-old outline">관계의 주인</strong> : 객체를 양방향 연관관계로 만들면 연관관계의 주인을 정해야 한다.</li>
+  <li><strong class="bg-blue">다중성</strong> : 다대일(N:1), 일대다(1:N), 다대다(N:N) 다중성이 있다.</li>
+  <li><strong class="bg-blue">관계의 주인</strong> : 객체를 양방향 연관관계로 만들면 연관관계의 주인을 정해야 한다.</li>
 </ul>
 
 <h3 id="1-단방향-연관관계">1. 단방향 연관관계</h3>
@@ -380,13 +380,13 @@
 
 <ul>
   <li>엔티티를 양방향 연관관계로 설정하면 객체의 참조는 둘인데 외래 키는 하나다.</li>
-  <li>JPA에서는 두 객체 연관관계 중 하나를 정해서 테이블의 외래키를 관리해야 하는데 이것을 <strong class="bg-pink outline">연관관계의 주인</strong>이라 한다.</li>
+  <li>JPA에서는 두 객체 연관관계 중 하나를 정해서 테이블의 외래키를 관리해야 하는데 이것을 <strong class="bg-pink">연관관계의 주인</strong>이라 한다.</li>
 </ul>
 
 <h4 id="1-양방향-매핑의-규칙--연관관계의-주인">1) 양방향 매핑의 규칙 : 연관관계의 주인</h4>
 
 <ul>
-  <li><strong class="bg-pink outline">양방향 연관관계</strong> 매핑 시 연관관계의 주인을 정해야 한다.
+  <li><strong class="bg-pink">양방향 연관관계 매핑 시 연관관계의 주인을 정해야 한다.</strong>
     <ul>
       <li>연관관계의 주인은 데이터베이스 연관관계와 매핑되고 외래키를 관리(등록, 수정, 삭제) 할 수 있다.</li>
       <li>연관관계의 주인이 아닌 쪽은 읽기만 할 수 있다.</li>
@@ -407,7 +407,9 @@
 
 <h3 id="5-양방향-연관관계-저장">5. 양방향 연관관계 저장</h3>
 <ul>
-  <li><strong>연관관계의 주인이 아닌 곳에 입력된 값은 외래 키에 영향을 주지 않는다.</strong>
+  <li>
+    <p><strong>연관관계의 주인이 아닌 곳에 입력된 값은 외래 키에 영향을 주지 않는다.</strong></p>
+
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">team</span><span class="o">.</span><span class="na">getMember</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>  <span class="c1">//무시(연관관계의 주인 아님)</span>
 <span class="n">member</span><span class="o">.</span><span class="na">setTeam</span><span class="o">(</span><span class="n">team</span><span class="o">);</span>  <span class="c1">//연관관계 설정(연관관계의 주인)</span>
 </code></pre></div>    </div>
@@ -436,13 +438,14 @@
 <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member1</span><span class="o">);</span>
 </code></pre></div>    </div>
   </li>
+  <li class="blank half"></li>
 </ul>
 
 <h4 id="2-연관관계-편의-메소드">2) 연관관계 편의 메소드</h4>
 
 <ul>
   <li>양방향 연관관계는 결국 양쪽 다 신경을 써야 하는데 연관관계를 설정하는 메소드를 각각 호출하다보면 실수로 둘 중 하나만 호출해서 양방향이 깨질 수 있다.</li>
-  <li>한 번에 양방향 관계를 설정하는 메소드를 <strong class="bg-pink outline">연관관계 편의 메소드</strong>라고 한다.
+  <li>한 번에 양방향 관계를 설정하는 메소드를 <strong class="bg-pink">연관관계 편의 메소드</strong>라고 한다.
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTeam</span><span class="o">(</span><span class="nc">Team</span> <span class="n">team</span><span class="o">)</span> <span class="o">{</span>
    <span class="k">this</span><span class="o">.</span><span class="na">team</span> <span class="o">=</span> <span class="n">team</span><span class="o">;</span>
    <span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
@@ -482,7 +485,7 @@
 <ul>
   <li>단방향 매핑과 비교해서 양방향 매핑은 복잡하다. 연관관계의 주인도 정해야 하고, 두 개의 단방향 연관관계를 양방향으로 만들기 위해 로직도 잘 관리해야 한다.</li>
   <li>양방향의 장점은 반대방향으로 객체 그래프 탐색 기능이 추가된 것뿐이다.</li>
-  <li>연관관계 주인의 반대편은 <strong class="bg-orange outline">mappedBy</strong>로 주인을 지정해야 한다.</li>
+  <li>연관관계 주인의 반대편은 <strong class="bg-green">mappedBy</strong>로 주인을 지정해야 한다.</li>
   <li>양방향 매핑 시에는 무한 루프에 빠지지 않게 조심해야 한다.
     <ul>
       <li>예를 들어, <code class="language-plaintext highlighter-rouge">Member.toString()</code>에서 <code class="language-plaintext highlighter-rouge">getTeam()</code>을 호출하고, <code class="language-plaintext highlighter-rouge">Team.toString()</code>에서 <code class="language-plaintext highlighter-rouge">getMember()</code>를 호출하면 무한 루프에 빠질 수 있다.</li>
