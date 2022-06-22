@@ -847,6 +847,11 @@
   padding-right: 4px;
 }
 
+.pre-check::before {
+  content: "✓ ";
+  padding-right: 4px;
+}
+
 /* Custom Margin Style */
 .mb-10 {
   margin-bottom: 10px;
@@ -2594,7 +2599,7 @@ green     #859900  operators, other keywords
 
 /* Literal.String */
 .highlight .na {
-  color: #950f87;
+  color: #575757;
 }
 
 /* Name.Attribute */

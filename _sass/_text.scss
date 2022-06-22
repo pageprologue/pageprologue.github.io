@@ -253,6 +253,10 @@
   @include content("💡 ");
   padding-right: 4px;
 }
+.pre-check::before {
+  @include content("✓ ");
+  padding-right: 4px;
+}
 
 
 /* Custom Margin Style */
