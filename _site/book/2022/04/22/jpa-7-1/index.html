@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="✓︎ 상속 관계 매핑
+✓︎ @MappedSuperclass
+" />
+<meta property="og:description" content="✓︎ 상속 관계 매핑
+✓︎ @MappedSuperclass
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="자바 ORM 표준 JPA 프로그래밍 - (7) 고급 매핑 - 상속관계 매핑" />
+<meta property="twitter:title" content="자바 ORM 표준 JPA 프로그래밍 - (7) 고급 매핑 - 상속관계 매핑" />
+
+
+
+    <title>자바 ORM 표준 JPA 프로그래밍 - (7) 고급 매핑 - 상속관계 매핑 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/tags">Tag</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">자바 ORM 표준 JPA 프로그래밍 - (7) 고급 매핑 - 상속관계 매핑</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-04-22
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#1-상속-관계-매핑">✓︎ 상속 관계 매핑</a><br />
+<a href="#2-mappedsuperclass">✓︎ @MappedSuperclass</a></p>
+
+<h3 id="1-상속-관계-매핑">1. 상속 관계 매핑</h3>
+<p>데이터베이스에는 상속이라는 개념이 없다.<br />
+그래서 데이터베이스에서 상속과 유사한 <strong class="bg-gray outline">슈퍼타입-서브타입</strong> 관계를 매핑하는 것으로 생각하면 된다.<br />
+<strong class="bg-gray outline">슈퍼타입-서브타입</strong> 논리 모델을 실제 물리 모델인 테이블로 구현할 때는 3가지 방법을 선택할 수 있다.</p>
+
+<p class="indent">① 각각 테이블로 변환 → 조인 전략!<br />
+② 통합 테이블로 변환 → 단일 테이블 전략!<br />
+③ 서브타입 테이블로 변환 → 구현 클래스마다 테이블 전략!</p>
+
+<h4 id="1-조인-전략">1) 조인 전략</h4>
+<p><img src="https://velog.velcdn.com/images%2Fshininghyunho%2Fpost%2F781939c7-9375-4ba2-8077-fdf257af715b%2Fimage.png" alt="" class="center" width="75%" /></p>
+
+<ul>
+  <li>구현 방법
+    <ul>
+      <li>엔티티 각각을 모두 테이블로 만든다.</li>
+      <li>
+        <p>자식 테이블이 <code class="language-plaintext highlighter-rouge">부모 테이블의 기본키</code>를 받아서 <code class="language-plaintext highlighter-rouge">기본키 + 외래키</code>로 사용한다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Inheritance</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">InheritanceType</span><span class="o">.</span><span class="na">JOINED</span><span class="o">)</span> <span class="c1">// 자식 클래스 매핑 전략</span>
+<span class="nd">@DiscriminatorColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"DTYPE"</span><span class="o">)</span> <span class="c1">// 자식 클래스 구분 컬럼</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Item</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+      
+<span class="nd">@Entity</span>
+<span class="nd">@DiscriminatorValue</span><span class="o">(</span><span class="s">"A"</span><span class="o">)</span> <span class="c1">// 구분 컬럼 값</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Album</span> <span class="kd">extends</span> <span class="nc">Item</span> <span class="o">{</span>  <span class="o">...</span>  <span class="o">}</span>
+      
+<span class="nd">@Entity</span>
+<span class="nd">@DiscriminatorValue</span><span class="o">(</span><span class="s">"B"</span><span class="o">)</span>
+<span class="nd">@PrimaryKeyJoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"BOOK_ID"</span><span class="o">)</span> <span class="c1">// 부모 컬럼의 기본키 컬럼명 재정의</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="kd">extends</span> <span class="nc">Item</span> <span class="o">{</span>  <span class="o">...</span>  <span class="o">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li class="blank half"></li>
+    </ul>
+  </li>
+  <li>주의 할 점
+    <ul>
+      <li><strong>타입을 구분하는 컬럼을 추가해야 한다.</strong></li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li>조인 전략의 장단점
+    <ul>
+      <li>장점
+        <ul>
+          <li>테이블이 정규화 된다.</li>
+          <li>외래키 참조 무결성 제약조건을 활용할 수 있다.</li>
+          <li>저장공간을 효율적으로 사용한다.</li>
+        </ul>
+      </li>
+      <li>단점
+        <ul>
+          <li>조회할 때 조인이 많이 사용되므로 성능이 저하될 수 있다.</li>
+          <li>조회 쿼리가 복잡하다.</li>
+          <li>등록할 때 INSERT SQL을 2번 실행한다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="2-단일-테이블-전략">2) 단일 테이블 전략</h4>
+<p><img src="https://velog.velcdn.com/images%2Fshininghyunho%2Fpost%2Fbe8541bb-4140-40f6-8513-43f8aeaf3e79%2Fimage.png" alt="" class="center" width="75%" /></p>
+
+<ul>
+  <li>구현 방법
+    <ul>
+      <li>테이블을 하나만 사용한다.</li>
+      <li>
+        <p>구분 컬럼으로 자식 데이터를 구분한다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Inheritance</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">InheritanceType</span><span class="o">.</span><span class="na">SINGLE_TABLE</span><span class="o">)</span> <span class="c1">// 자식 클래스 매핑 전략</span>
+<span class="nd">@DiscriminatorColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"DTYPE"</span><span class="o">)</span> <span class="c1">// 자식 클래스 구분 컬럼</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Item</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+      
+<span class="nd">@Entity</span>
+<span class="nd">@DiscriminatorValue</span><span class="o">(</span><span class="s">"A"</span><span class="o">)</span> <span class="c1">// 구분 컬럼 값</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Album</span> <span class="kd">extends</span> <span class="nc">Item</span> <span class="o">{</span>  <span class="o">...</span>  <span class="o">}</span>
+      
+<span class="nd">@Entity</span>
+<span class="nd">@DiscriminatorValue</span><span class="o">(</span><span class="s">"B"</span><span class="o">)</span>
+<span class="nd">@PrimaryKeyJoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"BOOK_ID"</span><span class="o">)</span> <span class="c1">// 부모 컬럼의 기본키 컬럼명 재정의</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="kd">extends</span> <span class="nc">Item</span> <span class="o">{</span>  <span class="o">...</span>  <span class="o">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li>주의할 점
+    <ul>
+      <li>자식 엔티티가 매핑한 컬럼은 모두 <code class="language-plaintext highlighter-rouge">null</code>을 허용해야 한다.</li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li>장단점
+    <ul>
+      <li>장점
+        <ul>
+          <li>조인이 필요 없으므로 일반적으로 조회 성능이 빠르다.</li>
+          <li>조회 쿼리가 단순하다.</li>
+        </ul>
+      </li>
+      <li>단점
+        <ul>
+          <li>자식 엔티티가 매핑한 컬럼 모두 <code class="language-plaintext highlighter-rouge">null</code>을 허용해야 한다.</li>
+          <li>단일 테이블에 모든 것을 저장하므로 테이블이 커질 수 있다. 그래서 상황에 따라 조회 성능이 더 느려질 수도 있다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="3-구현-클래스마다-테이블-전략">3) 구현 클래스마다 테이블 전략</h4>
+<p><img src="https://velog.velcdn.com/images%2Fshininghyunho%2Fpost%2F433be7d0-3e32-44d0-bbef-02655edeabef%2Fimage.png" alt="" class="center" width="80%" /></p>
+
+<ul>
+  <li>구현 방법
+    <ul>
+      <li>자식 엔티티마다 테이블을 만든다.</li>
+      <li>
+        <p>자신 테이블 각각에 필요한 컬럼을 모두 넣는다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Inheritance</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">InheritanceType</span><span class="o">.</span><span class="na">TABLE_PER_CLASS</span><span class="o">)</span> <span class="c1">// 자식 클래스 매핑 전략</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Item</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+      
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Album</span> <span class="kd">extends</span> <span class="nc">Item</span> <span class="o">{</span>  <span class="o">...</span>  <span class="o">}</span>
+      
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="kd">extends</span> <span class="nc">Item</span> <span class="o">{</span>	<span class="o">...</span>  <span class="o">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li>특징
+    <ul>
+      <li>구분 컬럼을 사용하지 않는다.</li>
+      <li><strong class="underline">일반적으로 추천하지 않는 전략이다.</strong></li>
+      <li class="blank"></li>
+    </ul>
+  </li>
+  <li>장단점
+    <ul>
+      <li>장점
+        <ul>
+          <li>서브 타입을 구분해서 처리할 때 효과적이다.</li>
+          <li><code class="language-plaintext highlighter-rouge">not null</code> 제약조건을 사용할 수 있다.</li>
+        </ul>
+      </li>
+      <li>단점
+        <ul>
+          <li>여러 자식 테이블을 함께 조회할 때 성능이 느리다. (UNION SQL을 사용해야 한다.)</li>
+          <li>자식 테이블을 통합해서 쿼리하기 힘들다.</li>
+          <li class="blank"></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="notice-info">구현 클래스마다 테이블 전략은 데이터베이스 설계자와 ORM 전문가 둘 다 추천하지 않는 전략이니, 조인 전략이나 단일 테이블 전략을 고려하자.</p>
+
+<h3 id="2-mappedsuperclass">2. @MappedSuperclass</h3>
+<p>부모 클래스와 자식 클래스를 매핑하지 않고, 부모 클래스를 상속 받는 자식 클래스에게 매핑 정보만 제공하고 싶으면 <code class="language-plaintext highlighter-rouge">@MappedSuperclass</code>를 사용하면 된다.
+<code class="language-plaintext highlighter-rouge">@Entity</code>는 실제 클래스와 매핑되지만 <code class="language-plaintext highlighter-rouge">@MappedSuperclass</code>는 실제 테이블과는 매핑되지 않는다.</p>
+
+<div class="language-java indent highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@MappedSuperclass</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">BaseEntity</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="kd">extends</span> <span class="nc">BaseEntity</span> <span class="o">{</span>
+    <span class="c1">// id, name 컬럼 BaseEntity로 부터 상속됨</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Seller</span> <span class="kd">extends</span> <span class="nc">BaseEntity</span> <span class="o">{</span>
+    <span class="c1">// id, name 컬럼 BaseEntity로 부터 상속됨</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">shopName</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>BaseEntity에는 객체들이 주로 사용하는 공통 매핑 정보를 정의한다.
+    <ul>
+      <li>등록일자, 수정일자, 등록자, 수정자 같은 공통으로 사용하는 속성을 효과적으로 관리할 수 있다.</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">@AttributeOverride</code>, <code class="language-plaintext highlighter-rouge">@AttributeOverride</code>를 사용하면 매핑 정보를 재정의 할 수 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Entity</span>
+  <span class="nd">@AttributeOverrides</span><span class="o">({</span>
+  	<span class="nd">@AttributeOverride</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">,</span> <span class="n">column</span> <span class="o">=</span> <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)),</span>
+  	<span class="nd">@AttributeOverride</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">,</span> <span class="n">column</span> <span class="o">=</span> <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_NAME"</span><span class="o">))</span>
+  <span class="o">})</span>
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="kd">extends</span> <span class="nc">BaseEntity</span> <span class="o">{</span>  <span class="o">...</span>  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">@AssociationOverride</code>를 사용하면 연관관계를 재정의할 수 있다.</p>
+  </li>
+  <li>특징
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">@MappedSuperclass</code>로 지정한 클래스는 엔티티가 아니므로 em.find()나 JPQL에서 사용할 수 없다.</li>
+      <li>이 클래스를 직접 생성해서 사용할 일은 거의 없으므로 추상 클래스로 만드는 것을 권장한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>Copyright &copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>
