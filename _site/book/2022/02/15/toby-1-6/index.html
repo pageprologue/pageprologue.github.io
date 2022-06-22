@@ -170,12 +170,12 @@
 
 <h4 id="오브젝트-팩토리">오브젝트 팩토리</h4>
 <ul>
-  <li>분리시킬 기능을 담당하는 클래스를 만든다. 이 클래스의 역할은 객체의 생성 방법을 결정하고 그렇게 만들어진 오브젝트를 돌려주는 것인데, 이런 일을 하는 오브젝트를 흔히 <strong class="bg-blue outline">팩토리(factory)</strong>라고 부른다.</li>
+  <li>분리시킬 기능을 담당하는 클래스를 만든다. 이 클래스의 역할은 객체의 생성 방법을 결정하고 그렇게 만들어진 오브젝트를 돌려주는 것인데, 이런 일을 하는 오브젝트를 흔히 <strong class="bg-blue">팩토리(factory)</strong>라고 부른다.</li>
   <li>
     <p><strong class="bg-lg outline">예제 코드</strong>
 - <a href="https://github.com/pageprologue/toby-spring3-1/blob/main/Vol1-30/Ch1/1.4.1/src/springbook/user/dao/UserDaoFactory.java#LC1">UserDao의 생성 책임을 맡은 팩토리 클래스</a></p>
 
-    <p class="notice-warning">기존의 UserDaoTest 에서는 UserDao를 생성하기 위해 connectionMaker 구현체를 넘겨주어야 했다. <br />
+    <p class="notice">기존의 UserDaoTest 에서는 UserDao를 생성하기 위해 connectionMaker 구현체를 넘겨주어야 했다. <br />
   <strong class="pre-result"><code class="language-plaintext highlighter-rouge">new UserDao(connectionMaker)</code></strong><br />
 변경된 UserDaoTest 에서는 UserDaoFactory에서 UserDao의 생성을 담당한다.<br />
   <strong class="pre-result"><code class="language-plaintext highlighter-rouge">new UserDaoFactory().userDao()</code></strong></p>
@@ -236,14 +236,14 @@
 <h3 id="15-스프링의-ioc">1.5 스프링의 IoC</h3>
 <ul>
   <li>스프링은 IoC를 모든 기능의 기초가 되는 기반 기술로 삼고 있으며, IoC를 극한까지 적용하고 있는 프레임워크다.</li>
-  <li>스프링의 핵심을 담당하는 것은 <strong class="bg-blue outline">빈 팩토리(=애플리케이션 컨텍스트)</strong>이다.</li>
+  <li>스프링의 핵심을 담당하는 것은 <strong class="bg-blue">빈 팩토리(=애플리케이션 컨텍스트)</strong>이다.</li>
 </ul>
 
 <h4 id="오브젝트-팩토리를-이용한-스프링-ioc">오브젝트 팩토리를 이용한 스프링 IoC</h4>
 <ul>
-  <li><strong class="bg-blue outline">빈(Bean)</strong> : 스프링이 제어권을 가지고 직접 만들고 관계를 부여하는 오브젝트 <strong class="pre-result underline">제어의 역전이 적용된 오브젝트</strong></li>
-  <li><strong class="bg-blue outline">빈 팩토리</strong> : 스프링에서 빈의 생성과 관계설정 같은 제어를 담당하는 IoC 오브젝트</li>
-  <li><strong class="bg-blue outline">애플리케이션 컨텍스트</strong> : 별도의 정보를 참고해서 빈의 생성, 관계설정 등의 제어 작업을 총괄하는 빈 팩토리</li>
+  <li><strong class="bg-blue">빈(Bean)</strong> : 스프링이 제어권을 가지고 직접 만들고 관계를 부여하는 오브젝트 <strong class="pre-result underline">제어의 역전이 적용된 오브젝트</strong></li>
+  <li><strong class="bg-blue">빈 팩토리</strong> : 스프링에서 빈의 생성과 관계설정 같은 제어를 담당하는 IoC 오브젝트</li>
+  <li><strong class="bg-blue">애플리케이션 컨텍스트</strong> : 별도의 정보를 참고해서 빈의 생성, 관계설정 등의 제어 작업을 총괄하는 빈 팩토리</li>
 </ul>
 
 <p class="notice">✔︎ 빈 팩토리와 애플리케이션 컨텍스트라는 용어는 동일하다고 생각하면 된다.<br />
@@ -274,8 +274,8 @@
 
         <p><strong class="pre-result">애노테이션 방식 설정정보 (자바 코드의 탈을 쓰고 있지만, 사실은 XML과 같은 스프링 전용 설정정보라고 보는 것이 좋다.)</strong></p>
       </li>
-      <li><strong class="bg-ly outline">@Configuration</strong> : 스프링이 빈 팩토리를 위한 오브젝트 설정을 담당하는 클래스라고 인식</li>
-      <li><strong class="bg-ly outline">@Bean</strong> : 오브젝트 생성을 담당하는 IoC용 메소드라는 표시</li>
+      <li><code class="language-plaintext highlighter-rouge">@Configuration</code> : 스프링이 빈 팩토리를 위한 오브젝트 설정을 담당하는 클래스라고 인식</li>
+      <li><code class="language-plaintext highlighter-rouge">@Bean</code> : 오브젝트 생성을 담당하는 IoC용 메소드라는 표시</li>
       <li class="blank"></li>
     </ul>
   </li>
@@ -335,7 +335,7 @@
       <li class="blank half"></li>
     </ul>
   </li>
-  <li><strong class="bg-rose outline">스프링 레지스트리</strong> : 자바의 기본적인 싱글톤 패턴의 구현 방식은 여러 가지 단점이 있기 때문에, 스프링은 직접 싱글톤 형태의 오브젝트를 만들고 관리하는 기능을 제공한다.</li>
+  <li><strong class="bg-rose">스프링 레지스트리</strong> : 자바의 기본적인 싱글톤 패턴의 구현 방식은 여러 가지 단점이 있기 때문에, 스프링은 직접 싱글톤 형태의 오브젝트를 만들고 관리하는 기능을 제공한다.</li>
   <li>싱글톤 레지스트리의 장점은 <code class="language-plaintext highlighter-rouge">static</code> 메소드와 <code class="language-plaintext highlighter-rouge">private</code> 생성자를 사용해야 하는 비정상적인 클래스가 아니라, <strong class="underline">평범한 자바 클래스를 싱글톤으로 활용하게 해준다는 점이다.</strong></li>
   <li class="blank half"></li>
 </ul>
@@ -343,7 +343,7 @@
 <h4 id="싱글톤과-오브젝트의-상태">싱글톤과 오브젝트의 상태</h4>
 <ul>
   <li>싱글톤은 멀티스레드 환경에서 여러 스레드가 동시에 접근해서 사용할 수 있다. <strong class="pre-result bold">상태관리에 주의해야 한.</strong></li>
-  <li>기본적으로 싱글톤이 멀티스레드 환경에서 서비스 형태의 오브젝트로 사용되는 경우에는 상태정보를 내부에 갖고 있지 않은 <strong class="bg-orange">무상태</strong> 방식으로 만들어져야 한다.</li>
+  <li>기본적으로 싱글톤이 멀티스레드 환경에서 서비스 형태의 오브젝트로 사용되는 경우에는 상태정보를 내부에 갖고 있지 않은 <strong class="bg-green">무상태</strong> 방식으로 만들어져야 한다.</li>
 </ul>
 
 <p class="case-eg">다중 사용자의 요청을 한꺼번에 처리하는 스레드들이 동시에 싱글톤 오브젝트의 인스턴스 변수를 수정하는 것은 매우 위험하다. 저장할 공간이 하나뿐이니 서로 값을 덮어쓰고 자신이 저장하지 않은 값을 읽어올 수 있기 때문이다.</p>
