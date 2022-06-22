@@ -601,6 +601,11 @@ pre {
   }
 }
 
+.language-plaintext {
+  color: $deepOrangeColor !important;
+  background: $shortCodeColor !important;
+}
+
 .rouge-table {
   margin-bottom: 0;
   font-size: 100%;
