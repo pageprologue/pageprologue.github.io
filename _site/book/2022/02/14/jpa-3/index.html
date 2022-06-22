@@ -172,8 +172,8 @@
 <h3 id="1-엔티티-매니저-팩토리와-엔티티-매니저">1. 엔티티 매니저 팩토리와 엔티티 매니저</h3>
 
 <ul>
-  <li><strong class="bg-rose outline">엔티티 매니저 팩토리</strong>는 <strong>엔티티를 만드는 공장</strong>인데, 공장을 만드는 비용이 상당히 크기 때문에, 한 개만 만들어서 애플리케이션 전체에서 공유하도록 설계되어 있다. 반면에, 엔티티 매니저 팩토리에서 엔티티 매니저를 생성하는 비용은 거의 들지 않는다.</li>
-  <li><strong class="bg-rose outline">엔티티 매니저</strong>는 엔티티를 저장하고, 수정하고, 삭제하고, 조회하는 등 엔티티와 관련된 모든 일을 처리한다.<br />
+  <li><strong class="bg-rose">엔티티 매니저 팩토리</strong>는 <strong>엔티티를 만드는 공장</strong>인데, 공장을 만드는 비용이 상당히 크기 때문에, 한 개만 만들어서 애플리케이션 전체에서 공유하도록 설계되어 있다. 반면에, 엔티티 매니저 팩토리에서 엔티티 매니저를 생성하는 비용은 거의 들지 않는다.</li>
+  <li><strong class="bg-rose">엔티티 매니저</strong>는 엔티티를 저장하고, 수정하고, 삭제하고, 조회하는 등 엔티티와 관련된 모든 일을 처리한다.<br />
 <strong class="pre-arrow bold">엔티티 매니저는 엔티티를 저장하는 가상의 데이터베이스로 생각하면 된다.</strong></li>
   <li><strong class="underline">엔티티 매니저 팩토리는 여러 스레드가 동시에 접근해도 안전하므로 서로 다른 스레드 간에 공유해도 되지만, 엔티티 매니저는 여러 스레드가 동시에 접근하면 동시성 문제가 발생하므로 스레드간에는 절대 공유하면 안된다.</strong></li>
 </ul>
@@ -263,8 +263,8 @@
 <h3 id="4-영속성-컨텍스트의-특징">4. 영속성 컨텍스트의 특징</h3>
 
 <ul>
-  <li>영속 상태는 <strong class="bg-rose outline">식별자 값</strong>이 반드시 있어야 한다. 식별자 값이 없으면 예외가 발생한다.</li>
-  <li>JPA는 보통 트랜잭션을 커밋하는 순간 영속성 컨텍스트에 새로 저장된 엔티티를 데이터베이스에 반영한는데, 이것을 <strong class="bg-rose outline">플러시(flush)</strong>라고 한다.</li>
+  <li>영속 상태는 <strong class="bg-blue">식별자 값</strong>이 반드시 있어야 한다. 식별자 값이 없으면 예외가 발생한다.</li>
+  <li>JPA는 보통 트랜잭션을 커밋하는 순간 영속성 컨텍스트에 새로 저장된 엔티티를 데이터베이스에 반영한는데, 이것을 <strong class="bg-blue">플러시(flush)</strong>라고 한다.</li>
 </ul>
 
 <h4 id="영속성-컨텍스트가-엔티티를-관리할-때의-장점">영속성 컨텍스트가 엔티티를 관리할 때의 장점</h4>
@@ -275,11 +275,11 @@
       <li>영속성 컨텍스트는 내부에 캐시를 가지고 있는데 이것을 1차 캐시라고 한다.</li>
       <li>엔티티를 조회할 때 1차 캐시에서 먼저 찾고, 엔티티가 1차 캐시에 없으면 데이터베이스에서 조회한다.</li>
       <li>
-        <p>1차 캐시는 <strong class="bg-lg outline">key: @Id로 매핑한 식별자, value: Entity 인스턴스인 Map 형태</strong>이다.<br />
-<strong class="pre-arrow">데이터베이스를 바로 조회하지 않고, 메모리에 있는 1차 캐시를 사용하여 성능상 이점이 생긴다.</strong></p>
+        <p>1차 캐시는 key: @Id로 매핑한 식별자, value: Entity 인스턴스인 Map 형태이다.<br />
+<strong class="pre-arrow bold">데이터베이스를 바로 조회하지 않고, 메모리에 있는 1차 캐시를 사용하여 성능상 이점이 생긴다.</strong></p>
       </li>
       <li>
-        <p><strong>엔티티 등록: <code class="language-plaintext highlighter-rouge">persist()</code>, <code class="language-plaintext highlighter-rouge">commit()</code></strong></p>
+        <p><strong>엔티티 등록</strong> : <code class="language-plaintext highlighter-rouge">persist()</code>, <code class="language-plaintext highlighter-rouge">commit()</code></p>
 
         <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">emf</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
 <span class="nc">EntityTransaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
@@ -329,7 +329,7 @@
   </li>
   <li><strong>트랜잭션을 지원하는 쓰기 지연</strong>
     <ul>
-      <li>엔티티 매니저는 트랜잭션을 커밋하기 직전까지 <strong class="bg-rose outline">쓰기 지연 SQL 저장소</strong>에 모아둔다.</li>
+      <li>엔티티 매니저는 트랜잭션을 커밋하기 직전까지 <strong>쓰기 지연 SQL 저장소</strong>에 모아둔다.</li>
       <li>트랜잭션을 커밋하면 엔티티 매니저는 영속성 컨텍스트를 <code class="language-plaintext highlighter-rouge">flush()</code> 한다.<br />
 <strong class="pre-result">플러시는 영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화 하는 작업이다.</strong>
 (쓰기 지연 SQL 저장소에 모인 쿼리를 데이터베이스에 보낸다.)</li>
@@ -349,7 +349,7 @@
 </code></pre></div>        </div>
       </li>
       <li>
-        <p>엔티티의 변경사항을 데이터베이스에 자동으로 반영하는 기능을 <strong class="bg-rose outline">변경 감지</strong>라고 한다.</p>
+        <p>엔티티의 변경사항을 데이터베이스에 자동으로 반영하는 기능을 <strong class="bg-blue">변경 감지</strong>라고 한다.</p>
       </li>
     </ul>
 
@@ -358,7 +358,7 @@
     <ul>
       <li>JPA는 엔티티를 영속성 컨텍스트에 보관할 때, 최초 상태를 복사해서 스냅샷을 저장한다. 그리고 플러시 시점에 스냅샷과 엔티티를 비교해서 변경된 엔티티를 찾는다.</li>
       <li><strong>변경 감지는 영속성 컨텍스트가 관리하는 영속 상태의 엔티티에만 적용된다.</strong></li>
-      <li>JPA는 변경된 필드만 업데이트 하는 것이 아니라, <strong class="bg-rose outline">엔티티의 모든 필드를 업데이트</strong> 한다.</li>
+      <li><strong class="underline">JPA는 변경된 필드만 업데이트 하는 것이 아니라, 엔티티의 모든 필드를 업데이트 한다.</strong></li>
       <li>모든 필드를 데이터베이스에 보내면 데이터 전송량이 증가하는 단점이 있지만, 수정 쿼리가 동일하여 쿼리를 재사용할 수 있다.</li>
       <li>엔티티에 필드가 많거나 저장되는 내용이 너무 크면 수정할 필드만 동적으로 UPDATE SQL을 생성하는 전략을 선택할 수 있다.<br />
 <strong class="pre-result"><code class="language-plaintext highlighter-rouge">@DynamicUpdate</code> : 상황에 따라 다르지만 컬럼이 대략 30개 이상이면 정적 수정 쿼리보다 동적 수정 쿼리가 빠르다고 한다.</strong></li>
@@ -375,8 +375,8 @@
 <h3 id="5-플러시">5. 플러시</h3>
 
 <ul>
-  <li>플러시(flush())는 영속성 컨텍스트의 변경 내용을 데이터베이스에 <strong class="bg-rose outline">동기화</strong>한다.</li>
-  <li>데이터베이스와 동기화를 최대한 늦추는 것이 가능한 이유는 <strong class="bg-rose outline">트랜잭션</strong>이라는 작업 단위가 있기 때문이다.</li>
+  <li>플러시(flush())는 영속성 컨텍스트의 변경 내용을 데이터베이스에 <strong class="bg-blue">동기화</strong>한다.</li>
+  <li>데이터베이스와 동기화를 최대한 늦추는 것이 가능한 이유는 <strong class="bg-blue">트랜잭션</strong>이라는 작업 단위가 있기 때문이다.</li>
 </ul>
 
 <h4 id="영속성-컨텍스트를-플러시하는-방법">영속성 컨텍스트를 플러시하는 방법</h4>
