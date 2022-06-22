@@ -176,72 +176,50 @@ URI로 대상 자원을 명시하고 Method로 해당 자원에 대한 행위를
 
 <h2 id="3-rest-6가지-원칙">3) REST 6가지 원칙</h2>
 
-<ul class="no-marker">
-  <li><strong class="bg-green outline">인터페이스 일관성(Uniform Interface)</strong>
+<h4 id="인터페이스-일관성uniform-interface">인터페이스 일관성(Uniform Interface)</h4>
+<ul>
+  <li>URI로 지정된 리소스에 균일하고 통일된 인터페이스를 제공해야 한다.</li>
+  <li>아키텍처를 단순하게 분리하여 특정 언어나 기술에 종속되지 않고 <em>**</em>독립적으로 만들 수 있다.</li>
+  <li>Uniform Interface 조건
     <ul>
-      <li>URI로 지정된 리소스에 균일하고 통일된 인터페이스를 제공해야 한다.</li>
-      <li>아키텍처를 단순하게 분리하여 특정 언어나 기술에 종속되지 않고 <em>**</em>독립적으로 만들 수 있다.</li>
-      <li>Uniform Interface 조건
-        <ul>
-          <li>Identification of resources</li>
-          <li>Manipulation of resources thorough representations</li>
-          <li>Self-descriptive message</li>
-          <li>Hypermedia as the engine of application state (HATEOS)</li>
-          <li class="blank"></li>
-        </ul>
-      </li>
+      <li>Identification of resources</li>
+      <li>Manipulation of resources thorough representations</li>
+      <li>Self-descriptive message</li>
+      <li>Hypermedia as the engine of application state (HATEOS)</li>
     </ul>
   </li>
 </ul>
 
-<ul class="no-marker">
-  <li><strong class="bg-green outline">무상태(Stateless)</strong>
-    <ul>
-      <li>서버는 HTTP 요청에 대한 어떤 것도 저장하지 않는다.</li>
-      <li>클라이언트의 모든 요청에는 해당 요청을 이해할 수 있는 모든 정보가 포함되어야 한다.</li>
-      <li>컨텍스트를 유지해야 하는 세션, 인증과 인가에 대한 정보 또한 클라이언트에만 보관되며, 각 요청 시 해당 정보를 모두 포함하여 서버에 요청한다.</li>
-      <li class="blank"></li>
-    </ul>
-  </li>
+<h4 id="무상태stateless">무상태(Stateless)</h4>
+<ul>
+  <li>서버는 HTTP 요청에 대한 어떤 것도 저장하지 않는다.</li>
+  <li>클라이언트의 모든 요청에는 해당 요청을 이해할 수 있는 모든 정보가 포함되어야 한다.</li>
+  <li>컨텍스트를 유지해야 하는 세션, 인증과 인가에 대한 정보 또한 클라이언트에만 보관되며, 각 요청 시 해당 정보를 모두 포함하여 서버에 요청한다.</li>
 </ul>
 
-<ul class="no-marker">
-  <li><strong class="bg-green outline">캐시 처리 가능(Cacheable)</strong>
-    <ul>
-      <li>서버는 Cache-Control 헤더에 해당 요청이 캐싱이 가능한 지에 대한 여부를 제공해야 한다.</li>
-      <li>캐싱이 가능하다면 클라이언트는 응답을 캐싱하여 서버와 클라이언트 간의 상호작용을 줄이고, 성능과 서버 가용성을 늘릴 수 있다.</li>
-    </ul>
-  </li>
+<h4 id="캐시-처리-가능cacheable">캐시 처리 가능(Cacheable)</h4>
+<ul>
+  <li>서버는 Cache-Control 헤더에 해당 요청이 캐싱이 가능한 지에 대한 여부를 제공해야 한다.</li>
+  <li>캐싱이 가능하다면 클라이언트는 응답을 캐싱하여 서버와 클라이언트 간의 상호작용을 줄이고, 성능과 서버 가용성을 늘릴 수 있다.</li>
 </ul>
 
-<ul class="no-marker">
-  <li><strong class="bg-green outline">계층화(Layered System)</strong>
-    <ul>
-      <li>REST는 다중 계층 구조를 가질 수 있도록 허용한다. (예를 들어 API 서버와 DB서버 그리고 인증 서버를 따로 둘 수 있다.)</li>
-      <li>각 레이어는 자기와 통신하는 컴포넌트 외 레이어에 대해서는 정보를 얻을 수 없다.</li>
-      <li>클라이언트는 REST 서버와 상호작용할 뿐, REST가 상호작용하는 레이어나 그 외 중간 레이어들, end server에 직접적으로 요청할 수 없으며 이들의 상호작용 또한 볼 수 없다.</li>
-      <li class="blank"></li>
-    </ul>
-  </li>
+<h4 id="계층화layered-system">계층화(Layered System)</h4>
+<ul>
+  <li>REST는 다중 계층 구조를 가질 수 있도록 허용한다. (예를 들어 API 서버와 DB서버 그리고 인증 서버를 따로 둘 수 있다.)</li>
+  <li>각 레이어는 자기와 통신하는 컴포넌트 외 레이어에 대해서는 정보를 얻을 수 없다.</li>
+  <li>클라이언트는 REST 서버와 상호작용할 뿐, REST가 상호작용하는 레이어나 그 외 중간 레이어들, end server에 직접적으로 요청할 수 없으며 이들의 상호작용 또한 볼 수 없다.</li>
 </ul>
 
-<ul class="no-marker">
-  <li><strong class="bg-green outline">클라이언트/서버 구조(Client-Server)</strong>
-    <ul>
-      <li>클라이언트와 서버는 서로 독립적이어야 하며, 클라이언트는 오직 URIs 리소스만 알아야한다.</li>
-      <li>클라이언트와 서버의 인터페이스가 변경되지 않는 한, 이 둘은 독립적으로 개발되거나 대체될 수 있게 유지해야한다.</li>
-      <li class="blank"></li>
-    </ul>
-  </li>
+<h4 id="클라이언트서버-구조client-server">클라이언트/서버 구조(Client-Server)</h4>
+<ul>
+  <li>클라이언트와 서버는 서로 독립적이어야 하며, 클라이언트는 오직 URIs 리소스만 알아야한다.</li>
+  <li>클라이언트와 서버의 인터페이스가 변경되지 않는 한, 이 둘은 독립적으로 개발되거나 대체될 수 있게 유지해야한다.</li>
 </ul>
 
-<ul class="no-marker">
-  <li><strong class="bg-green outline">Code on demand</strong>
-    <ul>
-      <li>서버가 클라이언트에서 실행시킬 수 있는 로직을 전송하여 클라이언트의 기능을 확장시킬 수 있다.</li>
-      <li>이를 통해 클라이언트가 사전에 구현해야하는 기능의 수를 줄여 간소화시킬 수 있다.</li>
-    </ul>
-  </li>
+<h4 id="code-on-demand">Code on demand</h4>
+<ul>
+  <li>서버가 클라이언트에서 실행시킬 수 있는 로직을 전송하여 클라이언트의 기능을 확장시킬 수 있다.</li>
+  <li>이를 통해 클라이언트가 사전에 구현해야하는 기능의 수를 줄여 간소화시킬 수 있다.</li>
 </ul>
 
 <p><br /></p>
