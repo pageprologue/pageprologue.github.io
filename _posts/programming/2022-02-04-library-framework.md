@@ -5,7 +5,7 @@ excerpt: 라이브러리는 다른 프로그램들과 링크되기 위하여 존
          프레임워크는 소프트웨어 개발을 위해 구조적인 틀과 구현 코드를 함께 제공합니다.
          라이브러리와 프레임워크의 차이는 응용프로그램의 흐름 주도권을 누가 가지고 있는가입니다.
 categories: [Programming]
-tags: [TIL]
+tags: [TIL, Framework]
 ---
 
 ### 1) Library 정의

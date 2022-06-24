@@ -1,9 +1,19 @@
 [
   
   {
+    "title"    : "[Spring Security] - CSRF",
+    "category" : "Programming",
+    "tags" : "Http, Spring",
+    "url"      : "/programming/2022/06/20/csrf/",
+    "date"     : "June 20, 2022",
+    "excerpt"  : "CSRF (Cross-site request forgery, CSRF, XSRF)\nCSRF란 웹사이트 취약점 공격의 하나로, 사용자가 자신의 의지와는 무관하게 공격자가 의도한 행위(수정, 삭제, 등록 등)를 특정 웹사이트에 요청하도록 하는 공격을 말합니다. 공격의 난이도가 높지 않아 널리 사용되는 방법입니다.\n\n2008년에 발생한 옥션의 개인정보 유출사건에서도 관리자 계정을 탈취하는데 이 방법이 사용되었습니다.\n\nCSRF 공격 과정\n\n\n\n...",
+    "content"  : "CSRF (Cross-site request forgery, CSRF, XSRF)\nCSRF란 웹사이트 취약점 공격의 하나로, 사용자가 자신의 의지와는 무관하게 공격자가 의도한 행위(수정, 삭제, 등록 등)를 특정 웹사이트에 요청하도록 하는 공격을 말합니다. 공격의 난이도가 높지 않아 널리 사용되는 방법입니다.\n\n2008년에 발생한 옥션의 개인정보 유출사건에서도 관리자 계정을 탈취하는데 이 방법이 사용되었습니다.\n\nCSRF 공격 과정\n\n\n\n  이용자는 웹사이트에 로그인하여 정상적인 쿠키를 발급 받습니다.\n  공격자는 이메일이나 게시판 등의 경로를 통해 이용자에게 링크를 전달합니다.\n  공격용 HTML 페이지의 이미지 태그에는 이미지가 아닌 API를 호출할 수 있는 URL이 들어있습니다.\n    &amp;lt;a href=&quot;http://netbank.com/transfer.do?acct=AttackerA&amp;amp;amount=$100&quot;&amp;gt;Read more!&amp;lt;/a&amp;gt;\n    \n  \n  이용자가 공격용 페이지를 열면, 브라우저는 이미지 파일을 받아오기 위해 공격용 URL을 열게 됩니다.\n  이용자의 승인이나 인지 없이 송급됨으로써 공격이 완료됩니다.\n해당 서비스 페이지는 등록 과정에서 단순히 쿠키를 통한 본인확인 밖에 하지 않으므로 공격자가 정상 사용자 처럼 수정이 가능하게 됩니다.\n  \n    웹 사이트가 POST 요청만 사용하는 경우에는 &amp;lt;a&amp;gt; 태그는 사용할 수 없지만, javascript를 자동 실행하여 &amp;lt;form&amp;gt; 태그를 전송할 수 있습니다.\n\n     &amp;lt;body onload=&quot;document.forms[0].submit()&quot;&amp;gt;\n   &amp;lt;form action=&quot;http://netbank.com/transfer.do&quot; method=&quot;POST&quot;&amp;gt;\n     &amp;lt;input type=&quot;hidden&quot; name=&quot;acct&quot; value=&quot;AttackerA&quot;/&amp;gt;\n     &amp;lt;input type=&quot;hidden&quot; name=&quot;amount&quot; value=&quot;$100&quot;/&amp;gt;\n     &amp;lt;input type=&quot;submit&quot; value=&quot;View my pictures!&quot;/&amp;gt;\n   &amp;lt;/form&amp;gt;\n &amp;lt;/body&amp;gt;\n    \n  \n\n\nCSRF 공격으로부터 보호\nCSRF 공격이 가능한 이유는 피해자 웹사이트의 HTTP 요청과 공격자 웹사이트의 요청이 정확히 동일하기 때문입니다.\n즉, 악의적인 웹사이트에서 오는 요청은 거부하고 정상적인 웹사이트에서 오는 요청만 허용할 방법이 없음을 의미합니다.\nCSRF 공격으로부터 보호하려면 두 요청을 구분할 수 있도록 악의적인 사이트에서 제공할 수 없는 요청이 있는지 확인해야 합니다.\n\n➡️ Spring은 CSRF 공격으로부터 보호하는 두 가지 메커니즘을 제공합니다.\n\n1. 동기화 토큰 패턴(Synchronizer Token Pattern)\n   CSRF 공격으로부터 보호하는 가장 보편적이고 포괄적인 방법은 Synchronizer Token Pattern을 사용하는 것입니다. \n   이 솔루션은 각 HTTP 요청에 세션 쿠키 외에도 CSRF 토큰이라는 보안 랜덤 생성 값이 HTTP 요청에 있어야 합니다.\n\n\n  동기화 토큰 요청 샘플\n    POST /transfer HTTP/1.1\nHost: bank.example.com\nCookie: JSESSIONID=randomid\nContent-Type: application/x-www-form-urlencoded\n     \namount=100.00&amp;amp;routingNumber=1234&amp;amp;account=9876&amp;amp;_csrf=4bfd1575-3ad1-4d21-96c7-4ef2d9f86721\n    \n  \n  \n\n\n2. 세션 쿠키에 동일 사이트 속성 지정\n   CSRF 공격으로부터 보호하는 다른 방법은 쿠키에 동일한 사이트 속성을 지정하는 것입니다. \n   서버는 외부 사이트에서 쿠키가 전송되지 않도록 쿠키를 설정할 때 동일한 사이트 속성을 지정할 수 있습니다.\n\n- Spring Security는 세션 쿠키 작성을 직접 제어하지 않으므로 SameSite 특성을 지원하지 않습니다. \n- Spring Session은 서블릿 기반 응용 프로그램에서 SameSite 속성을 지원합니다.\n- Spring Framework의 CookieWebSessionIdResolver는 WebFlux 기반 응용 프로그램에서 SameSite 속성을 즉시 지원합니다.\n\n\n  SameSite HTTP 응답 샘플\n    Set-Cookie: JSESSIONID=randomid; Domain=bank.example.com; Secure; HttpOnly; SameSite=Lax\n    \n  \n\n\nSpring Security\n\n  보통 CSRF 공격의 방어는 조회(GET) 데이터는 방어 대상에 두지 않고 상태를 수정하는 메서드(PATCH, POST, PUT, DELETE)에만 적용합니다.\n  \n  Spring Security에서는 @EnableWebSecurity 어노테이션을 지정할 경우 자동으로 CSRF 보호 기능이 활성화 됩니다.\n      @Configuration\n  @EnableWebSecurity\n  public class ApplicaionSecurityConfig extends WebSecurityConfigurerAdapter {\n      protected void configure(HttpSecurity http) throws Exception {\n          http\n              .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());\n      }\n  }\n    \n    \n      CookieCsrfTokenRepository는 CSRF 토큰을 “XSRF-TOKEN”이라는 쿠키에 유지하고 AngularJS 규칙에 따라 “X-XSRF-TOKEN” 헤더에서 읽는 CsrfToken 저장소입니다.\n      CookieCsrfTokenRepository 클래스 내부를 확인해보면 쿠키 네임, 파라미터 네임, 헤더 네임이 디폴트로 설정되어 있습니다.\n        public final class CookieCsrfTokenRepository implements CsrfTokenRepository {\n    static final String DEFAULT_CSRF_COOKIE_NAME = &quot;XSRF-TOKEN&quot;;\n    static final String DEFAULT_CSRF_PARAMETER_NAME = &quot;_csrf&quot;;\n    static final String DEFAULT_CSRF_HEADER_NAME = &quot;X-XSRF-TOKEN&quot;;\n    private String parameterName = &quot;_csrf&quot;;\n    private String headerName = &quot;X-XSRF-TOKEN&quot;;\n    private String cookieName = &quot;XSRF-TOKEN&quot;;\n    private boolean cookieHttpOnly = true;\n                    ...\n}\n        \n      \n      withHttpOnlyFalse()메서드를 통해 CookieHttpOnly의 값을 false로 설정합니다. 이는 서버 이외의 다른 사용자가 특수 쿠키에 액세스하는 것을 방지합니다.\n      \n      \n    \n  \n  \n    GET 요청 CSRF 쿠키 확인하기\n\n    \n  \n  \n    POST 요청 CSRF 값 보내기\n\n    \n  \n  \n\n\nCSRF 비활성화\nhttp.csrf().disable();\n\nCSRF(Cross-Site Request Forgery)는 “사이트 간 요청”이 발생하기 쉬운 웹에 대해 요청할 때 필요합니다.\n이러한 애플리케이션은 보통 템플릿 엔진(Thymeleaf, JSP)등을 사용하여 서버 측에서 전체 HTML을 생성하는 구조입니다.\n\n하지만 최신의 애플리케이션은 주로 REST API로 설계되어 대부분 JSON 방식으로 통신을 합니다.\nREST API는 HTTP 형식을 따르기 때문에 무상태(stateless)이며 서버쪽의 세션이나 브라우저 쿠키에 의존하지 않습니다.\nREST API의 특성에 따라 더 이상 CSRF와 관련이 없으므로 CSRF 공격을 받을 가능성이 존재하지 않습니다.\n따라서 대부분의 현재 애플리케이션(API만 노출하는)의 경우 앤드포인트에 대해 CSRF를 비활성화하고 있습니다.\n\n\n  \n\n\n\n   Reference\n   사이트 간 요청 위조\n   5.2.1. Cross Site Request Forgery (CSRF)\n   Cross site request forgery (CSRF) attack\n   Spring Security - CSRF(Cross-Site Request Forgery)\n   CookiePro 기술 자료\n\n\n"
+} ,
+  
+  {
     "title"    : "[Java] 인스턴스를 복제하는 방법",
     "category" : "Programming",
-    "tags" : "Study, Java",
+    "tags" : "Java",
     "url"      : "/programming/2022/05/17/clone/",
     "date"     : "May 17, 2022",
     "excerpt"  : "개발을 할 때 종종 값을 복제해서 사용하는 경우가 있습니다. 자바 언어에서 인스턴스를 복제하는 방법에는 얕은 복사와 깊은 복사가 있습니다. \n이번 포스트에서는 얕은 복사, 깊은 복사, 그리고 방어적 복사에 대해 살펴보도록 하겠습니다.\n\n복사본을 만드는 이유는 어떤 인스턴스에 대해 원본 인스턴스를 보존하고 새로운 인스턴스를 생성하면, 변경 전의 값도 유지되어 작업이 실패하는 경우에도 원본이 손상되지 않기 때문입니다.\n\n새로운 변수에 할당\n\n...",
@@ -33,7 +43,7 @@
   {
     "title"    : "그림으로 배우는 Http&amp;Network Basic - (1) TCP/IP",
     "category" : "Book",
-    "tags" : "http",
+    "tags" : "Http",
     "url"      : "/book/2022/04/01/http-1/",
     "date"     : "April 1, 2022",
     "excerpt"  : "네트워크의 기본이 되는 TCP/IP 통신\nTCP/IP 계층\nTCP/IP 통신의 흐름\nIP 프로토콜\nTCP 프로토콜\n\n네트워크의 기본이 되는 TCP/IP 통신\n\n  프로토콜이란 서로 다른 하드웨어와 운영체제가 통신하기 위한 규칙이다.\n인터넷과 관련된 프로토콜들을 모은 것이 TCP/IP 이다.\n\n\n\n  \n\n\n\n\n\n  \n\n\nTCP/IP 계층\n\n  TCP/IP에서 중요한 개념 중 하나가 계층(Layer)이다.\n  TCP/IP의 4계층\n    \n ...",
@@ -63,7 +73,7 @@
   {
     "title"    : "RESTful",
     "category" : "Programming",
-    "tags" : "TIL",
+    "tags" : "TIL, Http",
     "url"      : "/programming/2022/02/25/restful/",
     "date"     : "February 25, 2022",
     "excerpt"  : "1) RESTful 이란?\n\nREST는 Representational State Transfer 의 약어로, 클라이언트과 서버가 데이터를 주고 받는 방식에 대한 아키텍처 스타일이다. REST에는 여섯 가지의 기본 원칙이 있고, 이 가이드를 준수한 인터페이스는 RESTful 하다고 표현한다.\n\n\n  REST는 프로토콜이나 표준이 아닌 아키텍처 제약 조건의 집합이다.\n  구체적인 정의로써 REST는 HTTP URI + HTTP Method 라...",
@@ -73,7 +83,7 @@
   {
     "title"    : "Layered Architecture",
     "category" : "Programming",
-    "tags" : "TIL",
+    "tags" : "TIL, Architecture",
     "url"      : "/programming/2022/02/19/layered-architecture/",
     "date"     : "February 19, 2022",
     "excerpt"  : "1) Layered Architecture란?\n\n\n  Layered Architecture란 말 그대로 계층이 나뉘어져 있는 아키텍쳐를 뜻한다.\n  Layered Architecture의 주된 목표는 어플리케이션을 여러 개의 굵직한 횡단 관심사(cross-cutting concern)로 분리해, 각각의 Layer는 하나의 관심사에만 집중할 수 있도록 하는 것이다.\n  Layered Architecture의 궁극적인 목표는 Applicati...",
@@ -133,7 +143,7 @@
   {
     "title"    : "라이브러리 VS. 프레임워크",
     "category" : "Programming",
-    "tags" : "TIL",
+    "tags" : "TIL, Framework",
     "url"      : "/programming/2022/02/04/library-framework/",
     "date"     : "February 4, 2022",
     "excerpt"  : "1) Library 정의\n\n  다른 프로그램들과 링크되기 위하여 존재하는 비휘발성 자원의 모임이다.\n응용프로그램 개발을 위해 필요한 기능을 모아 놓은 소프트웨어\n    \n      구성 데이터, 문서, 서브루틴(함수), 클래스, 값 등을 포함할 수 있다.\n      보통 링크 될 수 있도록 컴파일된 형태인 목적코드(object code) 형태로 존재한다.\n    \n  \n  다른 프로그램과 링크되는 방식에 따라 정적 라이브러리와 동적 라이브...",

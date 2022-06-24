@@ -5,7 +5,7 @@ excerpt: Layered Architecture란 말 그대로 계층이 나뉘어져 있는 아
          Layered Architecture의 주된 목표는 어플리케이션을 여러 개의 굵직한 횡단 관심사(cross-cutting concern)로 분리해, 각각의 Layer는 하나의 관심사에만 집중할 수 있도록 하는 것이다.
          Layered Architecture의 궁극적인 목표는 Application Layer와 Domain Layer가 기술에 대해 가지는 의존성을 최소화하여, 오직 순수한 비즈니스 로직을 작성하는 데에 집중할 수 있게 하는 것이다.
 categories: [Programming]
-tags: [TIL]
+tags: [TIL, Architecture]
 ---
 
 
