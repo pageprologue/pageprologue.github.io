@@ -199,8 +199,8 @@
 
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="o">{</span>
-	<span class="nd">@Id</span>
-	<span class="kd">private</span> <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
+    <span class="nd">@Id</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div>    </div>
   </li>
@@ -225,12 +225,11 @@
     <p><strong class="pre-arrow">JPA는 복합키를 지원하기 위해 <code class="language-plaintext highlighter-rouge">@IdClass</code>와 <code class="language-plaintext highlighter-rouge">@EmbeddedId</code> 2가지 방법을 제공한다.</strong><br />
 <code class="language-plaintext highlighter-rouge">@IdClass</code>가 데이터베이스에 맞춘 방법이라면 <code class="language-plaintext highlighter-rouge">@EmbeddedId</code>는 좀 더 객체지향적인 방법이다.</p>
 
-    <details>
-  <summary><code>@IdClass</code></summary>
-  <div>
-        <ul>
-          <li>부모 클래스
-            <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+    <p><strong class="font-23">1) @IdClass</strong></p>
+
+    <ul>
+      <li>부모 클래스
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
 <span class="nd">@IdClass</span><span class="o">(</span><span class="nc">ParentId</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
     <span class="nd">@Id</span> <span class="nd">@Column</span><span class="o">(</span><span class="n">nema</span> <span class="o">=</span> <span class="s">"PATRENT_ID1"</span><span class="o">)</span>
@@ -240,10 +239,10 @@
     <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">...</span>
 <span class="o">}</span>
-</code></pre></div>            </div>
-          </li>
-          <li>식별자 클래스
-            <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParentId</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
+</code></pre></div>        </div>
+      </li>
+      <li>식별자 클래스
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParentId</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="nc">String</span> <span class="n">id1</span><span class="o">;</span>
     <span class="kd">private</span> <span class="nc">String</span> <span class="n">id2</span><span class="o">;</span>
       	
@@ -260,19 +259,18 @@
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div>            </div>
+</code></pre></div>        </div>
 
-            <p class="notice-basic no-marker"><strong>식별자 클래스는 다음 조건을 만족해야 한다.</strong><br />
+        <p class="notice-basic no-marker"><strong>식별자 클래스는 다음 조건을 만족해야 한다.</strong><br />
 - 식별자 클래스의 속성명과 엔티티 클래스에서 사용하는 식별자의 속성명이 같아야 한다.<br />
 - Serializable 인터페이스를 구현해야 한다.<br />
 - equals, hashCode를 구현해야 한다.<br />
 - 기본 생성자가 있어야 한다.<br />
 - 식별자 클래스는 public이어야 한다.</p>
-
-            <ul>
-              <li class="blank"></li>
-              <li>자식 클래스
-                <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Child</span> <span class="o">{</span>
+      </li>
+      <li class="blank"></li>
+      <li>자식 클래스
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Child</span> <span class="o">{</span>
     <span class="nd">@Id</span>
     <span class="kd">private</span> <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
         
@@ -283,30 +281,25 @@
     <span class="o">})</span>
     <span class="kd">private</span> <span class="nc">Parent</span> <span class="n">parent</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre></div>                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-  </details>
+</code></pre></div>        </div>
+      </li>
+    </ul>
 
-    <details>
-  <summary><code>@EmbeddedId</code></summary>
-  <div>
-        <ul>
-          <li>부모 클래스
-            <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+    <p><strong class="font-23">2) @EmbeddedId</strong></p>
+
+    <ul>
+      <li>부모 클래스
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
     <span class="nd">@EmbeddedId</span>
     <span class="kd">private</span> <span class="nc">ParentId</span> <span class="n">parentId</span><span class="o">;</span>
     <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">...</span>
 <span class="o">}</span>
-</code></pre></div>            </div>
-          </li>
-          <li>식별자 클래스
-            <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Embeddable</span>
+</code></pre></div>        </div>
+      </li>
+      <li>식별자 클래스
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Embeddable</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ParentId</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
     <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"PARENT_ID1"</span><span class="o">)</span>
     <span class="kd">private</span> <span class="nc">String</span> <span class="n">id1</span><span class="o">;</span>
@@ -326,22 +319,20 @@
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div>            </div>
+</code></pre></div>        </div>
 
-            <ul>
-              <li><code class="language-plaintext highlighter-rouge">@IdClass</code>와는 다르게 식별자 클래스에 기본키를 직접 매핑한다.</li>
-            </ul>
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">@IdClass</code>와는 다르게 식별자 클래스에 기본키를 직접 매핑한다.</li>
+        </ul>
 
-            <p class="notice-basic no-marker"><strong>식별자 클래스는 다음 조건을 만족해야 한다.</strong><br />
+        <p class="notice-basic no-marker"><strong>식별자 클래스는 다음 조건을 만족해야 한다.</strong><br />
 - @Embeddable 어노테이션을 붙여주어야 한다.<br />
 - Serializable 인터페이스를 구현해야 한다.<br />
 - equals, hashCode를 구현해야 한다.<br />
 - 기본 생성자가 있어야 한다.<br />
 - 식별자 클래스는 public이어야 한다.</p>
-          </li>
-        </ul>
-      </div>
-  </details>
+      </li>
+    </ul>
   </li>
   <li class="blank"></li>
 </ul>
