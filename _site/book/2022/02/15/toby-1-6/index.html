@@ -132,6 +132,8 @@
           
             
           
+            
+          
         </aside>
       </div>
       <div id="main" role="main" class="content">
@@ -258,11 +260,11 @@
 
         <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DaoFactory</span> <span class="o">{</span>
-<span class="nd">@Bean</span>
-<span class="kd">public</span> <span class="nc">UserDao</span> <span class="nf">userDao</span><span class="o">()</span> <span class="o">{</span>
-<span class="nc">UserDao</span> <span class="n">dao</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">UserDao</span><span class="o">(</span><span class="n">connectionMaker</span><span class="o">());</span>
-<span class="k">return</span> <span class="n">dao</span><span class="o">;</span>
-<span class="o">}</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">UserDao</span> <span class="nf">userDao</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">UserDao</span> <span class="n">dao</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">UserDao</span><span class="o">(</span><span class="n">connectionMaker</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">dao</span><span class="o">;</span>
+    <span class="o">}</span>
     
     <span class="nd">@Bean</span>
     <span class="kd">public</span> <span class="nc">ConnectionMaker</span> <span class="nf">connectionMaker</span><span class="o">()</span> <span class="o">{</span>
