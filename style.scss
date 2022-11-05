@@ -38,6 +38,14 @@ ul, ol, dl, figure,
   }
 }
 
+li {
+  margin-top: 5px;
+}
+li > p {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
 .container {
   flex: 1 0 auto;
   margin: 0 auto;
