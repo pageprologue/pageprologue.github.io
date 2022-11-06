@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="3.1 애그리거트
+3.2 애그리거트 루트
+3.3 리포지터리와 애그리거트
+3.4 ID를 이용한 애그리거트 참조
+3.5 애그리거트 간 집합 연관
+3.6 애그리거트를 팩토리로 사용하기
+" />
+<meta property="og:description" content="3.1 애그리거트
+3.2 애그리거트 루트
+3.3 리포지터리와 애그리거트
+3.4 ID를 이용한 애그리거트 참조
+3.5 애그리거트 간 집합 연관
+3.6 애그리거트를 팩토리로 사용하기
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="도메인 주도 개발 시작하기 - 3. 애그리거트" />
+<meta property="twitter:title" content="도메인 주도 개발 시작하기 - 3. 애그리거트" />
+
+
+
+    <title>도메인 주도 개발 시작하기 - 3. 애그리거트 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/tags">Tag</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">도메인 주도 개발 시작하기 - 3. 애그리거트</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-09-26
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#31-애그리거트">3.1 애그리거트</a><br />
+<a href="#32-애그리거트-루트">3.2 애그리거트 루트</a><br />
+<a href="#33-리포지터리와-애그리거트">3.3 리포지터리와 애그리거트</a><br />
+<a href="#34-id를-이용한-애그리거트-참조">3.4 ID를 이용한 애그리거트 참조</a><br />
+<a href="#35-애그리거트-간-집합-연관">3.5 애그리거트 간 집합 연관</a><br />
+<a href="#36-애그리거트를-팩토리로-사용하기">3.6 애그리거트를 팩토리로 사용하기</a></p>
+
+<h2 id="31-애그리거트">3.1 애그리거트</h2>
+
+<ul>
+  <li>복잡한 도메인을 이해하고 관리하기 쉬운 단위로 만들려면 상위 수준에서 모델을 조망할 수 있어야 한다.</li>
+  <li>상위 모델에 대한 이해 없이 개별 객체 단위로 개념을 이해하려면 더 복잡해진다.
+➡️  주요 도메인 요소 간의 관계를 파악하기 어렵다는 것은 코드를 변경하고 확장하는 것이 어려워진다는 것을 의미한다.</li>
+  <li><strong>애그리커트를 사용하면, 모델 간의 관계를 개별 모델 수준과 상위 수준에서 모두 이해할 수 있다.</strong></li>
+  <li>애그리거트는 모델을 이해하는데 도움을 줄 뿐만 아니라 일관성을 관리하는 기준도 된다.
+    <ul>
+      <li>한 애그리거트에 속한 객체는 유사하거나 동일한 라이프 사이클을 갖는다.</li>
+      <li>애그리거트에 속한 구성요소는 대부분 함께 생성하고 함께 제거한다.</li>
+    </ul>
+  </li>
+  <li>애그리거트는 경계를 갖는다.
+    <ul>
+      <li>경계를 설정할 때 기본이 되는 것은 도메인 규칙과 요구사항이다.</li>
+      <li>‘A가 B를 갖는다’ 라는 요구사항이 A와 B가 반드시 같은 애그리거트에 속한다는 것은 아니다. (상품-리뷰)</li>
+      <li>처음 도메인 모델을 만들기 시작하면 큰 애그리거트로 보이는 것들이 많지만, 도메인을 제대로 이해할수록 애그리거트의 크기는 줄어든다. (두개 이상의 엔티티로 구성되는 애그리거트는 드물었다.)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="32-애그리거트-루트">3.2 애그리거트 루트</h2>
+
+<ul>
+  <li>애그리거트 루트는 애그리거트에 속한 모든 객체가 일관된 상태를 유지하도록 관리하는 주체이다.</li>
+  <li>애그리거트에 속한 객체는 애그리거트 루트 엔티티에 직접 또는 간접적으로 속하게 된다.</li>
+</ul>
+
+<h3 id="321-도메인-규칙과-일관성">3.2.1) 도메인 규칙과 일관성</h3>
+
+<ul>
+  <li>애그리거트 루트의 핵심 역할은 일관성이 깨지지 않도록 하는 것이다.</li>
+  <li>
+    <p>애그리거트 루트가 제공하는 메서드는 도메인 규칙에 따라 애그리거트에 속한 객체의 일관성이 깨지지 않도록 구현해야 한다.<br />
+e.g. 배송이 시작되기 전까지만 배송 정보를 변경할 수 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Order</span> <span class="o">{</span>
+      <span class="c1">// 애그리거트 루트는 도메인 규칙을 구현한 기능을 제공한다.</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changeShippingInfo</span><span class="o">(</span><span class="nc">ShippingInfo</span> <span class="n">newShippingInfo</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">verifyNotYetShipped</span><span class="o">();</span>
+          <span class="n">setShippingInfo</span><span class="o">(</span><span class="n">newShippingInfo</span><span class="o">);</span>
+      <span class="o">}</span>
+    
+      <span class="kd">private</span> <span class="kt">void</span> <span class="nf">verifyNotYetShipped</span><span class="o">()</span> <span class="o">{</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">state</span> <span class="o">!=</span> <span class="nc">OrderState</span><span class="o">.</span><span class="na">PAYMENT_WATING</span> <span class="o">&amp;</span> <span class="n">state</span> <span class="o">!=</span> <span class="nc">OrderState</span><span class="o">.</span><span class="na">PREPARING</span><span class="o">)</span>
+              <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"alread shipped"</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="o">...</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>
+        <p>애그리거트 외부에서 애그리거트에 속한 객체를 직접 변경하면 안된다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ShippingInfo</span> <span class="n">si</span> <span class="o">=</span> <span class="n">order</span><span class="o">.</span><span class="na">getShippingInfo</span><span class="o">();</span>
+<span class="n">si</span><span class="o">.</span><span class="na">setAddress</span><span class="o">(</span><span class="n">newAddress</span><span class="o">);</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>상태 확인 로직을 응용 서비스에 구현할 수도 있지만, 중복으로 구현하게 될 가능성이 높아진다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ShippingInfo</span> <span class="n">si</span> <span class="o">=</span> <span class="n">order</span><span class="o">.</span><span class="na">getShippingInfo</span><span class="o">();</span>
+<span class="c1">// 주요 도메인 로직이 중복되는 문제</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">state</span> <span class="o">!=</span> <span class="nc">OrderState</span><span class="o">.</span><span class="na">PAYMENT_WATING</span> <span class="o">&amp;</span> <span class="n">state</span> <span class="o">!=</span> <span class="nc">OrderState</span><span class="o">.</span><span class="na">PREPARING</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"alread shipped"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">si</span><span class="o">.</span><span class="na">setAddress</span><span class="o">(</span><span class="n">newAddress</span><span class="o">);</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+
+    <p><strong>➡️  애그리거트 루트를 통해서만 도메인 로직을 구현하게 만들기</strong></p>
+    <ul>
+      <li>단순히 필드를 변경하는 set 메서드를 공개(public) 범위로 만들지 않는다.</li>
+      <li>밸류 타입은 불변으로 구현한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="322-애그리거트-루트의-기능-구현">3.2.2) 애그리거트 루트의 기능 구현</h3>
+
+<ul>
+  <li>애그리거트 루트는 애그리거트 내부의 다른 객체를 조합해서 기능을 완성한다.</li>
+  <li>
+    <p>애그리거트 루트는 기능 실행을 위임하기도 한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Order</span> <span class="o">{</span>
+      <span class="kd">private</span> <span class="nc">OrderLines</span> <span class="n">orderLines</span><span class="o">;</span>
+    
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changeOrderLines</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderLines</span><span class="o">&gt;</span> <span class="n">newLines</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">orderLines</span><span class="o">.</span><span class="na">changeOrderLines</span><span class="o">(</span><span class="n">newLines</span><span class="o">);</span>
+          <span class="k">this</span><span class="o">.</span><span class="na">totalAmounts</span> <span class="o">=</span> <span class="n">orderLines</span><span class="o">.</span><span class="na">getTotalAmounts</span><span class="o">();</span>
+      <span class="o">}</span>
+      <span class="o">...</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>이때 OrderLines를 조회할 수 있는 get 메서드를 제공하면 외부에서 OrderLines의 기능을 실행할 수 있게 된다. → 애초에 OrderLines를 불변으로 구현하자.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="323-트랜잭션-범위">3.2.3) 트랜잭션 범위</h3>
+
+<ul>
+  <li>트랜잭션은 충돌을 방지하기 위해 잠금을 수행하므로, 트랜잭션 범위는 작을수록 좋다.</li>
+  <li>
+    <p>한 트랜잭션에서는 한 애그리거트만 수정해야하며, 애그리거트 내부에서 다른 애그리거트의 상태를 변경하는 기능을 실행하면 안된다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Order</span> <span class="o">{</span>
+      <span class="kd">private</span> <span class="nc">Orderer</span> <span class="n">orderer</span><span class="o">;</span>
+    
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shipTo</span><span class="o">(</span><span class="nc">ShippingInfo</span> <span class="n">newShippingInfo</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">useNewShippingAddrAsMemberAddr</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">verifyNotYetShipped</span><span class="o">();</span>
+          <span class="n">setShippingInfo</span><span class="o">(</span><span class="n">newShippingInfo</span><span class="o">);</span>
+              <span class="k">if</span> <span class="o">(</span><span class="n">useNewShippingAddrAsMemberAddr</span><span class="o">)</span> <span class="o">{</span>
+                  <span class="c1">// 다른 애그리거트의 상태를 변경하면 안됨!</span>
+                  <span class="n">orderer</span><span class="o">.</span><span class="na">getMember</span><span class="o">().</span><span class="na">changeAddress</span><span class="o">(</span><span class="n">newShippingInfo</span><span class="o">.</span><span class="na">getAddress</span><span class="o">());</span>
+              <span class="o">}</span>
+      <span class="o">}</span>
+      <span class="o">...</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>한 트랜잭션에서 두 개 이상의 애그리거트를 수정해야 한다면, 애그리거트 내부에서 수정하지 말고 응용 서비스에서 애그리거트를 수정하도록 구현한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChangeOrderService</span> <span class="o">{</span>
+      <span class="nd">@Transactional</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changeShippingInfo</span><span class="o">(</span><span class="nc">OrderId</span> <span class="n">id</span><span class="o">,</span> <span class="nc">ShippingInfo</span> <span class="n">newShippingInfo</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">useNewShippingAddrAsMemberAddr</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">Order</span> <span class="n">order</span> <span class="o">=</span> <span class="n">orderRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">order</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">OrderNotFoundException</span><span class="o">();</span>
+          <span class="n">order</span><span class="o">.</span><span class="na">shipTo</span><span class="o">(</span><span class="n">newShippingInfo</span><span class="o">);</span>
+            
+          <span class="k">if</span> <span class="o">(</span><span class="n">useNewShippingAddrAsMemberAddr</span><span class="o">)</span> <span class="o">{</span>
+              <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">findMember</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getOrderer</span><span class="o">());</span>
+              <span class="n">member</span><span class="o">.</span><span class="na">changeAddress</span><span class="o">(</span><span class="n">newShippingInfo</span><span class="o">.</span><span class="na">getAddress</span><span class="o">());</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  		<span class="o">...</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>도메인 이벤트를 사용하면 한 트랜잭션에서 한 개의 애그리거트를 수정하면서도 동기나 비동기로 다른 애그리거트의 상태를 변경하는 코드를 작성할 수 있다. (→ 10장 참고)</li>
+</ul>
+
+<h2 id="33-리포지터리와-애그리거트">3.3 리포지터리와 애그리거트</h2>
+
+<ul>
+  <li>애그리거트는 개념상 완전한 한 개의 도메인 모델을 표현하므로, 객체의 영속성을 처리하는 리포지터리는 애그리거트 단위로 존재한다.
+    <ul>
+      <li>Order와  OrderLine을 물리적으로 각각 별도의 DB 테이블에 저장한다고 해서 Order와 OrderLine을 위한 리포지터리를 각각 만들지 않는다.</li>
+    </ul>
+  </li>
+  <li>애그리거트의 상태가 변경되면 모든 변경을 원자적으로 저장소에 반영해야 한다.</li>
+</ul>
+
+<h2 id="34-id를-이용한-애그리거트-참조">3.4 ID를 이용한 애그리거트 참조</h2>
+
+<ul>
+  <li>한 객체가 다른 객체를 참조하는 것처럼 애그리거트도 다른 애그리거트를 참조한다.</li>
+  <li>애그리거트에서 다른 애그리커트를 참조한다는 것은, <strong>다른 애그리거트의 루트를 참조한다는 것과 같다.</strong></li>
+  <li>필드를 통한 애그리거트 참조의 문제점
+    <ul>
+      <li><strong>편한 탐색 오용</strong>
+한 애그리거트 내부에서 다른 애그리거트 객체에 접근할 수 있으면 다른 애그리거트의 상태를 쉽게 변경할 수 있게 된다.</li>
+      <li><strong>성능에 대한 고민</strong>
+애그리거트를 직접 참조하면 어떤 기능을 사용하느냐에 따라 쿼리의 로딩 전략을 결정해야 한다.</li>
+      <li><strong>확장 어려움</strong>
+사용자가 늘고 트래픽이 증가하면 도메인별로 시스템을 분리하게 되는데, 이때 단일 기술을 사용할 수 없게 된다.</li>
+    </ul>
+
+    <p>➡️  ID를 이용해서 다른 애그리거트를 참조하면, 위의 문제를 완화할 수 있다.</p>
+  </li>
+  <li><strong>ID 참조를 사용하면 모든 객체가 참조로 연결되지 않고 한 애그리거트에 속한 객체들만 참조로 연결된다.</strong>
+    <ul>
+      <li>이는 애그리거트의 경계를 명확하게 하고, 애그리거트 간 물리적인 연결을 제거하기 때문에 모델의 복잡도를 낮춰준다.</li>
+      <li>또한 애그리거트 간의 의존을 제거하므로 응집도를 높여주는 효과도 있다.</li>
+      <li>구현 복잡도도 낮아진다.
+        <ul>
+          <li>응용 서비스에서 필요한 애그리거트를 로딩하므로 애그리거트 수준에서 지연 로딩을 하는 것과 동일한 결과를 만든다.</li>
+          <li>ID를 이용한 참조 방식을 사용하면 애그리거트에서 다른 애그리거트를 수정하는 문제를 근원적으로 방지할 수 있다.</li>
+          <li>애그리거트별로 다른 구현 기술을 사용할 수 있고, 각 도메인을 별도 프로세스로 서비스하도록 구현할 수도 있다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="341-id를-이용한-참조와-조회-성능">3.4.1) ID를 이용한 참조와 조회 성능</h3>
+
+<ul>
+  <li>다른 애그리거트를 ID로 참조하면 참조하는 여러 애그리거트를 읽을 때 조회 속도가 문제가 될 수 있다.
+    <ul>
+      <li>
+        <p>데이터가 한 DBMS에 있다면 조인을 이용해서 한 번에 모든 데이터를 가져올 수 있음에도 불구하고 주문마다 상품 정보를 읽어와야 한다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">ordererId</span><span class="o">);</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Order</span><span class="o">&gt;</span> <span class="n">orders</span> <span class="o">=</span> <span class="n">orderRepository</span><span class="o">.</span><span class="na">findByOrderer</span><span class="o">(</span><span class="n">ordererId</span><span class="o">);</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderView</span><span class="o">&gt;</span> <span class="n">dtos</span> <span class="o">=</span> <span class="n">orders</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">order</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                  <span class="nc">ProductId</span> <span class="n">prodId</span> <span class="o">=</span> <span class="n">order</span><span class="o">.</span><span class="na">getOrderLines</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">getProductId</span><span class="o">();</span>
+                  <span class="c1">// 각 주문마다 첫 번째 주문 상품 정보 로딩을 위한 쿼리 실행</span>
+                  <span class="nc">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="n">productRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">prodId</span><span class="o">);</span>
+                  <span class="k">return</span> <span class="k">new</span> <span class="nf">OrderView</span><span class="o">(</span><span class="n">order</span><span class="o">,</span> <span class="n">member</span><span class="o">,</span> <span class="n">product</span><span class="o">);</span>
+          <span class="o">}).</span><span class="na">collect</span><span class="o">(</span><span class="n">toList</span><span class="o">());</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>조회 대상이 N개 일 때, N개를 읽어오는 한 번의 쿼리와 연관된 데이터를 읽어오는 N번의 쿼리가 실행되는 N+1 조회 문제가 발생한다.
+    <ul>
+      <li>ID를 이용한 애그리거트 참조는 지연 로딩과 같은 효과를 만드는데, <strong>지연 로딩과 관련된 대표적인 문제가 N+1 조회 문제이다.</strong></li>
+    </ul>
+  </li>
+  <li>ID 참조 방식을 사용하면서 N+1 조회와 같은 문제가 발생하지 않도록 하려면 <strong>조회 전용 쿼리</strong>를 사용하면 된다. (→ 5장, 11장 참고)
+    <ul>
+      <li>
+        <p>JPQL을 사용하여 애그리거트를 조인으로 한번만 로딩하는 예시</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Repository</span>
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">JpaOrderViewDao</span> <span class="kd">implements</span> <span class="nc">OrderViewDao</span> <span class="o">{</span>
+      <span class="nd">@PersistenceContext</span>
+      <span class="kd">private</span> <span class="nc">EntityManager</span> <span class="n">em</span><span class="o">;</span>
+      
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderView</span><span class="o">&gt;</span> <span class="nf">selectByOrderer</span><span class="o">(</span><span class="nc">String</span> <span class="n">ordererId</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">String</span> <span class="n">selectQuery</span> <span class="o">=</span> <span class="s">"select new com.myshop.order.application.dto.OrderView(o, m, p) "</span> <span class="o">+</span>
+                               <span class="s">"from Order o join o.orderLines ol, Member m, Product p "</span> <span class="o">+</span>
+                               <span class="s">"where o.orderer.memberId.id = :ordererId "</span> <span class="o">+</span>
+                               <span class="s">"and o.orderer.memberId = m.id "</span> <span class="o">+</span>
+                               <span class="s">"and index(ol) = 0 "</span> <span class="o">+</span>
+                               <span class="s">"and ol.productId = p.id "</span> <span class="o">+</span>
+                               <span class="s">"order by o.number.number desc"</span><span class="o">;</span>
+          <span class="nc">TypedQuery</span><span class="o">&lt;</span><span class="nc">OrderView</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="n">selectQuery</span><span class="o">,</span> <span class="nc">OrderView</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+          <span class="n">query</span><span class="o">.</span><span class="na">setParameter</span><span class="o">(</span><span class="s">"ordererId"</span><span class="o">,</span> <span class="n">ordererId</span><span class="o">);</span>
+          <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>애그리거트마다 서로 다른 저장소를 사용하면 한 번의 쿼리로 관련 애그리거트를 조회할 수 없다.
+    <ul>
+      <li>이때는 조회 성능을 높이기 위해 캐시를 적용하거나 조회 전용 저장소를 따로 구성한다.</li>
+      <li>이 방법은 코드가 복잡해지는 단점이 있지만, 시스템의 처리량을 높일 수 있다는 장점이 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="35-애그리거트-간-집합-연관">3.5 애그리거트 간 집합 연관</h2>
+
+<ul>
+  <li>애그리거트 간 컬렉션을 이용한 연관(<code class="language-plaintext highlighter-rouge">1-N</code>, <code class="language-plaintext highlighter-rouge">M-N</code>)에 대해 살펴보자.</li>
+  <li>
+    <p>애그리거트간 <code class="language-plaintext highlighter-rouge">1-N</code> 관계는 <code class="language-plaintext highlighter-rouge">Set</code>과 같은 컬렉션을 이용해서 표현할 수 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="nc">Category</span> <span class="o">{</span>
+      <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="n">products</span><span class="o">;</span>  <span class="c1">// 다른 애그리거트에 대한 1-N 연관</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>개념적으로 존재하는 애그리거트 간의 1-N 연관을 실제 구현에 반영하는 것이 요구사항을 충족하는 것과는 상관없을 때가 있다.
+    <ul>
+      <li>아래 코드는 Product 개수가 수만 개 정도로 많다면 성능에 심각한 문제를 일으킬 것이다.</li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="nc">Category</span> <span class="o">{</span>
+      <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="n">products</span><span class="o">;</span>  <span class="c1">// 다른 애그리거트에 대한 1-N 연관</span>
+        
+      <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="nf">getProducts</span><span class="o">(</span><span class="kt">int</span> <span class="n">page</span><span class="o">,</span> <span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="n">sortedProducts</span> <span class="o">=</span> <span class="n">sortById</span><span class="o">(</span><span class="n">products</span><span class="o">);</span>
+          <span class="k">return</span> <span class="n">sortedProducts</span><span class="o">.</span><span class="na">subList</span><span class="o">((</span><span class="n">page</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">*</span> <span class="n">size</span><span class="o">,</span> <span class="n">page</span> <span class="o">*</span> <span class="n">size</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <p>➡️  <strong>따라서 개념적으로는 애그리거트 간에 1-N 연관이 있더라도, 성능 문제 때문에 애그리거트 간의 1-N 연관을 실제 구현에 반영하지 않는다.</strong></p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProductListService</span> <span class="o">{</span>
+    
+      <span class="kd">public</span> <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="nf">getProductOfCategory</span><span class="o">(</span><span class="nc">Long</span> <span class="n">categoryId</span><span class="o">,</span> <span class="kt">int</span> <span class="n">page</span><span class="o">,</span> <span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">Category</span> <span class="n">category</span> <span class="o">=</span> <span class="n">categoryRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">categoryId</span><span class="o">);</span>
+          <span class="n">checkCatetory</span><span class="o">(</span><span class="n">category</span><span class="o">);</span>
+          <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="n">products</span> <span class="o">=</span> <span class="n">productRepository</span><span class="o">.</span><span class="na">findByCategoryId</span><span class="o">(</span><span class="n">category</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">page</span><span class="o">,</span> <span class="n">size</span><span class="o">);</span>
+          <span class="kt">int</span> <span class="n">totalCount</span> <span class="o">=</span> <span class="n">productRepository</span><span class="o">.</span><span class="na">countsByCategoryId</span><span class="o">(</span><span class="n">category</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+          <span class="k">return</span> <span class="k">new</span> <span class="nf">Page</span><span class="o">(</span><span class="n">page</span><span class="o">,</span> <span class="n">size</span><span class="o">,</span> <span class="n">totalCount</span><span class="o">,</span> <span class="n">products</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="o">...</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">M-N</code> 연관은 개념적으로 양쪽 애그리거트에 컬렉션으로 연관을 만든다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">1-N</code> 연관처럼 <code class="language-plaintext highlighter-rouge">M-N</code> 연관도 실제 요구사항을 고려하여 <code class="language-plaintext highlighter-rouge">M-N</code> 연관을 구현에 포함시킬지 결정해야 한다.</li>
+      <li>보통 특정 카테고리에 속한 상품 목록을 보여줄 때 목록 화면에서 각 상품이 속한 모든 카테고리를 상품 정보에 표시하지 않는다. → 상품 상세 화면에서 제품이 속한 모든 카테고리를 확인한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>➡️  <strong>개념적으로는 애그리거트 간에 양방향 M-N 연관이 있더라도, 실제 구현에서는 단방향 M-N 연관만 적용한다.</strong></p>
+
+<ul>
+  <li>RDBMS를 이용해서 M-N 연관을 구현하려면 조인 테이블을 사용한다.
+    <ul>
+      <li>
+        <p>JPA에서 ID 참조를 이용한 M-N 단방향 연관 구현 예시</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Entity</span>
+  <span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"product"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+      <span class="nd">@EmbeddedId</span>
+      <span class="kd">private</span> <span class="nc">ProductId</span> <span class="n">id</span><span class="o">;</span>
+      
+      <span class="nd">@ElementCollection</span><span class="o">(</span><span class="n">fetch</span> <span class="o">=</span> <span class="nc">FetchType</span><span class="o">.</span><span class="na">LAZY</span><span class="o">)</span>
+      <span class="nd">@CollectionTable</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"product_category"</span><span class="o">,</span> <span class="n">joinColumns</span> <span class="o">=</span> <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"product_id"</span><span class="o">))</span>
+      <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">CategoryId</span><span class="o">&gt;</span> <span class="n">categoryIds</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div>        </div>
+
+        <ul>
+          <li>JPQL의 <code class="language-plaintext highlighter-rouge">member of</code> 연산자를 이용해서 특정 Category에 속한 Product 목록을 구할 수 있다.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p><strong>💡 목록이나 상세 화면과 같은 조회 기능은 조회 전용 모델을 이용해서 구현하는 것이 좋다.</strong></p>
+  </li>
+</ul>
+
+<h2 id="36-애그리거트를-팩토리로-사용하기">3.6 애그리거트를 팩토리로 사용하기</h2>
+
+<ul>
+  <li>
+    <p>애그리거트가 갖고 있는 데이터를 이용해서 다른 애그리거트를 생성해야 한다면 애그리거트에 팩토리 메서드를 구현하는 것을 고려해보자.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Store</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="nc">Product</span> <span class="nf">createProduct</span><span class="o">(</span><span class="nc">ProductId</span> <span class="n">newProductId</span><span class="o">,</span> <span class="nc">ProductInfo</span> <span class="n">pi</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">isBlocked</span><span class="o">())</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">StoreBlockedException</span><span class="o">();</span>
+          <span class="k">return</span> <span class="nc">ProductFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">newProductId</span><span class="o">,</span> <span class="n">getId</span><span class="o">(),</span> <span class="n">pi</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>팩터리 메서드 내부에서 또 다른 팩토리에 생성을 위임할 수도 있다.</p>
+  </li>
+</ul>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>Copyright &copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>
