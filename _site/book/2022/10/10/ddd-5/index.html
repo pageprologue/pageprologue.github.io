@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="5.1 시작에 앞서
+5.2 검색을 위한 스펙
+5.3 스프링 데이터 JPA를 이용한 스펙 구현
+5.4 리포지터리/DAO에서 스펙 사용하기
+5.5 스펙 조합
+5.6 정렬 지정하기
+5.7 페이징 처리하기
+5.8 스펙 조합을 위한 스펙 빌더 클래스
+5.9 동적 인스턴스 생성
+5.10 하이버네이트 @Subselect 사용
+" />
+<meta property="og:description" content="5.1 시작에 앞서
+5.2 검색을 위한 스펙
+5.3 스프링 데이터 JPA를 이용한 스펙 구현
+5.4 리포지터리/DAO에서 스펙 사용하기
+5.5 스펙 조합
+5.6 정렬 지정하기
+5.7 페이징 처리하기
+5.8 스펙 조합을 위한 스펙 빌더 클래스
+5.9 동적 인스턴스 생성
+5.10 하이버네이트 @Subselect 사용
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="도메인 주도 개발 시작하기 - 5. 스프링 데이터 JPA를 이용한 조회 기능" />
+<meta property="twitter:title" content="도메인 주도 개발 시작하기 - 5. 스프링 데이터 JPA를 이용한 조회 기능" />
+
+
+
+    <title>도메인 주도 개발 시작하기 - 5. 스프링 데이터 JPA를 이용한 조회 기능 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/tags">Tag</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">도메인 주도 개발 시작하기 - 5. 스프링 데이터 JPA를 이용한 조회 기능</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-10-10
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#51-시작에-앞서">5.1 시작에 앞서</a><br />
+<a href="#52-검색을-위한-스펙">5.2 검색을 위한 스펙</a><br />
+<a href="#53-스프링-데이터-jpa를-이용한-스펙-구현">5.3 스프링 데이터 JPA를 이용한 스펙 구현</a><br />
+<a href="#54-리포지터리/dao에서-스펙-사용하기">5.4 리포지터리/DAO에서 스펙 사용하기</a><br />
+<a href="#55-스펙-조합">5.5 스펙 조합</a><br />
+<a href="#56-정렬-지정하기">5.6 정렬 지정하기</a><br />
+<a href="#57-페이징-처리하기">5.7 페이징 처리하기</a><br />
+<a href="#58-스펙-조합을-위한-스펙-빌더-클래스">5.8 스펙 조합을 위한 스펙 빌더 클래스</a><br />
+<a href="#59-동적-인스턴스-생성">5.9 동적 인스턴스 생성</a><br />
+<a href="#510-하이버네이트-subselect-사용">5.10 하이버네이트 @Subselect 사용</a></p>
+
+<h1 id="스프링-데이터-jpa를-이용한-조회-기능">스프링 데이터 JPA를 이용한 조회 기능</h1>
+
+<h1 id="51-시작에-앞서">5.1 시작에 앞서</h1>
+
+<ul>
+  <li>CQRS는 명령 모델과 조회 모델을 분리하는 패턴이다.
+    <ul>
+      <li>명령 모델은 상태를 변경하는 기능을 구현할 때 사용한다.
+        <ul>
+          <li>앞서 살펴봤던 엔티티, 애그리거트, 리포지터리 모델 등에서 주문 취소, 배송지 변경과 같이 상태를 변경할 때 주로 사용된다.</li>
+        </ul>
+      </li>
+      <li>조회 모델은 데이터를 조회하는 기능을 구현할 때 사용한다.
+        <ul>
+          <li>정렬, 페이징, 검색 조건 지정과 같은 기능은 주문 목록, 상품 상세와 같은 조회 기능에 사용된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="52-검색을-위한-스펙">5.2 검색을 위한 스펙</h1>
+
+<ul>
+  <li>검색 조건이 고정되어 있고 단순하면 특정 조건으로 조회하는 기능을 만들면 된다.</li>
+  <li>하지만 다양한 검색 조건을 조합해야 할 때가 있는데, 필요한 조합마다 find 메서드를 정의하는 것은 좋은 방법이아니다.</li>
+  <li>
+    <p>검색 조건을 다양하게 조합해야 할 때 <strong>스펙(Specification)</strong>을 사용할 수 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Specification</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isSatisfiedBy</span><span class="o">(</span><span class="no">T</span> <span class="n">agg</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">isSatisfiedBy()</code> 메서드의 <code class="language-plaintext highlighter-rouge">agg</code> 파라미터는 검사 대상이 되는 객체다.</li>
+      <li><strong>스펙을 리포지터리에 사용하면 agg는 애그리거트 루트가 되고, 스펙을 DAO에 사용하면 agg는 검색 결과로 리턴할 데이터 객체가 된다.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="리포지터리에서-스펙-사용">리포지터리에서 스펙 사용</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemoryOrderRepository</span> <span class="kd">implements</span> <span class="nc">OrderRepository</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Order</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">Order</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Order</span><span class="o">&gt;</span> <span class="n">allOrders</span> <span class="o">=</span> <span class="n">findAll</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">allOrders</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">order</span> <span class="o">-&gt;</span> <span class="n">spec</span><span class="o">.</span><span class="na">isSatisfiedBy</span><span class="o">(</span><span class="n">order</span><span class="o">))</span>
+                        <span class="o">.</span><span class="na">toList</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>특정 조건을 충족하는 애그리거트를 찾고 싶으면 원하는 스펙을 생성해서 리포지터리에 전달해주기만 하면 된다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// 검색 조건을 표현하는 스펙을 생성</span>
+  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">Order</span><span class="o">&gt;</span> <span class="n">ordererSpec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OrdererSpec</span><span class="o">(</span><span class="s">"madvirus"</span><span class="o">);</span>
+  <span class="c1">// 리포지터리에 전달</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Order</span><span class="o">&gt;</span> <span class="n">orders</span> <span class="o">=</span> <span class="n">orderRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">ordererSpec</span><span class="o">);</span>
+</code></pre></div>    </div>
+
+    <p>→ 하지만 모든 애그리거트 객체를 메모리에 보관할 수 없고, 메모리에 다 보관하더라도 조회 성능에 심각한 문제가 발생하기 때문에 실제 스펙은 이렇게 구현하지 않는다.</p>
+  </li>
+</ul>
+
+<h1 id="53-스프링-데이터-jpa를-이용한-스펙-구현">5.3 스프링 데이터 JPA를 이용한 스펙 구현</h1>
+
+<ul>
+  <li>
+    <p>스프링 데이터 JPA는 검색 조건을 표현하기 위한 인터페이스인 Specification을 제공한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Specification</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">Serializable</span> <span class="o">{</span>
+      <span class="c1">// not, where, and, or 메서드 생략</span>
+    
+      <span class="nd">@Nullable</span>
+      <span class="nc">Predicate</span> <span class="nf">toPredicate</span><span class="o">(</span><span class="nc">Root</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">root</span><span class="o">,</span>
+                            <span class="nc">CriteriaQuery</span><span class="o">&lt;?&gt;</span> <span class="n">query</span><span class="o">,</span>
+                            <span class="nc">CriteriaBuilder</span> <span class="n">cb</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>타입 파라미터 T는 JPA 엔티티 타입을 의미한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="jpa-정적-메타-모델">JPA 정적 메타 모델</h3>
+
+<ul>
+  <li>정적 메타 모델은 <code class="language-plaintext highlighter-rouge">@StaticMetamodel</code> 애너테이션을 이용해서 관련 모델을 지정한다.</li>
+  <li>메타 모델 클래스는 모델 클래스의 이름 뒤에 ‘<code class="language-plaintext highlighter-rouge">_</code>’을 붙인 이름을 갖는다.</li>
+  <li>문자열로 프로퍼티를 지정할 수도 있지만, 문자열은 오타 가능성이 있고 실행 전까지는 오타가 있다는 것을 놓치기가 쉽다는 단점이 있다.</li>
+  <li>
+    <p>정적 메타 모델을 사용한 스펙 인터페이스 구현 예시</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrdererIdSpec</span> <span class="kd">implements</span> <span class="nc">Sepcification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="o">{</span>
+      <span class="kd">private</span> <span class="nc">String</span> <span class="n">ordererId</span><span class="o">;</span>
+    
+      <span class="kd">public</span> <span class="nf">Orderer</span><span class="o">(</span><span class="nc">String</span> <span class="n">ordererId</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">this</span><span class="o">.</span><span class="na">ordererId</span> <span class="o">=</span> <span class="n">ordererId</span><span class="o">;</span>
+      <span class="o">}</span>
+    
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="nc">Predicate</span> <span class="nf">toPredicate</span><span class="o">(</span><span class="nc">Root</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">root</span><span class="o">,</span> 
+                                   <span class="nc">CriteriaQuery</span><span class="o">&lt;?&gt;</span> <span class="n">query</span><span class="o">,</span>
+                                   <span class="nc">CriteriaBuilder</span> <span class="n">cb</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">cb</span><span class="o">.</span><span class="na">equal</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">OrderSummary_</span><span class="o">.</span><span class="na">orderId</span><span class="o">),</span> <span class="n">ordererId</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>OrdererIdSpec 클래스는 <code class="language-plaintext highlighter-rouge">Sepcificatoin&lt;OrderSummary&gt;</code> 타입을 구현하므로, OrderSummary에 대한 검색 조건이다.</li>
+      <li>ordererId 파라미터 값이 생성자로 전달받은 ordererId와 동일한지 비교하는 Predicate을 생성한다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>스펙 구현 클래스를 개별적으로 만들지 않고, 별도 클래스에 스펙 생성 기능을 모아도 된다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderSummarySpecs</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSumary</span><span class="o">&gt;</span> <span class="nf">ordererId</span><span class="o">(</span><span class="nc">String</span> <span class="n">ordererId</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="o">(</span><span class="nc">Root</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">root</span><span class="o">,</span> <span class="nc">CriteriaQuery</span><span class="o">&lt;?&gt;</span> <span class="n">query</span><span class="o">,</span>
+                  <span class="nc">CriteriaBuilder</span> <span class="n">cb</span><span class="o">)</span> <span class="o">-&gt;</span> 
+                      <span class="n">cb</span><span class="o">.</span><span class="na">equal</span><span class="o">(</span><span class="n">root</span><span class="o">.&lt;</span><span class="nc">String</span><span class="o">&gt;</span><span class="n">get</span><span class="o">(</span><span class="s">"ordererId"</span><span class="o">),</span> <span class="n">ordererId</span><span class="o">);</span>
+      <span class="o">}</span>
+    
+      <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="nf">orderDateBetween</span><span class="o">(</span><span class="nc">LocalDateTime</span> <span class="n">from</span><span class="o">,</span> <span class="nc">LocalDateTime</span> <span class="n">to</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="o">(</span><span class="nc">Root</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">root</span><span class="o">,</span> <span class="nc">CriteriaQuery</span> <span class="n">query</span><span class="o">,</span>
+                  <span class="nc">CriteriaBuilder</span> <span class="n">cb</span><span class="o">)</span> <span class="o">-&gt;</span> 
+                      <span class="n">cb</span><span class="o">.</span><span class="na">between</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">OrderSummary_</span><span class="o">.</span><span class="na">orderDate</span><span class="o">),</span> <span class="n">from</span><span class="o">,</span> <span class="n">to</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>스펙 인터페이스는 함수형 인터페이스이므로 람다식을 이용해서 객체를 생성할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="54-리포지터리dao에서-스펙-사용하기">5.4 리포지터리/DAO에서 스펙 사용하기</h1>
+
+<ul>
+  <li>
+    <p>스펙을 충족하는 엔티티를 검색하고 싶다면 스펙 인터페이스를 파라미터로 갖는 <code class="language-plaintext highlighter-rouge">findAll()</code> 메서드를 사용하면 된다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OrderSummaryDao</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+      <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// 스펙 객체를 생성</span>
+  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">spec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OrdererIdSpec</span><span class="o">(</span><span class="s">"user1"</span><span class="o">);</span>
+  <span class="c1">// findAll() 메서드를 이용해서 검색</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">orderSummaryDaoo</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="55-스펙-조합">5.5 스펙 조합</h1>
+
+<ul>
+  <li>스프링 데이터 JPA가 제공하는 스펙 인터페이스는 스펙을 조합할 수 있는 메서드를 제공한다.
+    <ul>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">and()</code>와 <code class="language-plaintext highlighter-rouge">or()</code> 메서드는 스펙 조건마다 변수를 선언하지 않고 스펙을 조합하여 사용할 수 있게 해주는 default 메서드이다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">spec</span> <span class="o">=</span> <span class="nc">OrderSummarys</span><span class="o">.</span><span class="na">ordererId</span><span class="o">(</span><span class="s">"user1"</span><span class="o">)</span>
+                  <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="nc">OrderSummarySpecs</span><span class="o">.</span><span class="na">orderDateBetween</span><span class="o">(</span><span class="n">from</span><span class="o">,</span> <span class="n">to</span><span class="o">));</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">not()</code>은 조건을 반대로 적용할 때 사용하는 정적 메서드이다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">spec</span> <span class="o">=</span> <span class="nc">Specification</span><span class="o">.</span><span class="na">not</span><span class="o">(</span><span class="nc">OrderSummarySpecs</span><span class="o">.</span><span class="na">ordererId</span><span class="o">(</span><span class="s">"user1"</span><span class="o">));</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">where()</code>는 <code class="language-plaintext highlighter-rouge">null</code>을 전달하면 아무 조건도 생성하지 않고, <code class="language-plaintext highlighter-rouge">null</code>이 아니면 스펙 객체를 그대로 리턴하는 정적 메서드이다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// 기존</span>
+  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">nullableSpec</span> <span class="o">=</span> <span class="n">createNullableSpec</span><span class="o">();</span>  <span class="c1">// null일 수 있음</span>
+  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">otherSpec</span> <span class="o">=</span> <span class="n">createOtherSpec</span><span class="o">();</span>
+  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">spec</span> <span class="o">=</span> <span class="o">(</span><span class="n">nullableSpec</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> 
+                                      <span class="n">otherSpec</span> <span class="o">:</span> <span class="n">nullableSpec</span><span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">otherSpec</span><span class="o">);</span>
+        
+  <span class="c1">// where 방식</span>
+  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">spec</span> <span class="o">=</span> <span class="nc">Specification</span><span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">createNullableSpec</span><span class="o">())</span>
+                                          <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">createOtherSpec</span><span class="o">());</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="56-정렬-지정하기">5.6 정렬 지정하기</h1>
+
+<h3 id="스프링-데이터-jpa-정렬-방법">스프링 데이터 JPA 정렬 방법</h3>
+
+<ol>
+  <li>메서드 이름에 <code class="language-plaintext highlighter-rouge">OrderBy</code>를 사용해서 정렬 기준 지정
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">findByOrdererId**OrderBy**OrderDate**Desc**Number**Asc**()</code></li>
+      <li>메서드 이름에 <code class="language-plaintext highlighter-rouge">OrderBy</code>를 사용하는 방법은 간단하지만, 정렬 기준 프로퍼티가 두 개 이상이면 메서드 이름이 길어지는 단점이 있다.</li>
+      <li>메서드 이름으로 정렬 순서가 정해지기 때문에 상황에 따라 정렬 순서를 변경할 수도 없다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Sort</code>를 인자로 전달
+    <ul>
+      <li>스프링 데이터 JPA는 정렬 순서를 지정할 때 사용할 수 있는 <code class="language-plaintext highlighter-rouge">Sort</code> 타입을 제공한다.</li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OrderSummaryDao</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+     <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="nf">findByOrdererId</span><span class="o">(</span><span class="nc">String</span> <span class="n">odererId</span><span class="o">,</span> <span class="nc">Sort</span> <span class="n">sort</span><span class="o">);</span>
+     <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="nf">findByAll</span><span class="o">(</span><span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="nc">Sort</span> <span class="n">sort</span><span class="o">);</span>
+ <span class="o">}</span>
+    
+ <span class="c1">// Sort 사용</span>
+ <span class="nc">Sort</span> <span class="n">sort1</span> <span class="o">=</span> <span class="nc">Sort</span><span class="o">.</span><span class="na">by</span><span class="o">(</span><span class="s">"number"</span><span class="o">).</span><span class="na">ascending</span><span class="o">();</span>
+ <span class="nc">Sort</span> <span class="n">sort2</span> <span class="o">=</span> <span class="nc">Sort</span><span class="o">.</span><span class="na">by</span><span class="o">(</span><span class="s">"orderDate"</span><span class="o">).</span><span class="na">descending</span><span class="o">();</span>
+ <span class="nc">Sort</span> <span class="n">sort</span> <span class="o">=</span> <span class="n">sort1</span><span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">sort2</span><span class="o">);</span>
+ <span class="c1">// Sort sort = Sort.by("number").ascending().and(Sort.by("orderDate".descending()));</span>
+    
+ <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">orderSummaryDao</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="s">"user1"</span><span class="o">,</span> <span class="n">sort</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h1 id="57-페이징-처리하기">5.7 페이징 처리하기</h1>
+
+<ul>
+  <li>목록을 보여줄 때 전체 데이터 중 일부만 보여주는 페이징 처리는 기본이다.</li>
+  <li>
+    <p>스프링 데이터 JPA는 페이진 처리를 위해 <code class="language-plaintext highlighter-rouge">Pageable</code> 타입을 이용한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberDataDao</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+      <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="nf">findByNameLike</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+  <span class="o">}</span>
+    
+  <span class="c1">// Pageable 사용</span>
+  <span class="nc">PageRequest</span> <span class="n">pageReq</span> <span class="o">=</span> <span class="nc">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="n">memberDataDao</span><span class="o">.</span><span class="na">findByNameLike</span><span class="o">(</span><span class="s">"사용자%"</span><span class="o">,</span> <span class="n">pageReq</span><span class="o">);</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>페이지 번호는 0번 부터 시작하므로, <code class="language-plaintext highlighter-rouge">PageRequest.of(1, 10)</code> 는 11번째부터 20번째까지 데이터를 조회한다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>PageRequest와 Sort를 사용하면 정렬 순서를 지정할 수 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Sort</span> <span class="n">sort</span> <span class="o">=</span> <span class="nc">Sort</span><span class="o">.</span><span class="na">by</span><span class="o">(</span><span class="s">"name"</span><span class="o">).</span><span class="na">descending</span><span class="o">();</span>
+  <span class="nc">PageRequest</span> <span class="n">pageReq</span> <span class="o">=</span> <span class="nc">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="n">sort</span><span class="o">);</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="n">user</span> <span class="o">=</span> <span class="n">memberDataDao</span><span class="o">.</span><span class="na">findByNameLike</span><span class="o">(</span><span class="s">"사용자%"</span><span class="o">,</span> <span class="n">pageReq</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Page</code> 타입을 사용하면 데이터 목록뿐만 아니라 조건에 해당하는 전체 개수도 구할 수 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberDataDao</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+      <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="nf">findByBlocked</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">blocked</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Page</code>가 제공하는 메서드 예시</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Pageable</span> <span class="n">pageReq</span> <span class="o">=</span> <span class="nc">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+  <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="n">page</span> <span class="o">=</span> <span class="n">memberDataDao</span><span class="o">.</span><span class="na">findByBlocked</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="n">pageReq</span><span class="o">);</span>
+    
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="n">content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.**</span><span class="n">getContent</span><span class="o">**();</span> <span class="c1">// 조회 결과 목록</span>
+  <span class="kt">long</span> <span class="n">totalElements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.**</span><span class="n">getTotalElements</span><span class="o">**();</span> <span class="c1">// 조건에 해당하는 전체 개수</span>
+  <span class="kt">int</span> <span class="n">totalPages</span> <span class="o">=</span> <span class="n">page</span><span class="o">.**</span><span class="n">getTotalPages</span><span class="o">**();</span> <span class="c1">// 전체 페이지 번호</span>
+  <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">page</span><span class="o">.**</span><span class="n">getNumber</span><span class="o">**();</span> <span class="c1">// 현재 페이지 번호</span>
+  <span class="kt">int</span> <span class="n">numberOfElements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.**</span><span class="n">getNumberOfElements</span><span class="o">**();</span> <span class="c1">// 조합 결과 개수</span>
+  <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">page</span><span class="o">.**</span><span class="n">getSize</span><span class="o">**();</span> <span class="c1">// 페이지 크기</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>스펙을 사용하는 findAll() 메서드도 Pageable을 사용할 수 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberDataDao</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+      <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">MemberDao</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="count-쿼리-자동-실행">Count 쿼리 자동 실행</h3>
+
+<ul>
+  <li>
+    <p>프로퍼티를 비교하는 <code class="language-plaintext highlighter-rouge">findBy</code> 프로퍼티 형식의 메서드는 Pageable 타입을 사용하더라도 리턴 타입이 <code class="language-plaintext highlighter-rouge">List</code>이면 <code class="language-plaintext highlighter-rouge">COUNT</code> 쿼리를 실행하지 않는다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// COUNT 쿼리가 실행되지 않는다</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="nf">findByNameLike</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+  <span class="c1">// COUNT 쿼리가 실행된다</span>
+  <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="nf">findByBlocked</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">blocked</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+</code></pre></div>    </div>
+    <p><strong>→ 페이징 처리와 관련된 정보가 필요 없다면, Page 리턴 타입이 아닌 List를 사용해서 불필요한 <code class="language-plaintext highlighter-rouge">COUNT</code> 쿼리를 실행하지 않도록 한다.</strong></p>
+  </li>
+  <li>
+    <p>반면, 스펙을 사용하는 <code class="language-plaintext highlighter-rouge">findAll</code> 메서드에 Pageable 타입을 사용하면 리턴 타입이 Page가 아니어도 <code class="language-plaintext highlighter-rouge">COUNT</code> 쿼리를 실행한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// COUNT 쿼리가 실행된다</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">MemberDao</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>스펙을 사용하면서 페이징 처리 시 <code class="language-plaintext highlighter-rouge">COUNT</code> 쿼리는 실행하고 싶지 않다면, 커스텀 리포지터리 기능을 이용해서 직접 구현해야 한다. → <a href="https://javacan.tistory.com/entry/spring-data-jpa-range-query">참고</a></li>
+    </ul>
+  </li>
+  <li>
+    <p>처음 N개의 데이터가 필요하다면 Pageable을 사용하지 않고 <code class="language-plaintext highlighter-rouge">findFirstN</code> 형식의 메서드를 사용할 수도 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="nf">findFirst3ByNameLikeOrdererByName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">);</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>like 검색 결과를 name으로 오름차순 정렬해서 처음 3개만 조회한다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>First 대신 Top을 사용해도 되며, First나 Top 뒤에 숫자가 없으면 한 개의 결과만 리턴한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">MemberData</span> <span class="nf">findFirstByBlockedOrderById</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">blocked</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="58-스펙-조합을-위한-스펙-빌더-클래스">5.8 스펙 조합을 위한 스펙 빌더 클래스</h1>
+
+<ul>
+  <li>
+    <p>스펙을 생성하다보면 조건에 따라 스펙을 조합해야 할 때가 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="n">spec</span> <span class="o">=</span> <span class="nc">Specification</span><span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">searchRequest</span><span class="o">.</span><span class="na">isOnlyNotBlocked</span><span class="o">())</span> <span class="o">{</span>
+      <span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="nc">MemberDataSpecs</span><span class="o">.</span><span class="na">nonBlocked</span><span class="o">());</span>
+  <span class="o">}</span>
+  <span class="k">if</span> <span class="o">(</span><span class="nc">StringUtils</span><span class="o">.</span><span class="na">hasText</span><span class="o">(</span><span class="n">searchRequest</span><span class="o">.</span><span class="na">getName</span><span class="o">()))</span> <span class="o">{</span>
+      <span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="nc">MemberDataSpecs</span><span class="o">.</span><span class="na">nameLike</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
+  <span class="o">}</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">memberDataDao</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="nc">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">5</span><span class="o">));</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>위 코드는 if와 각 스펙을 조회하는 코드가 섞여 있어 실수하기 좋고 복잡한 구조를 갖는다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>스펙 빌더를 사용하면 메서드 호출 체인으로 연속된 변수 할당을 줄여 코드 가독성을 높이고 구조가 단순해진다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="n">spec</span> <span class="o">=</span> <span class="nc">SpecBuilder</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="nc">MemberData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">ifTrue</span><span class="o">(</span><span class="n">searchRequest</span><span class="o">.</span><span class="na">isOnlyNotBlocked</span><span class="o">(),</span> 
+             <span class="o">()</span> <span class="o">-&gt;</span> <span class="nc">MemberDataSpecs</span><span class="o">.</span><span class="na">nonBlocked</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">ifHasText</span><span class="o">(</span><span class="n">searchRequest</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> 
+             <span class="n">name</span> <span class="o">-&gt;</span> <span class="nc">MemberDataSpecs</span><span class="o">.</span><span class="na">nameLike</span><span class="o">(</span><span class="n">searchRequest</span><span class="o">.</span><span class="na">getName</span><span class="o">()))</span>
+      <span class="o">.</span><span class="na">toSpec</span><span class="o">();</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberData</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">memberDataDao</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="nc">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">5</span><span class="o">));</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="59-동적-인스턴스-생성">5.9 동적 인스턴스 생성</h1>
+
+<ul>
+  <li>
+    <p>JPA는 쿼리 결과에서 임의의 객체를 동적으로 생성할 수 있는 기능을 제공하고 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OrderSummaryDao</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+      <span class="nd">@Query</span><span class="o">(</span><span class="s">"""
+          select new com.myshop.order.query.dto.OrderView(
+              o.number, o.state, m.name, m.id, p.name
+          )
+          from Order o join o.orderLines ol, Member m, Product p
+          where o.orderer.memberId.id = :ordererId
+          and o.orderer.memberId.id = m.id
+          and index(ol) = 0
+          and ol.productId.id = p.id
+          order by o.number.number desc
+      """</span><span class="o">)</span>
+      <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderView</span><span class="o">&gt;</span> <span class="nf">findOrderView</span><span class="o">(</span><span class="nc">String</span> <span class="n">ordererId</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>JPQL의 select 절에 new 키워드로 생생할 인스턴스의 완전할 클래스 이름을 지정하고, 괄호 안에 생성자에 인자로 전달할 값을 지정한다.</li>
+    </ul>
+  </li>
+  <li>조회 전용 모델을 만드는 이유는 표현 영역을 통해 사용자에게 데이터를 보여주기 위함이다.</li>
+  <li>동적 인스턴스의 장점은 JPQL을 그대로 사용하므로 객체 기준으로 쿼리를 작성하면서도 동시에 지연/즉시 로딩과 같은 고민 없이 데이터를 조회할 수 있다는 점이다.</li>
+</ul>
+
+<h1 id="510-하이버네이트-subselect-사용">5.10 하이버네이트 @Subselect 사용</h1>
+
+<ul>
+  <li>하이버네이트는 JPA 확장 기능으로 <code class="language-plaintext highlighter-rouge">@Subselect</code>를 제공한다.</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">@Subselect</code>는 쿼리 결과를 <code class="language-plaintext highlighter-rouge">@Entity</code>로 매핑할 수 있는 기능이다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Entity</span>
+  <span class="nd">@Immutable</span>
+  <span class="nd">@Subselect</span><span class="o">(</span>
+      <span class="s">"""
+      select o.order_number as number,
+      o.version, o.orderer_id, o.order_name,
+      o.total_amounts, o.receiver_name, o.state, o.order_date,
+      p.product_id, p.name as product_name
+      from purchase_order o inner join order_line ol
+          on o.order_number = ol.order_number
+          cross join product p
+      where
+      ol.line_idx = 0;
+      and ol.product_id = p.product_id    
+      """</span>
+  <span class="o">)</span>
+  <span class="nd">@Synchronize</span><span class="o">({</span><span class="s">"purchase_order"</span><span class="o">,</span> <span class="s">"order_line"</span><span class="o">,</span> <span class="s">"product"</span><span class="o">})</span>
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderSummary</span> <span class="o">{</span>
+      <span class="nd">@Id</span>
+      <span class="kd">private</span> <span class="nc">String</span> <span class="n">number</span><span class="o">;</span>
+      <span class="kd">private</span> <span class="kt">long</span> <span class="n">version</span><span class="o">;</span>
+      <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"orderer_id"</span><span class="o">)</span>
+      <span class="kd">private</span> <span class="nc">String</span> <span class="n">ordererId</span><span class="o">;</span>
+      <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"orderer_name"</span><span class="o">)</span>
+      <span class="kd">private</span> <span class="nc">String</span> <span class="nc">OrdererName</span><span class="o">;</span>
+      <span class="o">...</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">@Immutable</code>, <code class="language-plaintext highlighter-rouge">@Subselect</code>, <code class="language-plaintext highlighter-rouge">@Synchronize</code>는 하이버네이트 전용 애너테이션인데, 이 태그를 사용하면 테이블이 아닌 쿼리 결과를 <code class="language-plaintext highlighter-rouge">@Entity</code>로 매핑할 수 있다.</li>
+  <li><code class="language-plaintext highlighter-rouge">@Subselect</code>는 조회 쿼리를 값으로 갖는다. 하이버네이트는 이 select 쿼리의 결과를 매핑할 테이블처럼 사용한다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">@Subselect</code>로 지정한 쿼리는 from 절의 서브 쿼리로 사용된다.</li>
+      <li><code class="language-plaintext highlighter-rouge">@Subselect</code>를 사용해도 일반 <code class="language-plaintext highlighter-rouge">@Entity</code>와 같기 때문에 EntityManager#find(), JPQL, Criteria를 사용해서 조회할 수 있다는 것이 장점이다.</li>
+      <li><code class="language-plaintext highlighter-rouge">@Subselect</code>에도 스펙을 사용할 수 있다.</li>
+      <li>뷰를 수정할 수 없듯이, <code class="language-plaintext highlighter-rouge">@Sebselect</code>로 조회한 <code class="language-plaintext highlighter-rouge">@Entity</code> 역시 수정할 수 없다.</li>
+      <li><code class="language-plaintext highlighter-rouge">@Subselect</code>를 이용한 <code class="language-plaintext highlighter-rouge">@Entity</code>의 매핑 필드를 수정하면 하이버네이트는 변경 내역을 반영하기 위해 <code class="language-plaintext highlighter-rouge">update</code> 쿼리를 실행할 것이다. 그런데 매핑한 테이블이 없으므로 에러가 발생한다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">@Immutable</code>을 사용하면 하이버네이트는 엔티티의 매핑 필드/프로퍼티가 변경되더라도 DB에 반영하지 않고 무시한다.</li>
+  <li>
+    <p>하이버네이트는 특별한 이유가 없으면 트랜잭션을 커밋하는 시점에 변경 사항을 DB에 반영한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// purchase_order 테이블에서 조호</span>
+  <span class="nc">Order</span> <span class="n">order</span> <span class="o">=</span> <span class="n">orderRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">orderNumber</span><span class="o">);</span>
+  <span class="n">order</span><span class="o">.</span><span class="na">changeShippingInfo</span><span class="o">(</span><span class="n">newInfo</span><span class="o">);</span> <span class="c1">// 상태 변경</span>
+    
+  <span class="c1">// 변경 내역이 DB에 반영되지 않았는데 purchase_order 테이블 조회</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderSummary</span><span class="o">&gt;</span> <span class="n">summarise</span> <span class="o">=</span> <span class="n">orderSummaryRepository</span><span class="o">.</span><span class="na">findByOrdererId</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">@Synchorize</code>는 변경 사항을 반영하기 전에 해당 엔티티를 조회하면 플러시를 먼저 한 뒤에 최신 값을 읽도록 한다.</li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li><a href="https://javacan.tistory.com/entry/spring-data-jpa-range-query">스프링 데이터 JPA : Pageable 대신 일정 범위 조회 기능 추가하기</a></li>
+</ul>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>Copyright &copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>

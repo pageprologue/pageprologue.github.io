@@ -150,6 +150,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 30px;
   margin: 1em 0 10px;
+  border-bottom: $lightGray 0.1em solid;
   a {
     color: inherit;
   }
@@ -167,7 +168,7 @@ h2 {
 
 h3 {
   font-size: 24px;
-  border-bottom: $lightGray 0.1em solid;
+  margin: 1em 0 10px !important;
   @media (max-width:900px) {
     font-size: 14px;
   }
