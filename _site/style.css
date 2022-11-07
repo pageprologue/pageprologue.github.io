@@ -1797,6 +1797,10 @@ a[href^="#fnref:"] {
   }
 }
 
+article > h1 {
+  border: none;
+}
+
 .site-name {
   margin: 0;
   color: #333333;
@@ -1804,6 +1808,7 @@ a[href^="#fnref:"] {
   font-weight: 300;
   font-size: 28px !important;
   letter-spacing: 01px;
+  border: none;
 }
 
 .site-name a:hover {

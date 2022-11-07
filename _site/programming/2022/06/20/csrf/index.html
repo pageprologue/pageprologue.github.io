@@ -189,10 +189,10 @@
 즉, 악의적인 웹사이트에서 오는 요청은 거부하고 정상적인 웹사이트에서 오는 요청만 허용할 방법이 없음을 의미합니다.
 CSRF 공격으로부터 보호하려면 두 요청을 구분할 수 있도록 악의적인 사이트에서 제공할 수 없는 요청이 있는지 확인해야 합니다.</p>
 
-<h4 id="️-spring은-csrf-공격으로부터-보호하는-두-가지-메커니즘을-제공합니다">➡️ Spring은 CSRF 공격으로부터 보호하는 두 가지 메커니즘을 제공합니다.</h4>
+<p><strong>➡️ Spring은 CSRF 공격으로부터 보호하는 두 가지 메커니즘을 제공합니다.</strong></p>
 
-<p><strong class="bg-old">1. 동기화 토큰 패턴(Synchronizer Token Pattern)</strong><br />
-   CSRF 공격으로부터 보호하는 가장 보편적이고 포괄적인 방법은 Synchronizer Token Pattern을 사용하는 것입니다. 
+<h3 id="1-동기화-토큰-패턴synchronizer-token-pattern">1. 동기화 토큰 패턴(Synchronizer Token Pattern)</h3>
+<p>CSRF 공격으로부터 보호하는 가장 보편적이고 포괄적인 방법은 Synchronizer Token Pattern을 사용하는 것입니다. 
    이 솔루션은 각 HTTP 요청에 세션 쿠키 외에도 <strong>CSRF 토큰이라는 보안 랜덤 생성 값이 HTTP 요청에 있어야 합니다.</strong></p>
 
 <ul>
@@ -208,8 +208,8 @@ amount=100.00&amp;routingNumber=1234&amp;account=9876&amp;_csrf=4bfd1575-3ad1-4d
   <li class="blank half"></li>
 </ul>
 
-<p><strong class="bg-old">2. 세션 쿠키에 동일 사이트 속성 지정</strong><br />
-   CSRF 공격으로부터 보호하는 다른 방법은 쿠키에 동일한 사이트 속성을 지정하는 것입니다. 
+<h3 id="2-세션-쿠키에-동일-사이트-속성-지정">2. 세션 쿠키에 동일 사이트 속성 지정</h3>
+<p>CSRF 공격으로부터 보호하는 다른 방법은 쿠키에 동일한 사이트 속성을 지정하는 것입니다. 
    서버는 외부 사이트에서 쿠키가 전송되지 않도록 쿠키를 설정할 때 동일한 사이트 속성을 지정할 수 있습니다.</p>
 
 <p class="indent font-15"><strong>- Spring Security</strong>는 세션 쿠키 작성을 직접 제어하지 않으므로 SameSite 특성을 지원하지 않습니다. <br />
