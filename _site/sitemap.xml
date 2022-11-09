@@ -101,6 +101,10 @@
 <lastmod>2022-10-10T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/book/2022/10/17/ddd-6/</loc>
+<lastmod>2022-10-17T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/category/Book/</loc>
 </url>
 <url>
@@ -138,5 +142,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page/5/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page/6/</loc>
 </url>
 </urlset>

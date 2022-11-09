@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="6.1 표현 영역과 응용 영역
+6.2 응용 서비스의 역할
+6.3 응용 서비스의 구현
+6.4 표현 영역
+6.5 값 검증
+6.6 권한 검사
+6.7 조회 전용 기능과 응용 서비스
+" />
+<meta property="og:description" content="6.1 표현 영역과 응용 영역
+6.2 응용 서비스의 역할
+6.3 응용 서비스의 구현
+6.4 표현 영역
+6.5 값 검증
+6.6 권한 검사
+6.7 조회 전용 기능과 응용 서비스
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="도메인 주도 개발 시작하기 - 6. 응용 서비스와 표현 영역" />
+<meta property="twitter:title" content="도메인 주도 개발 시작하기 - 6. 응용 서비스와 표현 영역" />
+
+
+
+    <title>도메인 주도 개발 시작하기 - 6. 응용 서비스와 표현 영역 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/tags">Tag</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">도메인 주도 개발 시작하기 - 6. 응용 서비스와 표현 영역</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-10-17
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#61-표현-영역과-응용-영역">6.1 표현 영역과 응용 영역</a><br />
+<a href="#62-응용-서비스의-역할">6.2 응용 서비스의 역할</a><br />
+<a href="#63-응용-서비스의-구현">6.3 응용 서비스의 구현</a><br />
+<a href="#64-표현-영역">6.4 표현 영역</a><br />
+<a href="#65-값-검증">6.5 값 검증</a><br />
+<a href="#66-권한-검사">6.6 권한 검사</a><br />
+<a href="#67-조회-전용-기능과-응용-서비스">6.7 조회 전용 기능과 응용 서비스</a></p>
+
+<h1 id="61-표현-영역과-응용-영역">6.1 표현 영역과 응용 영역</h1>
+
+<ul>
+  <li>응용 영역과 표현 영역이 사용자와 도메인을 연결해주는 매개체 역할을 한다.</li>
+  <li>표현 영역
+    <ul>
+      <li>표현 영역은 URL, 요청 파라미터, 쿠키, 헤더 등을 이용해서 사용자가 실행하고 싶은 기능을 제공하는 응용 서비스를 실행한다.</li>
+      <li>응용 서비스를 실행한 뒤에 표현 영역은 실행 결과를 사용자에게 알맞은 형식으로 응답한다.</li>
+    </ul>
+  </li>
+  <li>응용 영역
+    <ul>
+      <li>실제 사용자가 원하는 기능을 제공하는 것은 응용 영역에 위치한 서비스다.</li>
+      <li>응용 서비스의 메서드가 요구하는 파라미터와 표현 영역이 사용자로부터 전달받은 데이터는 형식이 일치하지 않기 때문에 표현 영역은 응용 서비스가 요구하는 형식으로 사용자 요청을 변환한다.</li>
+      <li><strong>사용자와 상호작용은 표현 영역이 처리하기 때문에, 응용 서비스는 표현 영역에 의존하지 않는다.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="62-응용-서비스의-역할">6.2 응용 서비스의 역할</h1>
+
+<ul>
+  <li>응용 서비스의 주요 역할은 도메인 객체를 사용해서 사용자의 요청을 처리하는 것이다.</li>
+  <li>응용 서비스는 주로 도메인 객체 간의 흐름을 제어하기 때문에 단순한 형태를 갖는다.</li>
+  <li>
+    <p>응용 서비스가 복잡하다면 응용 서비스에서 도메인 로직 일부를 구현하고 있을 가능성이 높다.</p>
+
+    <p><strong>→ 응용 서비스가 도메인 로직을 일부 구현하면 코드 중복, 로직 분산 등 코드 품질에 안 좋은 영향을 줄 수 있다.</strong></p>
+  </li>
+  <li><strong>응용 서비스는 트랜잭션 처리도 담당한다.</strong>
+    <ul>
+      <li>응용 서비스는 도메인의 상태 변경을 트랜잭션으로 처리해야 한다.</li>
+    </ul>
+  </li>
+  <li><strong>접근 제어와 이벤트 처리도 응용 서비스의 역할이다.</strong></li>
+</ul>
+
+<h2 id="621-도메인-로직-넣지-않기">6.2.1) 도메인 로직 넣지 않기</h2>
+
+<ul>
+  <li><strong>도메인 로직은 도메인 영역에 위치하고 응용 서비스는 도메인 로직을 구현하지 않는다.</strong></li>
+  <li>암호 변경 기능을 위한 응용 서비스
+    <ul>
+      <li>Member 애그리거트와 관련 리포지터리를 이용해서 도메인 객체 간의 실행 흐름을 제어한다.</li>
+      <li>
+        <p>Member 애그리거트는 암호를 변경하기 전에 기존 암호를 올바르게 입력했는지 확인한다.</p>
+
+        <p>→ 암호를 올바르게 입력했는지 확인하는 것은 도메인의 핵심 로직이기 때문에 응용 서비스에서 이 로직을 구현하면 안된다.</p>
+      </li>
+    </ul>
+  </li>
+  <li>도메인 로직을 도메인 영역과 응용 서비스에 분산해서 구현하면 코드 품질에 문제가 발생한다.
+    <ul>
+      <li>코드의 응집성이 떨어진다.</li>
+      <li>여러 응용 서비스에서 동일한 도메인 로직을 구현할 가능성이 높아진다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>→ 소프트웨어의 가치를 높이려면 도메인 로직을 도메인 영역에 모아서 코드 중복을 줄이고 응집도를 높여야 한다.</p>
+
+<h1 id="63-응용-서비스의-구현">6.3 응용 서비스의 구현</h1>
+
+<ul>
+  <li>용용 서비스는 표현 영영과 도메인 영역을 연결하는 매개체 역할을 하는데, 이는 디자인 패턴에서 파사드와 같은 역할을 한다.</li>
+  <li>응용 서비스 자체는 복잡한 로직을 수행하지 않기 때문에 응용 서비스의 구현은 어렵지 않다.</li>
+</ul>
+
+<h2 id="631-응용-서비스의-크기">6.3.1) 응용 서비스의 크기</h2>
+
+<ul>
+  <li>일반적으로 응용 서비스를 구현하는 방식
+    <ol>
+      <li>한 응용 서비스 클래스에 회원 도메인의 모든 기능 구현하기
+        <ul>
+          <li>각 기능에서 동일한 로직을 위한 코드 중복을 제거하기 쉽다.</li>
+          <li>한 서비스 클래스의 크기가 커진다.</li>
+        </ul>
+      </li>
+      <li>구분되는 기능별로 응용 서비스 클래스를 따로 구현하기
+        <ul>
+          <li>클래스 개수는 많아지지만 코드 품질을 일정 수준으로 유지하는데 도움이 된다.</li>
+          <li>각 클래스별로 필요한 의존 객체만 포함하므로 다른 기능을 구현한 코드에 영향을 받지 않는다.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <p>→ 한 도메인과 관련된 기능을 하나의 응용 서비스 클래스에서 모두 구현하는 방식보다 구분되는 기능을 별도의 서비스 클래스로 구현하는 방식을 추천한다.</p>
+  </li>
+</ul>
+
+<h2 id="632-응용-서비스의-인터페이스와-클래스">6.3.2) 응용 서비스의 인터페이스와 클래스</h2>
+
+<ul>
+  <li>응용 서비스를 구현할 때 인터페이스가 필요한지에 대한 의문이 들 수 있다.
+    <ul>
+      <li>
+        <p>구현 클래스가 다수 존재하거나 런타임에 구현 객체를 교체해야 할 때 인터페이스를 유용하게 사용할 수 있다.</p>
+
+        <p>→ 하지만 응용 서비스는 런타임에 교체하는 경우가 거의 없고, 한 응용 서비스의 구현 클래스가 여러 개인 경우도 드물다.</p>
+      </li>
+      <li>인터페이스가 명확하게 필요하기 전까지는 응용 서비스에 대한 인터페이스를 작성하는 것이 좋은 선택이라고 볼 수 없다.</li>
+      <li>응용 서비스가 구현되지 않은 상황에서 테스트를 위해 인터페이스를 작성할 수도 있지만, Mokito와 같은 테스트 도구를 사용해서 인터페이스의 역할을 대체할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="633-메서드-파라미터와-값-리턴">6.3.3) 메서드 파라미터와 값 리턴</h2>
+
+<ul>
+  <li>응용 서비스가 제공하는 메서드는 도메인을 이용해서 사용자가 요구한 기능을 실행하는데 필요한 값을 파라미터로 전달 받는다.
+    <ul>
+      <li>이때, 필요한 값을 개별 파라미터로 전달받을 수도 있고, 별도 데이터 클래스를 만들어 전달받을 수도 있다.</li>
+      <li>요청 파라미터가 두 개 이상 존재하면 데이터 전달을 위한 별도 클래스를 사용하는 것이 편리하다.</li>
+    </ul>
+  </li>
+  <li>응용 서비스의 결과를 표현 영역에서 사용해야 하면, 응용 서비스 메서드의 결과로 필요한 데이터를 리턴한다.
+    <ul>
+      <li>결과 데이터가 필요한 대표적인 예가 식별자다.</li>
+      <li>응용 서비스에서 애그리커트 객체를 그대로 리턴할 수도 있다.</li>
+    </ul>
+
+    <p>→ <strong>애그리거트 자체를 리턴하면 코딩은 편할 수 있지만, 도메인 로직 실행을 응용 서비스와 표현 영역 두 곳에서 할 수 있게 된다.</strong></p>
+  </li>
+</ul>
+
+<h2 id="634-표현-영역에-의존하지-않기">6.3.4) 표현 영역에 의존하지 않기</h2>
+
+<ul>
+  <li>응용 서비스의 파라미터 타입을 결정할 때 주의할 점은 표현 영역과 관련된 타입을 사용하면 안된다는 점이다.
+    <ul>
+      <li>HttpServletRequest, HttpSession을 응용 서비스에 파라미터로 전달하면 안된다.</li>
+      <li>응용 서비스에서 표현 영역에 대한 의존이 발생하면 테스트하기 어려워진다.</li>
+      <li>표현 영역의 구현이 변경되면 응용 서비스의 구현도 함께 변경해야 한다.</li>
+      <li>
+        <p>또한, 응용 서비스가 표현 영역의 역할까지 대신하는 상황이 생길 수 있다.</p>
+
+        <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">public</span> <span class="k">class</span> <span class="n">AuthenticationService</span> <span class="p">{</span>
+      <span class="k">public</span> <span class="n">void</span> <span class="n">authenticate</span><span class="p">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="nv">"id"</span><span class="p">);</span>
+          <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="nv">"password"</span><span class="p">);</span>
+          <span class="n">if</span> <span class="p">(</span><span class="n">checkIdPasswordMatching</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span> <span class="p">{</span>
+              <span class="o">//</span> <span class="err">응용</span> <span class="err">서비스에서</span> <span class="err">표현</span> <span class="err">영역의</span> <span class="err">상태</span> <span class="err">처리</span>
+              <span class="n">HttpSession</span> <span class="k">session</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">getSession</span><span class="p">();</span>
+              <span class="k">session</span><span class="p">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="nv">"auth"</span><span class="p">,</span> <span class="k">new</span> <span class="n">Authentication</span><span class="p">(</span><span class="n">id</span><span class="p">));</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div>        </div>
+
+        <ul>
+          <li>HttpSession이나 쿠키는 표현 영역의 상태인데, 이 상태를 응용 서비스에서 변경해버리면 표현 영역의 상태가 어떻게 변경되는지 추적하기 어려워진다. → 표현 영역의 응집도가 깨진다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="635-트랜잭션-처리">6.3.5) 트랜잭션 처리</h2>
+
+<ul>
+  <li>트랜잭션을 관리하는 것은 응용 서비스의 중요한 역할이다.</li>
+  <li>스프링은 <code class="language-plaintext highlighter-rouge">@Transactional</code>이 적용된 메서드가 RuntimeException을 발생시키면 트랜잭션을 롤백하고, 그렇지 않으면 커밋한다.</li>
+</ul>
+
+<h1 id="64-표현-영역">6.4 표현 영역</h1>
+
+<ul>
+  <li>표현 영역의 책임
+    <ul>
+      <li>사용자 시스템을 사용할 수 있는 흐름(화면)을 제공하고 제어한다.</li>
+      <li>사용자의 요청을 응용 서비스에 전달하고 실행 결과를 사용자에게 알맞은 형식으로 제공한다.</li>
+      <li>사용자의 세션을 관리한다. 세션 관리는 권한 검사와도 연결된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="65-값-검증">6.5 값 검증</h1>
+
+<ul>
+  <li>값 검증은 표현 영역과 응용 서비스 두 곳에서 모두 수행할 수 있다.</li>
+  <li>
+    <p>원칙적으로 모든 값에 대한 검증은 응용 서비스에서 처리한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">JoinService</span> <span class="o">{</span>
+      <span class="nd">@Transactional</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">join</span><span class="o">(</span><span class="nc">JoinRequest</span> <span class="n">joinReq</span><span class="o">)</span> <span class="o">{</span>
+          <span class="c1">// 값의 형식 검사</span>
+          <span class="n">checkEmpty</span><span class="o">(</span><span class="n">joinReq</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="s">"id"</span><span class="o">);</span>
+          <span class="n">checkEmpty</span><span class="o">(</span><span class="n">joinReq</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="s">"name"</span><span class="o">);</span>
+          <span class="n">checkEmpty</span><span class="o">(</span><span class="n">joinReq</span><span class="o">.</span><span class="na">getPassword</span><span class="o">(),</span> <span class="s">"password"</span><span class="o">);</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">joinReq</span><span class="o">.</span><span class="na">getPassword</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">joinReq</span><span class="o">.</span><span class="na">getConfirmPassword</span><span class="o">()))</span> <span class="o">{</span>
+              <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidPropertyException</span><span class="o">(</span><span class="s">"confirmPassword"</span><span class="o">);</span>        
+          <span class="o">}</span>
+    
+          <span class="c1">// 로직 검사</span>
+          <span class="n">checkDuplicateId</span><span class="o">(</span><span class="n">joinReq</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+      <span class="o">}</span>
+    
+      <span class="kd">private</span> <span class="kt">void</span> <span class="nf">checkEmpty</span><span class="o">(</span><span class="nc">String</span> <span class="n">value</span><span class="o">,</span> <span class="nc">String</span> <span class="n">propertyName</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">value</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> 
+              <span class="k">throw</span> <span class="k">new</span> <span class="nf">EmptyPropertyException</span><span class="o">(</span><span class="n">propertyName</span><span class="o">);</span>
+      <span class="o">}</span>
+    
+      <span class="kd">private</span> <span class="kt">void</span> <span class="nf">checkDuplicateId</span><span class="o">(</span><span class="nc">String</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+          <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">countsById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">DuplicatedIdException</span><span class="o">();</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Spring MVC 에서 Errors나 BindingResult를 사용하면, 입력 값이 잘못된 경우를 처리할 수 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Controller</span>
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Controller</span> <span class="o">{</span>
+    
+      <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/member/join"</span><span class="o">)</span>
+      <span class="kd">public</span> <span class="nc">String</span> <span class="nf">join</span><span class="o">(</span><span class="nc">JoinRequest</span> <span class="n">joinRequest</span><span class="o">,</span> <span class="nc">Errors</span><span class="o">,</span> <span class="n">errors</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">try</span> <span class="o">{</span>
+              <span class="n">joinService</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">joinRequest</span><span class="o">);</span>
+              <span class="k">return</span> <span class="n">successView</span><span class="o">;</span>
+          <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nc">EmptyPropertyException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+              <span class="c1">// 표현 영역은 잘못 입력한 값이 존재하면 잘못된 값을 다시 입력할 수 있도록 사용자에게 알려준다.</span>
+              <span class="n">errors</span><span class="o">.</span><span class="na">rejectValue</span><span class="o">(</span><span class="n">ex</span><span class="o">.</span><span class="na">getPropertyName</span><span class="o">(),</span> <span class="s">"empty"</span><span class="o">);</span>
+              <span class="k">return</span> <span class="n">formView</span><span class="o">;</span>
+          <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nc">InvalidPropertyException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">errors</span><span class="o">.</span><span class="na">rejectValue</span><span class="o">(</span><span class="n">ex</span><span class="o">.</span><span class="na">getPropertyName</span><span class="o">(),</span> <span class="s">"invalid"</span><span class="o">);</span>
+              <span class="k">return</span> <span class="n">formView</span><span class="o">;</span>
+          <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nc">DuplicateIdException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">errors</span><span class="o">.</span><span class="na">rejectValue</span><span class="o">(</span><span class="n">ex</span><span class="o">.</span><span class="na">getPropertyName</span><span class="o">(),</span> <span class="s">"duplicate"</span><span class="o">);</span>
+              <span class="k">return</span> <span class="n">formView</span><span class="o">;</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>값이 유효한지를 확인할 목적으로 익셉션을 발생시키면 사용자에게 좋지 않은 경험을 제공한다.</li>
+      <li>잘못 입력된 값이 여러 개인 경우, 한 번에 하나의 값만 검증되기 때문에 여러 번 같은 폼을 입력하게 만든다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>사용자 입력 값에 대한 검증이 끝난 뒤에 errors 목록을 반환할 수도 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Transactional</span>
+  <span class="kd">public</span> <span class="nc">OrderNo</span> <span class="nf">placeOrder</span><span class="o">(</span><span class="nc">OrderRequest</span> <span class="n">orderRequest</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ValidationError</span><span class="o">&gt;</span> <span class="n">errors</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">orderRequest</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">errors</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">ValidationError</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"empty"</span><span class="o">));</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">orderRequest</span><span class="o">.</span><span class="na">getOrdererMemberId</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+              <span class="n">errors</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">ValidationError</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"ordererMemberId"</span><span class="o">,</span> <span class="s">"empty"</span><span class="o">));</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">orderRequest</span><span class="o">.</span><span class="na">getOrderProducts</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+              <span class="n">errors</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">ValidationError</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"ordererProducts"</span><span class="o">,</span> <span class="s">"empty"</span><span class="o">));</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">orderRequest</span><span class="o">.</span><span class="na">getOrderProducts</span><span class="o">().</span><span class="na">isEmpty</span><span class="o">())</span>
+              <span class="n">errors</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">ValidationError</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"orderProducts"</span><span class="o">,</span> <span class="s">"empty"</span><span class="o">));</span>
+      <span class="o">}</span>
+      <span class="c1">// 응용 서비스가 입력 오류를 하나의 익셉션으로 모아서 발생</span>
+      <span class="k">if</span> <span class="o">(!</span><span class="n">errors</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">ValidationErrorException</span><span class="o">(</span><span class="n">errors</span><span class="o">);</span>
+      <span class="o">...</span>    
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/orders/order"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">order</span><span class="o">(</span><span class="nd">@ModelAttribute</span><span class="o">(</span><span class="s">"orderReq"</span><span class="o">)</span> <span class="nc">OrderRequest</span> <span class="n">orderRequest</span><span class="o">,</span> 
+                      <span class="nc">BindingResult</span> <span class="n">bs</span><span class="o">,</span> <span class="nc">ModelMap</span> <span class="n">modelMap</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// 권한 검사</span>
+      <span class="k">try</span> <span class="o">{</span>
+          <span class="nc">OrderNo</span> <span class="n">orderNo</span> <span class="o">=</span> <span class="n">placeOrderService</span><span class="o">.</span><span class="na">placeOrder</span><span class="o">(</span><span class="n">orderRequest</span><span class="o">);</span>
+          <span class="n">modelMap</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"orderNo"</span><span class="o">,</span> <span class="n">orderNo</span><span class="o">.</span><span class="na">getNumber</span><span class="o">());</span>        
+      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ValidationErrorException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">e</span><span class="o">.</span><span class="na">getErrors</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">err</span> <span class="o">-&gt;</span> <span class="o">{</span>
+              <span class="k">if</span> <span class="o">(</span><span class="n">err</span><span class="o">.</span><span class="na">hasName</span><span class="o">())</span> <span class="o">{</span>
+                  <span class="n">bs</span><span class="o">.</span><span class="na">rejectValue</span><span class="o">(</span><span class="n">err</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">err</span><span class="o">.</span><span class="na">getCode</span><span class="o">());</span>
+              <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                  <span class="n">bs</span><span class="o">.</span><span class="na">reject</span><span class="o">(</span><span class="n">err</span><span class="o">.</span><span class="na">getCode</span><span class="o">());</span>
+              <span class="o">}</span>
+          <span class="o">});</span>
+          <span class="n">populateProductsModel</span><span class="o">(</span><span class="n">orderRequest</span><span class="o">,</span> <span class="n">modelMap</span><span class="o">);</span>
+          <span class="k">return</span> <span class="s">"order/confirm"</span><span class="o">;</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Validator 인터페이스를 구현한 검증기를 따로 만들어서 사용할 수도 있다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Controller</span>
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Controller</span> <span class="o">{</span>
+    
+      <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/member/join"</span><span class="o">)</span>
+      <span class="kd">public</span> <span class="nc">String</span> <span class="nf">join</span><span class="o">(</span><span class="nc">JoinRequest</span> <span class="n">joinRequest</span><span class="o">,</span> <span class="nc">Errors</span><span class="o">,</span> <span class="n">errors</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">new</span> <span class="nf">JoinValidator</span><span class="o">().</span><span class="na">validate</span><span class="o">(</span><span class="n">joinRequest</span><span class="o">,</span> <span class="n">errors</span><span class="o">);</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">errors</span><span class="o">.</span><span class="na">hasErrors</span><span class="o">())</span> <span class="k">return</span> <span class="n">formView</span><span class="o">;</span>        
+    
+          <span class="k">try</span> <span class="o">{</span>
+              <span class="n">joinService</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">joinRequest</span><span class="o">);</span>
+              <span class="k">return</span> <span class="n">successView</span><span class="o">;</span>
+          <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nc">DuplicateIdException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">errors</span><span class="o">.</span><span class="na">rejectValue</span><span class="o">(</span><span class="n">ex</span><span class="o">.</span><span class="na">getPropertyName</span><span class="o">(),</span> <span class="s">"duplicate"</span><span class="o">);</span>
+              <span class="k">return</span> <span class="n">formView</span><span class="o">;</span>
+          <span class="o">}</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>표현 영역에서 필수 값과 값의 형식을 검사하면, 응용 서비스는 ID 중복 여부와 같은 논리적인 오류만 검사하면 된다.</li>
+    </ul>
+  </li>
+  <li>응용 서비스에서 얼마나 엄격하게 값을 검증해야 하는지에 대해서는 의견이 갈릴 수 있다.
+    <ul>
+      <li>요즘에는 <strong>가능하면 응용 서비스에서 필수 값 검증과 논리적인 검증을 모두 하는 편이다.</strong></li>
+      <li>응용 서비스에서 값 검증을 모두 처리하면, 작성할 코드가 늘어나는 불편함이 있지만 완성도가 높아지는 이점이 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="66-권한-검사">6.6 권한 검사</h1>
+
+<ul>
+  <li>권한 검사 기능은 시스템의 복잡도에 따라 직접 구현할 수도 있고, 스프링 시큐리티 같은 프레임워크를 사용할 수도 있다.</li>
+  <li>권한 검사를 수행하는 영역
+    <ul>
+      <li>표현 영역: 인증된 사용자인지 아닌지 검사 (서블릿 필터)</li>
+      <li>응용 서비스: 메서드 단위의 권한 검사 (@PreAuthorize)</li>
+      <li>
+        <p>도메인: 직접 권한 검사 로직 구현</p>
+
+        <p>→ 스프링 시큐리티와 같은 보안 프레임워크를 확장해서 개별 도메인 객체 수준의 권한 기능을 프레임워크에 통합할 수도 있지만, 프레임워크에 대한 높은 이해가 필요하다.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="67-조회-전용-기능과-응용-서비스">6.7 조회 전용 기능과 응용 서비스</h1>
+
+<ul>
+  <li>
+    <p>조회 화면을 위한 조회 전용 모델과 DAO (→ 5장)</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderListService</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderView</span><span class="o">&gt;</span> <span class="nf">getOrderList</span><span class="o">(</span><span class="nc">String</span> <span class="n">orderId</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">orderViewDao</span><span class="o">.</span><span class="na">selectByOrderer</span><span class="o">(</span><span class="n">orderId</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="o">...</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>서비스에서 수행하는 추가적인 로직 없이 단일 쿼리만 실행하는 조회 전용 기능은 트랜잭션이 필요하지 않다.</li>
+  <li>
+    <p>조회 전용 기능이라면 서비스를 만들 필요 없이 표현 영역에서 바로 조회 전용 기능을 사용해도 문제가 없다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderController</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">OrderViewDao</span> <span class="n">orderViewDao</span><span class="o">;</span>
+  
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/myorders"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">list</span><span class="o">(</span><span class="nc">ModelMap</span> <span class="n">model</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">orderId</span> <span class="o">=</span> <span class="nc">SecurityContext</span><span class="o">.</span><span class="na">getAuthentication</span><span class="o">().</span><span class="na">getId</span><span class="o">();</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderView</span><span class="o">&gt;</span> <span class="n">orders</span> <span class="o">=</span> <span class="n">orderViewDao</span><span class="o">.</span><span class="na">selectByOrderer</span><span class="o">(</span><span class="n">ordererId</span><span class="o">);</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"orders"</span><span class="o">,</span> <span class="n">orders</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">"order/list"</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>Copyright &copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>
