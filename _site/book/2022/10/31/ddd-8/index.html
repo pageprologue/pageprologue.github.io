@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="8.1 애그리거트와 트랜잭션
+8.2 선점 잠금
+8.3 비선점 잠금
+8.4 오프라인 선점 잠금
+" />
+<meta property="og:description" content="8.1 애그리거트와 트랜잭션
+8.2 선점 잠금
+8.3 비선점 잠금
+8.4 오프라인 선점 잠금
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="도메인 주도 개발 시작하기 - 8. 애그리거트 트랜잭션 관리" />
+<meta property="twitter:title" content="도메인 주도 개발 시작하기 - 8. 애그리거트 트랜잭션 관리" />
+
+
+
+    <title>도메인 주도 개발 시작하기 - 8. 애그리거트 트랜잭션 관리 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/tags">Tag</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">도메인 주도 개발 시작하기 - 8. 애그리거트 트랜잭션 관리</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-10-31
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#81-애그리거트와-트랜잭션">8.1 애그리거트와 트랜잭션</a><br />
+<a href="#82-선점-잠금">8.2 선점 잠금</a><br />
+<a href="#83-비선점-잠금">8.3 비선점 잠금</a><br />
+<a href="#84-오프라인-선점-잠금">8.4 오프라인 선점 잠금</a></p>
+
+<h1 id="81-애그리거트와-트랜잭션">8.1 애그리거트와 트랜잭션</h1>
+
+<ul>
+  <li>한 주문 애그리거트에 대해 배송 상태를 변경하고 있는 중에 다른 스레드에서 배송지 주소를 변경하면 어떻게 될까?</li>
+  <li>리포지터리는 트랜잭션마다 새로운 애그리거트 객체를 생성하기 때문에 두 스레드는 서로 영향을 주지 않는다.</li>
+  <li>두 스레드가 각각 트랜잭션을 커밋하여 DB에 반영할 때 애그리거트의 일관성이 깨지게 된다.</li>
+  <li>이런 문제를 해결하기 위해 DBMS가 지원하는 트랜잭션과 애그리거트를 위한 추가적인 트랜잭션 처리 기법이 필요하다.</li>
+  <li>애그리거트에 대해 사용할 수 있는 대표적인 트랜잭션 처리 방식
+    <ul>
+      <li>선점 잠금(Pessimistic Lock)</li>
+      <li>비선점 잠금(Optimistic Lock)</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="82-선점-잠금">8.2 선점 잠금</h1>
+
+<ul>
+  <li><strong>선점 잠금은 먼저 애그리거트를 구한 스레드가 애그리거트 사용이 끝날 때까지 다른 스레드가 해당 애그리거트를 수정하지 못하게 막는 방식이다.</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">스레드1</code>이 선점 잠금 방식으로 애그리거트를 구한 뒤, <code class="language-plaintext highlighter-rouge">스레드2</code>가 같은 애그리거트를 구하면, <code class="language-plaintext highlighter-rouge">스레드2</code>는 <code class="language-plaintext highlighter-rouge">스레드1</code>이 애그리거트에 대한 잠금을 해제할 때까지 블로킹된다.</li>
+  <li><code class="language-plaintext highlighter-rouge">스레드1</code>이 트랜잭션을 커밋한 뒤에 <code class="language-plaintext highlighter-rouge">스레드2</code>가 애그리거트를 구하게 되므로 <code class="language-plaintext highlighter-rouge">스레드2</code>는 <code class="language-plaintext highlighter-rouge">스레드1</code>이 수정한 애그리거트의 내용을 보게 된다.</li>
+  <li><strong>한 스레드가 애그리거트를 구하고 수정하는 동안 다른 스레드가 수정할 수 없으므로, 동시에 애그리거트를 수정할 때 발생하는 데이터 충돌 문제를 해소할 수 있다.</strong></li>
+  <li>선점 잠금은 보통 DBMS가 제공하는 행단위 잠금을 사용해서 구현한다.
+    <ul>
+      <li>오라클을 비롯한 다수의 DBMS가 for update와 같은 쿼리를 사용해서 특정 레코드에 한 커넥션만 접근할 수 있는 잠금장치를 제공한다.</li>
+    </ul>
+  </li>
+  <li>JPA EntityManager는 <code class="language-plaintext highlighter-rouge">LockModeType</code>을 인자로 받는 find() 메서드를 제공한다.
+    <ul>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">LockModeType.PESSIMISTIC_WRITE</code> : 엔티티와 매핑된 테이블을 이용해서 선점 잠금 방식을 적용</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Order</span> <span class="n">order</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Order</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">LockModeType</span><span class="o">.</span><span class="na">PESSIMISTIC_WRITE</span><span class="o">);</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>JPA 프로바이더와 DBMS에 따라 잠금 모드 구현이 다른데, 하이버네이트의 경우 <code class="language-plaintext highlighter-rouge">PESSIMISTIC_WRITE</code>를 잠금 모드로 사용하면 <code class="language-plaintext highlighter-rouge">for update</code> 쿼리를 이용해서 선점 잠금을 구현한다.</li>
+  <li>
+    <p>스프링 데이터 JPA는 <code class="language-plaintext highlighter-rouge">@Lock</code> 애너테이션을 사용해서 잠금 모드를 지정한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberRepository</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">,</span> <span class="nc">MemberId</span><span class="o">&gt;</span> <span class="o">{</span>
+      <span class="nd">@Lock</span><span class="o">(</span><span class="nc">LockModeType</span><span class="o">.</span><span class="na">PESSIMISTIC_WRITE</span><span class="o">)</span>
+      <span class="nd">@Query</span><span class="o">(</span><span class="s">"select m from Member m where m.id = :id"</span><span class="o">)</span>
+      <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="nf">findByIdForUpdate</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="nc">MemberId</span> <span class="n">memberId</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="821-선점-잠금과-교착-상태">8.2.1) 선점 잠금과 교착 상태</h2>
+
+<ul>
+  <li>
+    <p><strong>선점 잠금 기능을 사용할 때는 잠금 순서에 따른 교착 상태가 발생하지 않도록 주의해야 한다.</strong></p>
+
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  1) 스레드1: A 애그리거트에 대한 선점 잠금 구함
+  2) 스레드2: B 애그리거으테 애한 선점 잠금 구함
+  3) 스레드3: B 애그리거트에 대한 선점 잠금 시도
+  4) 스레드4: A 애그리거트에 대한 선점 잠금 시도
+</code></pre></div>    </div>
+  </li>
+  <li>교착 상태가 발생하지 않도록 하려면 잠금을 구할 때 최대 대기 시간을 지정해야 한다.
+    <ul>
+      <li>
+        <p>JPA에서 선점 잠금을 시도할 때 최대 대기 시간을 지정하려면 힌트를 사용해야 한다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">hints</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+  <span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"javax.persistence.lock.timeout"</span><span class="o">,</span> <span class="mi">2000</span><span class="o">);</span>
+  <span class="nc">Order</span> <span class="n">order</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Order</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">orderNo</span><span class="o">,</span> <span class="nc">LockModeType</span><span class="o">.</span><span class="na">PESSIMISTIC_WRITE</span><span class="o">,</span> <span class="n">hints</span><span class="o">);</span>
+</code></pre></div>        </div>
+
+        <ul>
+          <li>위와 같이 힌트를 사용할 때 주의할 점은 DBMS에 따라 힌트가 적용되지 않을 수도 있다.</li>
+        </ul>
+      </li>
+      <li>
+        <p>스프링 데이터 JPA는 @QueryHints 애너테이션을 사용해서 쿼리 힌트를 지정할 수 있다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberRepository</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">,</span> <span class="nc">MemberId</span><span class="o">&gt;</span> <span class="o">{</span>
+      <span class="nd">@Lock</span><span class="o">(</span><span class="nc">LockModeType</span><span class="o">.</span><span class="na">PESSIMISTIC_WRITE</span><span class="o">)</span>
+      <span class="nd">@QueryHints</span><span class="o">({</span>
+          <span class="nd">@QueryHint</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"javax.persistence.lock.timeout"</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"2000"</span><span class="o">)</span>
+      <span class="o">})</span>
+      <span class="nd">@Query</span><span class="o">(</span><span class="s">"select m from Member m where m.id = :id"</span><span class="o">)</span>
+      <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="nf">findByIdForUpdate</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="nc">MemberId</span> <span class="n">memberId</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>DBMS에  따라 교착 상태에 빠진 커넥션을 처리하는 방식이 다르므로, 사용하는 DBMS에 대해 JPA가 어떤 식으로 대기 시간을 처리하는지 확인해야 한다.</li>
+</ul>
+
+<h1 id="83-비선점-잠금">8.3 비선점 잠금</h1>
+
+<ul>
+  <li>선점 잠금으로 모든 트랜잭션 충돌 문제가 해결되지 않는다.
+    <ul>
+      <li>운영자가 배송지 정보를 조회하고 배송 상태 변경하는 사이에에 고객이 배송지를 변경한 경우, 고객은 배송지를 변경했음에도 이전 배송지로 물건을 발송하는 경우가 생길 수 있다.</li>
+    </ul>
+  </li>
+  <li><strong>비선점 잠금은 동시에 접근하는 것을 막는 대신 변경한 데이터를 실제 DBMS에 반영하는 시점에 변경 가능 여부를 확인하는 방식이다.</strong></li>
+  <li>비선점 잠금을 구현하려면 애그리거트에 <strong>버전으로 사용할 숫자 타입 프로퍼티를 추가해야 한다.</strong>
+    <ul>
+      <li>
+        <p>애그리거트를 수정할 때마다 버전으로 사용할 프로퍼티 값이 1씩 증가한다.</p>
+
+        <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">UPDATE</span> <span class="n">aggtable</span> <span class="k">SET</span> <span class="k">version</span> <span class="o">=</span> <span class="k">version</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">colx</span> <span class="o">=</span> <span class="o">?</span><span class="p">,</span> <span class="n">coly</span> <span class="o">=</span> <span class="o">?</span>
+  <span class="k">WHERE</span> <span class="n">aggid</span> <span class="o">=</span> <span class="o">?</span> <span class="k">and</span> <span class="k">version</span> <span class="o">=</span> <span class="err">현재버전</span>
+</code></pre></div>        </div>
+
+        <ul>
+          <li>이 쿼리는 수정할 애그리거트와 매핑되는 테이블의 버전 값이 현재 애그리거트의 버전과 동일한 경우에만 데이터를 수정한다.</li>
+          <li>수정에 성공하면 버전 값을 1 증가시킨다.</li>
+          <li>따라서 다른 트랜잭션이 먼저 데이터를 수정해서 버전 값이 바뀌면 데이터 수정에 실패하게 된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>JPA는 버전을 이용한 비선점 잠금 기능을 지원한다.
+    <ul>
+      <li>
+        <p>버전으로 사용할 필드에 <code class="language-plaintext highlighter-rouge">@Version</code> 애너테이션을 붙이고 매핑되는 테이블에 버전을 저장할 칼럼을 추가하면 된다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Entity</span>
+  <span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"purchase_order"</span><span class="o">)</span>
+  <span class="nd">@Access</span><span class="o">(</span><span class="nc">AccessType</span><span class="o">.</span><span class="na">FIELD</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Order</span> <span class="o">{</span>
+      <span class="nd">@EmbeddedId</span>
+      <span class="kd">private</span> <span class="nc">OrderNo</span> <span class="n">orderNo</span><span class="o">;</span>
+      
+      <span class="nd">@Version</span>
+      <span class="kd">private</span> <span class="kt">long</span> <span class="n">version</span><span class="o">;</span>
+         
+  <span class="o">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>JPA 엔티티가 변경되어 UPDATE 쿼리를 실행할 때 <code class="language-plaintext highlighter-rouge">@Version</code>에 명시한 필드를 이용해서 비선점 잠금 쿼리를 실행한다.</p>
+
+        <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">UPDATE</span> <span class="n">purchase_order</span> <span class="k">SET</span> <span class="p">...</span> <span class="err">생략</span><span class="p">,</span> <span class="k">version</span> <span class="o">=</span> <span class="k">version</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="k">WHERE</span> <span class="n">number</span> <span class="o">=</span> <span class="o">?</span> <span class="k">and</span> <span class="k">version</span> <span class="o">=</span> <span class="mi">10</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>비선점 잠금을 위한 쿼리를 실행할 때 쿼리 실행 결과로 수정된 행의 개수가 0이면, 트랜잭션이 충돌한 것이므로 트랜잭션 종료 시점에 <code class="language-plaintext highlighter-rouge">OptimisticLockingFailureException</code>이 발생한다.</p>
+
+        <p>→ 표현 영역 코드는 이 익셉션이 발생했는지에 따라 트랜잭션 충돌이 일어났는지 확인할 수 있다.</p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/chageShipping"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">changeShipping</span><span class="o">(</span><span class="nc">ChangeShippingRequest</span> <span class="n">req</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">try</span> <span class="o">{</span>
+          <span class="n">changeShippingService</span><span class="o">.</span><span class="na">changeShipping</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
+      <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nc">OptimisticLockingFailureException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+          <span class="c1">// 누군가 먼저 같은 주문 애그리거트를 수정했으므로 트랜잭션이 충돌했다는 메시지를 보여준다.</span>
+          <span class="k">return</span> <span class="s">"changeShippingTxConflict"</span><span class="o">;</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>비선점 잠금을 사용할 때 사용자에게 수정 폼과 함께 버전을 제공하고, 사용자가 전송한 버전과 애그리거트 버전이 동일한 경우에만 수정 기능을 수행하도록 하면 트랜잭션 충돌 문제를 해소할 수 있다.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="831-강제-버전-증가">8.3.1) 강제 버전 증가</h2>
+
+<ul>
+  <li>애그리거트 루트와 연관된 엔티티의 값이 변경된다고 해도 루트 엔티티의 버전 값은 갱신되지 않는다.</li>
+  <li>하지만 애그리거트 내에 어떤 구성요소의 상태가 바뀌면 루트 애그리거트의 버전 값이 증가해야 비선점 잠금이 올바르게 동작한다.</li>
+  <li>
+    <p>JPA는 <code class="language-plaintext highlighter-rouge">EntityManager#find()</code> 메서드로 엔티티를 구할 때 강제로 버전 값을 증가시키는 잠금 모드를 지원한다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Repository</span>
+  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">JpaOrderRepository</span> <span class="kd">implements</span> <span class="nc">OrderRepository</span> <span class="o">{</span>
+      <span class="nd">@PersistenceContext</span>
+      <span class="kd">private</span> <span class="nc">EntityManager</span> <span class="n">em</span><span class="o">;</span>
+    
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="nc">Order</span> <span class="nf">findByIdOptimisticLockMode</span><span class="o">(</span><span class="nc">OrderNo</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span>
+              <span class="nc">Order</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">id</span><span class="o">,</span> <span class="nc">LockModeType</span><span class="o">.</span><span class="na">OPTIMISTIC_FORCE_INCREMENT</span>
+          <span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">LockModeType.OPTIMISTIC_FORCE_INCREMENT</code>를 사용하면 해당 엔티티의 상태가 변경되었는지에 상관없이 트랜잭션 종료 시점에 버전 값 증가 처리를 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="84-오프라인-선점-잠금">8.4 오프라인 선점 잠금</h1>
+
+<ul>
+  <li>단일 트랜잭션에서 동시 변경을 막는 선점 잠금 방식과 달리 오프라인 선점 잠금은 여러 트랜잭션에 걸쳐 동시 변경을 막는다.</li>
+  <li>첫 번째 트랜잭션을 시작할 때 오프라인 잠금을 선점하고, 마지막 트랜잭션에서 잠금을 해제한다.</li>
+  <li>먼저 오프라인 잠금을 선점한 사용자가 잠금을 해제하기 전에 프로그램을 종료할 수 있으므로, 오프라인 선점 잠금 방식은 잠금 유효 시간을 가져야 한다.</li>
+</ul>
+
+<h2 id="841-오프라인-선점-잠금을-위한-lockmanager-인터페이스와-관련-클래스">8.4.1) 오프라인 선점 잠금을 위한 LockManager 인터페이스와 관련 클래스</h2>
+
+<ul>
+  <li>
+    <p>오프라인 선점 잠금은 크게 잠금 선점 시도, 잠금 확인, 잠금 해제, 잠금 유효시간 연장의 네 가지 기능이 필요하다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">LockManager</span> <span class="o">{</span>
+      <span class="nc">LockId</span> <span class="nf">tryLock</span><span class="o">(</span><span class="nc">String</span> <span class="n">type</span><span class="o">,</span> <span class="nc">String</span> <span class="n">id</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">LockException</span><span class="o">;</span>
+    
+      <span class="kt">void</span> <span class="nf">checkLock</span><span class="o">(</span><span class="nc">LockId</span> <span class="n">lockId</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">LockException</span><span class="o">;</span>
+        
+      <span class="kt">void</span> <span class="nf">releaseLock</span><span class="o">(</span><span class="nc">LockId</span> <span class="n">lockId</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">LockException</span><span class="o">;</span>
+    
+      <span class="kt">void</span> <span class="nf">extendLockExpiration</span><span class="o">(</span><span class="nc">LockId</span> <span class="n">lockId</span><span class="o">,</span> <span class="kt">long</span> <span class="n">inc</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">LockException</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="842-db를-이용한-lockmanager-구현">8.4.2) DB를 이용한 LockManager 구현</h2>
+
+<ul>
+  <li>
+    <p>잠금 정보를 저장하기 위한 테이블 생성 쿼리</p>
+
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">create</span> <span class="k">table</span> <span class="n">locks</span> <span class="p">(</span>
+      <span class="nv">`type`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+      <span class="n">id</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+      <span class="n">lockid</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+      <span class="n">expiration_time</span> <span class="nb">datetime</span><span class="p">,</span>
+      <span class="k">primary</span> <span class="k">key</span><span class="p">(</span><span class="nv">`type`</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
+  <span class="p">)</span> <span class="nb">character</span> <span class="k">set</span> <span class="n">utf8</span>
+    
+  <span class="k">create</span> <span class="k">unique</span> <span class="k">index</span> <span class="n">locks_idx</span> <span class="k">on</span> <span class="p">(</span><span class="n">lockid</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Order 타입의 1번 식별자를 갖는 애그리거트에 대한 잠금</p>
+
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">insert</span> <span class="k">into</span> <span class="n">locks</span> <span class="k">values</span> <span class="p">(</span><span class="s1">'Order'</span><span class="p">,</span> <span class="s1">'1'</span><span class="p">,</span> <span class="s1">'생성한 lockid'</span><span class="p">,</span> <span class="s1">'2022-10-31'</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><br /><br /></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>Copyright &copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>
