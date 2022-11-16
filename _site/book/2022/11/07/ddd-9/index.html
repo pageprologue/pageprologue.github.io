@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+<meta name="description" content="9.1 도메인 모델과 경계
+9.2 바운디드 컨텍스트
+9.3 바운디드 컨텍스트 구현
+9.4 바운디드 컨텍스트 간 통합
+9.5 바운디드 컨텍스트 간 관계
+9.6 컨텍스트 맵
+" />
+<meta property="og:description" content="9.1 도메인 모델과 경계
+9.2 바운디드 컨텍스트
+9.3 바운디드 컨텍스트 구현
+9.4 바운디드 컨텍스트 간 통합
+9.5 바운디드 컨텍스트 간 관계
+9.6 컨텍스트 맵
+" />
+
+<meta name="author" content="Chloe" />
+
+
+<meta property="og:title" content="도메인 주도 개발 시작하기 - 9. 도메인 모델과 바운디드 컨텍스트" />
+<meta property="twitter:title" content="도메인 주도 개발 시작하기 - 9. 도메인 모델과 바운디드 컨텍스트" />
+
+
+
+    <title>도메인 주도 개발 시작하기 - 9. 도메인 모델과 바운디드 컨텍스트 – Chloe – 조금씩, 천천히, 꾸준히</title>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="/assets/image/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="alternate" type="application/rss+xml" title="Chloe - 조금씩, 천천히, 꾸준히" href="/feed.xml"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.5/plyr.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous" media="print" onload="this.media='all'"/>
+
+  </head>
+
+  <body>
+    </div>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/assets/image/avatar.png" width="70" height="70" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Chloe</a></h1>
+            <p class="site-description">조금씩, 천천히, 꾸준히</p>
+          </div>
+
+          <nav class="nav-menu">
+            
+  <a class="nav-menu-item"<a href="/">Blog</a>
+
+  <a class="nav-menu-item"<a href="/tags">Tag</a>
+
+  <a class="nav-menu-item"<a href="/about">About</a>
+
+  <a class="nav-menu-item"<a href="/search">Search</a>
+
+
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div class="post-container">
+      <div id="category" class="category">
+        <aside>
+          
+          
+            
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Book/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspBook
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Daily/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
+              </a>
+              
+            
+          
+            
+              
+              <a class="category-link " href="/category/Programming/">
+                <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspProgramming
+              </a>
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </aside>
+      </div>
+      <div id="main" role="main" class="content">
+        <article class="post">
+  <div class="post-title">
+
+    <p class="title">도메인 주도 개발 시작하기 - 9. 도메인 모델과 바운디드 컨텍스트</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-11-07
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <p class="notice-list"><a href="#91-도메인-모델과-경계">9.1 도메인 모델과 경계</a><br />
+<a href="#92-바운디드-컨텍스트">9.2 바운디드 컨텍스트</a><br />
+<a href="#93-바운디드-컨텍스트-구현">9.3 바운디드 컨텍스트 구현</a><br />
+<a href="#94-바운디드-컨텍스트-간-통합">9.4 바운디드 컨텍스트 간 통합</a><br />
+<a href="#95-바운디드-컨텍스트-간-관계">9.5 바운디드 컨텍스트 간 관계</a><br />
+<a href="#96-컨텍스트-맵">9.6 컨텍스트 맵</a></p>
+
+<h1 id="91-도메인-모델과-경계">9.1 도메인 모델과 경계</h1>
+
+<ul>
+  <li>도메인을 완벽하게 표현하는 단일 모델을 만들려고 시도하면 오히려 하위 도메인에 맞지 않는 모델을 만들게 된다.
+    <ul>
+      <li>카탈로그의 상품, 재고 관리의 상품, 주문의 상품, 배송의 상품은 모두 다른 의미를 갖는 상품이다.</li>
+    </ul>
+  </li>
+  <li>논리적으로 같은 것처럼 보이지만 하위 도메인에 따라 다른 용어를 사용하는 경우도 있다.
+    <ul>
+      <li>사용자 개념을 회원 도메인에서는 회원으로 부르고, 주문 도메인에서는 주문자로 부른다.</li>
+    </ul>
+  </li>
+  <li>
+    <p>하위 도메인마다 사용하는 용어가 다르기 때문에 올바른 도메인 모델을 개발하려면 하위 도메인마다 모델을 만들어야 한다.</p>
+
+    <p><strong>→ 모델은 명시적으로 구분되는 경계를 가져서 섞이지 않도록 해야한다.</strong></p>
+  </li>
+  <li>모델은 특정한 컨텍스트(문맥) 하에서 완전한 의미를 갖는데, 이렇게 구분되는 경계를 갖는 컨텍스트를 <strong>바운디드 컨텍스트</strong>라고 부른다.</li>
+</ul>
+
+<h1 id="92-바운디드-컨텍스트">9.2 바운디드 컨텍스트</h1>
+
+<ul>
+  <li>바운디드 컨텍스트는 모델의 경계를 결정하며, 한 개의 바운디드 컨텍스트는 논리적으로 한 개의 모델을 갖는다.</li>
+  <li>바운디드 컨텍스트는 실제로 사용자에게 기능을 제공하는 물리적 시스템으로 도메인 모델은 이 바운디드 컨텍스트 안에서 도메인을 구현한다.</li>
+  <li>이상적으로 하위 도메인과 바운디드 컨텍스트가 일대일 관계를 가지면 좋겠지만 현실은 그렇지 않을 때가 많다. 아래의 예를 살펴보자.
+    <ul>
+      <li>주문 하위 도메인이라도 주문을 처리하는 팀과 복잡한 결제 그액 계산 로직을 구현하는 팀이 따로 있을 수 있다.</li>
+      <li>카탈로그와 재고 관리가 아직 명확하게 구분되지 않은 경우 두 하위 도메인을 하나의 바운디드 컨텍스트에 구현하기도 한다.</li>
+      <li>전체 시스템을 한 개 팀에서 구현할 수도 있는데, 이 경우 하위 도메인의 모델이 섞이지 않도록 주의해야 한다.</li>
+    </ul>
+  </li>
+  <li>바운디드 컨텍스트는 구현하는 하위 도메인에 알맞은 모델을 포함한다.
+    <ul>
+      <li>회원의 <code class="language-plaintext highlighter-rouge">Member</code>는 애그리거트 루트이지만 주문의 <code class="language-plaintext highlighter-rouge">Orderer</code>는 밸류가 된다.</li>
+      <li>카탈로그의 <code class="language-plaintext highlighter-rouge">Product</code>는 상품이 속할 <code class="language-plaintext highlighter-rouge">Catetory</code>와 연관을 갖지만, 재고의 <code class="language-plaintext highlighter-rouge">Product는</code> 카탈로그의 <code class="language-plaintext highlighter-rouge">Category</code>와 연관을 맺지 않는다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="93-바운디드-컨텍스트-구현">9.3 바운디드 컨텍스트 구현</h1>
+
+<ul>
+  <li>바운디드 컨텍스트는 도메인 기능을 사용자에게 제공하는 데 필요한 표현 영역, 응용 서비스, 인프라스트럭처 영역을 모두 포함한다.</li>
+  <li>도메인 모델의 데이터 구조가 바뀌면 DB 테이블 스키마도 함께 변경해야 하므로, 테이블도 바운디드 컨텍스트에 포함된다.</li>
+  <li>서비스-DAO 구조를 사용하면 도메인 기능이 서비스에 흩어지게 되지만 도메인 <strong>기능 자체가 단순하면 서비스-DAO로 구성된 CRUD 방식을 사용</strong>해도 코드를 유지 보수하는데 문제가 되지 않는다.</li>
+  <li>한 바운디드 컨텍스트에서 두 방식을 혼합해서 사용할 수도 있다. 대표적인 예가 CQRS 패턴이다.</li>
+  <li><strong>CQRS는</strong> Common Query Responsibility Segregation의 약자로 <strong>상태를 변경하는 명령 기능과 내용을 조회하는 쿼리 기능을 위한 모델을 구분하는 패턴이다.</strong></li>
+  <li>각 바운디드 컨텍스트는 서로 다른 구현 기술을 사용할 수도 있다.</li>
+  <li>바운디드 컨텍스트가 반드시 사용자에게 보여지는 UI를 가지고 있어야 하는 것은 아니다.
+    <ul>
+      <li>UI를 처리하는 서버를 두고 UI 서버에서 바운디드 컨텍스트와 통신해서 사용자 요청을 처리하는 방법도 있다.</li>
+      <li>이 구조에서 UI 서버는 각 바운디드 컨텍스트를 위한 <a href="https://ko.wikipedia.org/wiki/%ED%8D%BC%EC%82%AC%EB%93%9C_%ED%8C%A8%ED%84%B4">파사드</a> 역할을 수행한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="94-바운디드-컨텍스트-간-통합">9.4 바운디드 컨텍스트 간 통합</h1>
+
+<ul>
+  <li>두 바운디드 컨텍스트 간 <strong>REST API를 호출하는 것은 직접 통합 방식이다.</strong></li>
+  <li>두 바운디드 컨텍스트 간 <strong>메시지 큐를 사용하는 것은 간접 통합 방식이다.</strong>
+    <ul>
+      <li>메시지 큐는 비동기로 메시지를 처리하며, 두 바운디드 컨텍스트는 사용할 메시지의 데이터 구조를 맞춰야 한다.</li>
+      <li>
+        <p><strong>이 방식은 한쪽에서 메시지를 출판하고 다른 쪽에서 메시지를 구독하는 출판/구독 모델을 따른다.</strong></p>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 상품 조회 관련 로그 기록 - 카탈로그 기준으로 작성한 데이터를 큐에 보관</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ViewLogService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">MessageClient</span> <span class="n">messageClient</span><span class="o">;</span>
+        
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">appendViewLog</span><span class="o">(</span><span class="nc">String</span> <span class="n">memberId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">productId</span><span class="o">,</span> <span class="nc">Date</span> <span class="n">time</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">messageClient</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="k">new</span> <span class="nc">ViewLog</span><span class="o">(</span><span class="n">memberId</span><span class="o">,</span> <span class="n">productId</span><span class="o">,</span> <span class="n">time</span><span class="o">));</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// messageClinet</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RabbitMQClient</span> <span class="kd">implements</span> <span class="nc">MessageClient</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">RabbitTemplate</span> <span class="n">rabbitTemplate</span><span class="o">;</span>
+            
+        <span class="nd">@Overrride</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="nc">ViewLog</span> <span class="n">viewLog</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">rabbitTemplate</span><span class="o">.</span><span class="na">convertAndSend</span><span class="o">(</span><span class="n">logQueueName</span><span class="o">,</span> <span class="n">viewLog</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>        </div>
+
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 상품 조회 관련 로그 기록 - 추천 시스템 기준으로 작성한 데이터를 큐에 보관</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ViewLogService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">MessageClient</span> <span class="n">messageClient</span><span class="o">;</span>
+        
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">appendViewLog</span><span class="o">(</span><span class="nc">String</span> <span class="n">memberId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">productId</span><span class="o">,</span> <span class="nc">Date</span> <span class="n">time</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">messageClient</span><span class="o">.</span><span class="na">send</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">ActivityLog</span><span class="o">(</span><span class="n">productId</span><span class="o">,</span> <span class="n">memberId</span><span class="o">,</span> <span class="nc">ActivityType</span><span class="o">.</span><span class="na">VIEW</span><span class="o">,</span> <span class="n">time</span><span class="o">));</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// messageClinet</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RabbitMQClient</span> <span class="kd">implements</span> <span class="nc">MessageClient</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">RabbitTemplate</span> <span class="n">rabbitTemplate</span><span class="o">;</span>
+            
+        <span class="nd">@Overrride</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="nc">ActivityLog</span> <span class="n">activityLog</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">rabbitTemplate</span><span class="o">.</span><span class="na">convertAndSend</span><span class="o">(</span><span class="n">logQueueName</span><span class="o">,</span> <span class="n">activityLog</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="95-바운디드-컨텍스트-간-관계">9.5 바운디드 컨텍스트 간 관계</h1>
+
+<ul>
+  <li>바운디드 컨텍스트는 어떤 식으로든 연결되기 때문에 두 바운디드 컨텍스트는 다양한 방식으로 관계를 맺는다.</li>
+</ul>
+
+<ol>
+  <li><strong>두 바운디드 컨텍스트 간 관계 중 가장 흔한 관계는 한쪽에서 API를 제공하고, 다른 한 쪽에서는 그 API를 호출하는 관계이다.</strong>
+    <ul>
+      <li>상류 컴포넌트는 일종의 서비스 공급자 역할을 하며, 하류 컴포넌트는 그 서비스를 사용하는 고객 역할을 한다.</li>
+      <li>상류 컴포넌트는 보통 하류 컴포넌트가 사용할 수 있는 통신 프로토콜을 정의하고 이를 공개한다. (REST API, Protocol Buffer ..)</li>
+      <li>상류 팀의 고객인 하류 팀이 다수 존재하면 상류 팀은 여러 하류 팀의 요구사항을 수용할 수 있는 API를 만들고 이를 서비스 형태로 공개해서 서비스의 일관성을 유지할 수 있다.<br />
+ → 이런 서비스를 가리켜 <strong>공개 호스트 서비스</strong>라고 한다. 공개 호스트 서비스의 대표적인 예가 검색이다.</li>
+      <li>하류 컴포넌트는 상류 서비스의 모델이 자신의 도메인 모델에 영향을 주지 않도록 보호해 주는 <strong>완충 지대</strong>를 만들어야 한다.<br />
+ → 모델이 깨지는 것을 막아주는 역할을 하기 때문에 <strong>안티코럽션 계층</strong>이라고도 한다.<br />
+       이 계층에서는 두 바운디드 컨텍스트 간의 모델 변환을 처리한다.</li>
+    </ul>
+  </li>
+  <li><strong>두 바운디드 컨텍스트가 같은 모델을 공유하는 경우도 있는데, 두 팀이 공유하는 모델을 공유 커널이라고 부른다.</strong></li>
+  <li><strong>두 바운디드 컨텍스트를 통합하지 않고 서로 독립적으로 발전시키는 것을 독립 방식이라고 한다.</strong>
+    <ul>
+      <li>독립 방식에서 두 바운디드 컨텍스트 간의 통합은 수동으로 이루어진다.</li>
+      <li>수동으로 통합하는 방식은 규모가 커질수록 한계가 있으므로 규모가 커지기 시작하면 바운디드 컨텍스트를 통합해야 한다.</li>
+      <li>두 바운디드 컨텍스트를 통합하기 위한 별도의 시스템을 만들어야 할 수도 있다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h1 id="96-컨텍스트-맵">9.6 컨텍스트 맵</h1>
+
+<ul>
+  <li>컨텍스트 맵은 바운디드 컨텍스트 간의 관계를 표시한 것으로 시스템의 전체 구조를 보여준다.</li>
+  <li>컨텍스트 맵은 간단한 도형과 선을 이용할 수 있는 도구를 사용해서 단순하게 그린다.</li>
+  <li>컨텍트 간의 관계 바뀌면 컨텍스트 맵도 함께 변경해주어야 한다.</li>
+</ul>
+
+<p><br /><br /></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer"><div class="copyright">
+            
+            <p>Copyright &copy; 2022 Chloe.</p>
+            
+          </div>    
+        </footer>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <script type="text/javascript">
+      const lightbox = GLightbox({
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true
+      });
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body,{
+                    delimiters: [
+                    { left: '$$',  right: '$$',  display: true  },
+                    { left: '$',   right: '$',   display: false },
+                    { left: '\\[', right: '\\]', display: true  },
+                    { left: '\\(', right: '\\)', display: false }
+                    ]});">
+    </script>
+  </body>
+</html>
