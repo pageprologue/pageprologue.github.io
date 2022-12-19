@@ -12,7 +12,7 @@ tags: [Mac]
 #### Java 설치 경로 및 버전 확인
 - 기존에 설치된 Java 검색
   ```bash
-  brew search jdk
+  brew search --cask openjdk
   brew tap adoptopenjdk/openjdk
   ```
 
