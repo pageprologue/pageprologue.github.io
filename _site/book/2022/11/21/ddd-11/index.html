@@ -7,18 +7,22 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
 
-<meta name="description" content="조금씩, 천천히, 꾸준히">
-<meta property="og:description" content="조금씩, 천천히, 꾸준히" />
+<meta name="description" content="11.1 단일 모델의 단점
+11.2 CQRS
+" />
+<meta property="og:description" content="11.1 단일 모델의 단점
+11.2 CQRS
+" />
 
 <meta name="author" content="Chloe" />
 
 
-<meta property="og:title" content="Daily" />
-<meta property="twitter:title" content="Daily" />
+<meta property="og:title" content="도메인 주도 개발 시작하기 - 11. CQRS" />
+<meta property="twitter:title" content="도메인 주도 개발 시작하기 - 11. CQRS" />
 
 
 
-    <title>Daily – Chloe – 조금씩, 천천히, 꾸준히</title>
+    <title>도메인 주도 개발 시작하기 - 11. CQRS – Chloe – 조금씩, 천천히, 꾸준히</title>
 
     <link rel="stylesheet" type="text/css" href="/style.css"/>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css"/>
@@ -82,7 +86,7 @@
           
             
               
-              <a class="category-link  active" href="/category/Daily/">
+              <a class="category-link " href="/category/Daily/">
                 <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbspDaily
               </a>
               
@@ -135,54 +139,106 @@
         </aside>
       </div>
       <div id="main" role="main" class="content">
-        <div class="side-category">
-
-    
-    
-
-<!--    <h5>-->
-<!--        <a href="/daily/2022/02/02/macbook-java/">Macbook 에서 Java 설치하기</a>-->
-<!--        <small>02 Feb 2022</small>-->
-<!--    </h5>-->
-
-    <div class="posts">
         <article class="post">
-            <h1><a href="/daily/2022/02/02/macbook-java/">Macbook 에서 Java 설치하기</a></h1>
-            <div class="entry">
-                그동안 Window만 사용하다가 이번에 처음으로 Macbook으로 바꾸게 되었습니다. 개발을 하면서 Linux, Ubuntu도 간간이 사용하였지만, 주로 사용한 건 Window였기 때문에 macOS는 아직 서툴지만 그래도 이제는 새로운 환경에 제법 잘 적응할 수 있게 된 것 같습니다. macOS 관련해서는 더 공부가 필요하지만, 일단 필요한 환경을 조금씩 구축하면서 내용을 정리해 보았습니다.
-            </div>
-            <a href="/daily/2022/02/02/macbook-java/" class="read-more">Read more&nbsp;&#183;<span class="reading-time">
-  
-  1 min read
-</span>
-</a>
-        </article>
+  <div class="post-title">
+
+    <p class="title">도메인 주도 개발 시작하기 - 11. CQRS</p>
+
+    <div class="post-option">
+      <!--<div class="post-categories">
+        <i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;Tags:&nbsp;
+        
+        
+        <a class="categories-button"<a href="/categories/#Book">Book</a>
+        
+        
+      </div>-->
+      <div class="date">
+        <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;Date: 2022-11-21
+      </div>
     </div>
+  </div>
 
-    
+  <div class="entry">
+    <p class="notice-list"><a href="#111-단일-모델의-단점">11.1 단일 모델의 단점</a><br />
+<a href="#112-cqrs">11.2 CQRS</a></p>
 
-<!--    <h5>-->
-<!--        <a href="/daily/2022/02/01/macbook/">MacBook Setting</a>-->
-<!--        <small>01 Feb 2022</small>-->
-<!--    </h5>-->
+<h1 id="111-단일-모델의-단점">11.1 단일 모델의 단점</h1>
 
-    <div class="posts">
-        <article class="post">
-            <h1><a href="/daily/2022/02/01/macbook/">MacBook Setting</a></h1>
-            <div class="entry">
-                MacBook 입문자를 위한 homebrew 사용 방법을 간단하게 정리하였습니다. homebrew 란 macOS 용 패키지 관리 애플리케이션입니다. homebrew로 편리하게 패키지를 관리하고, 웹 사이트 혹은 앱 스토어에서 다운받을 수 있는 애플리케이션도 다운 받을 수 있습니다.
-            </div>
-            <a href="/daily/2022/02/01/macbook/" class="read-more">Read more&nbsp;&#183;<span class="reading-time">
-  
-  3 min read
-</span>
-</a>
-        </article>
-    </div>
+<ul>
+  <li>
+    <p>조회 화면에 필요한 여러 애그리커트를 조회하기 위해 식별자로 연관 관계를 맺거나 JPA의 네이티브 쿼리를 사용해야 한다.</p>
 
-    
+    <p><strong>→ 시스템 상태를 변경할 때와 조회활 때 단일 도메인 모델을 사용하기 때문에 조회 시에 고민거리가 생긴다.</strong></p>
+  </li>
+</ul>
 
-</div>
+<h1 id="112-cqrs">11.2 CQRS</h1>
+
+<ul>
+  <li>
+    <p>상태를 변경하는 범위와 상태를 조회하는 범위가 정확하게 일치하지 않기 때문에 단일 모델로 두 종류의 기능을 구현하려면 모델이 불필요하게 복잡해진다.</p>
+
+    <p>→ 단일 모델을 사용할 때 발생하는 복잡도를 해결하기 위해 CQRS를 사용한다.</p>
+  </li>
+  <li>CQRS는 Qommand Query Responsibility Segregation의 약자로, <strong>상태를 변경하는 명령을 위한 모델과 상태를 제공하는 조회를 위한 모델을 분리하는 패턴이다.</strong></li>
+  <li>도메인이 복잡할수록 명령 기능과 조회 기능이 다루는 데이터 범위에 차이가 난다.</li>
+  <li>또한, CQRS를 사용하면 각 모델에 맞는 구현 기술을 선택할 수 있다.
+    <ul>
+      <li>명령 모델은 JPA, 조회 모델은 Mybatis로 구현할 수 있다.</li>
+    </ul>
+  </li>
+  <li>5장에서 소개한 <code class="language-plaintext highlighter-rouge">@Subselect</code>를 적용해서 조회 모델을 구현할 수도 있다.</li>
+  <li>명령 모델과 조회 모델은 서로 다른 데이터 저장소를 사용할 수도 있다.
+    <ul>
+      <li>명령 모델은 트랜잭션을 지원하는 RDBMS를 사용하고, 조회 모델은 조회 성능이 좋은 메모리 기반 NoSQL을 사용할 수 있다.</li>
+      <li>두 데이터 저장소 간 데이터 동기화는 10장에서 배운 이벤트를 활용해서 처리한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="1121-웹과-cqrs">11.2.1) 웹과 CQRS</h2>
+
+<ul>
+  <li>대규모 트래픽이 발생하는 웹 서비스는 알게 모르게 CQRS를 적용하게 된다.</li>
+  <li>조회 속도를 높이기 위해 별도 처리를 하고 있다면 명시적으로 명령 모델과 조회 모델을 구분하자.</li>
+  <li>이를 통해 조회 기능 때문에 명령 모델이 복잡해지는 것을 막을 수 있고, 명령 모델에 관계없이 조회 기능에 특화된 구현 기법을 보다 쉽게 적용할 수 있다.</li>
+</ul>
+
+<h2 id="1122-cqrs-장단점">11.2.2) CQRS 장단점</h2>
+
+<h3 id="장점">장점</h3>
+
+<ul>
+  <li>CQRS 패턴을 적용할 때 얻을 수 있는 장점은 명령 모델을 구현할 때 도메인 자체에 집중할 수 있다는 점이다.</li>
+  <li>CQRS를 적용하면 조회 성능을 향상시키는 데 유리하다.
+    <ul>
+      <li>조회 단위로 캐시 기술을 적용할 수 있고, 조회에 특화된 쿼리를 사용할 수 있다.</li>
+      <li>캐시뿐만 아니라 조회 전용 저장소를 사용하면 조회 처리량을 대폭 늘릴 수도 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="단점">단점</h3>
+
+<ul>
+  <li>구현해야 할 코드가 더 많아진다.
+    <ul>
+      <li>도메인이 단순하거나 트래픽이 많이 않은 서비스라면 조회 전용 모델을 따로 만들 때 얻을 이점이 있는지 따져봐야 한다.</li>
+    </ul>
+  </li>
+  <li>더 많은 구현 기술이 필요하다.
+    <ul>
+      <li>명령 모델과 조회 모델은 다른 구현 기술을 사용해서 구혀하기도 하고 경우에 따라 다른 저장소를 사용하기도 한다.</li>
+      <li>또한, 데이터 동기화를 위해 메시징 시스템을 도입해야 할 수도 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+  </div>
+
+</article>
+
       </div>
     </div>
 
